@@ -57,8 +57,8 @@
 			style="top: calc(var(--fp-p) * 100%)"
 			aria-hidden="true"
 		>
-			<svg class="h-[13px] w-[14px]" viewBox="0 0 16 15" fill="none">
-					<path d="M0.5 11 4.8 5.2 8 8.2 11.2 5.2 15.5 11 12.9 14.2 3.1 14.2Z" fill="currentColor" />
+			<svg class="h-[11px] w-[16px]" viewBox="0 0 24 20" fill="none">
+					<path d="M2.5 9.5 12 2.5 21.5 9.5ZM3.5 12.5 20.5 12.5 17 17.5 7 17.5Z" fill="currentColor" />
 				</svg>
 		</span>
 		{#each experience as stop, i}

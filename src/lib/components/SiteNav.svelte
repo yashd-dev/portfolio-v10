@@ -126,7 +126,7 @@
 						{:else if s.icon === 'grid'}
 							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[13px] shrink-0"><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" /></svg>
 						{:else}
-							<svg viewBox="0 0 16 15" class="size-[13px] shrink-0"><path fill="currentColor" d="M8 0c.73 0 1.32 1.05 1.32 2.35v2.2l6.13 3.54c.25.14.4.4.4.69v1.1a.44.44 0 0 1-.56.42L9.32 8.5v3.06l1.9 1.33c.15.11.24.28.24.47v.79a.44.44 0 0 1-.56.42L8 13.79l-2.9.78a.44.44 0 0 1-.56-.42v-.79c0-.19.09-.36.24-.47l1.9-1.33V8.5L.71 10.3a.44.44 0 0 1-.56-.42v-1.1c0-.29.15-.55.4-.69l6.13-3.54v-2.2C6.68 1.05 7.27 0 8 0Z" /></svg>
+							<svg viewBox="0 0 24 20" class="size-[13px] shrink-0"><path fill="currentColor" d="M2.5 9.5 12 2.5 21.5 9.5ZM3.5 12.5 20.5 12.5 17 17.5 7 17.5Z" /></svg>
 						{/if}
 					</span>
 					<span class={isActive ? '' : 'max-sm:sr-only'}>{s.label}</span>

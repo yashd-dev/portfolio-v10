@@ -133,7 +133,7 @@
 		<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
 			The process
 		</p>
-		<div class="flex flex-col gap-16">
+		<div class="grid gap-x-8 gap-y-14 md:grid-cols-2">
 			{#each steps as s}
 				<section>
 					<div class="flex items-start gap-3.5">
@@ -143,7 +143,7 @@
 						</h2>
 					</div>
 					<div
-						class="mt-5 h-[400px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] transition-transform duration-500 ease-(--ease-mn) hover:rotate-0 md:h-[440px] {s.tilt}"
+						class="mt-5 h-[320px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] transition-transform duration-500 ease-(--ease-mn) hover:rotate-0 md:h-[360px] {s.tilt}"
 					>
 						<s.panel />
 					</div>

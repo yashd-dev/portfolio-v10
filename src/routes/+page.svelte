@@ -8,6 +8,8 @@
 	import { REVEAL } from '#lib/reveal.js';
 
 	const COLORS: Record<string, string> = {
+		React: '#61dafb',
+		Railway: '#0b0d0e',
 		Figma: '#f24e1e',
 		Svelte: '#ff3e00',
 		'Next.js': '#000000',
@@ -39,7 +41,7 @@
 <main
 	class="relative mx-auto w-full max-w-6xl px-5 pt-[140px] pb-10 before:pointer-events-none before:absolute before:top-24 before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[background-size:1px_8px] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] after:pointer-events-none after:absolute after:top-24 after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[background-size:1px_8px] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] max-sm:pt-28 max-sm:before:hidden max-sm:after:hidden"
 >
-	<section id="intro" class="pg-intro relative">
+	<section id="intro" class="pg-intro relative max-w-[600px]">
 		<AboutMe />
 		<h1 class="{REVEAL} text-[16px] font-medium leading-normal" style="--d: 60ms">
 			Hey, I'm Yash Deshpande
@@ -98,9 +100,9 @@
 		>
 			<div class="flex w-max animate-tools group-hover:[animation-play-state:paused] motion-reduce:animate-none">
 				{#each [0, 1] as half}
-					<ul class="m-0 flex list-none items-center gap-12 px-6 py-2" aria-hidden={half === 1}>
+					<ul class="m-0 flex list-none items-center gap-10 px-6 py-2" aria-hidden={half === 1}>
 						{#each toolIcons as t}
-							<li class="group/item grid h-[30px] flex-none place-items-center" style="--c: {COLORS[t.name] ?? '#151515'}">
+							<li class="group/item grid h-[30px] flex-none place-items-center" style="--c: {COLORS[t.name] ?? '#151515'}" data-cursor={t.name}>
 								<svg
 									viewBox="0 0 24 24"
 									role="img"
@@ -117,8 +119,41 @@
 
 	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
 		<p class="{REVEAL} mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Selected work</p>
-		<div class="grid gap-14 max-sm:gap-11">
-			{#each projects as p, i}
+		<div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 max-sm:gap-11">
+			{#each projects.slice(0, 2) as p, i}
+				<a
+					class="{REVEAL} group block"
+					style="--d: {i * 60}ms"
+					href={p.link}
+					target="_blank"
+					rel="noopener noreferrer"
+					data-cursor="Visit site"
+				>
+					<div class="rounded-2xl transition-[transform,opacity] duration-[180ms] ease-(--ease-mn) group-active:scale-[0.975] group-active:opacity-[0.88]">
+						<img
+							src={p.image}
+							alt="{p.name} homepage"
+							loading="lazy"
+							class="block aspect-[16/10] w-full rounded-2xl bg-card object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.04)] transition-[transform,filter] duration-[700ms] ease-(--ease-mn) group-hover:scale-[1.012]"
+						/>
+					</div>
+					<div class="mt-4">
+						<h3 class="flex items-center gap-1.5 text-[15px] font-medium leading-[1.4]">
+							{p.name}
+							<svg class="-translate-x-1 text-muted opacity-0 transition-[opacity,transform] duration-300 ease-(--ease-mn) group-hover:translate-x-0 group-hover:opacity-100" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+						</h3>
+						<p class="mt-0.5 mb-2 text-[11px] tracking-[0.02em] text-faint">{p.meta}</p>
+						<p class="text-[14px] leading-[1.6] text-soft">{p.description}</p>
+					</div>
+				</a>
+			{/each}
+		</div>
+		<div
+			aria-hidden="true"
+			class="{REVEAL} pointer-events-none relative col-span-full mt-16 ml-[calc(50%-50vw)] h-[260px] w-screen bg-[url(/beach.webp)] bg-cover bg-[center_62%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,transparent,#000_30%,#000_70%,transparent)] md:h-[320px]"
+		></div>
+		<div class="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 max-sm:gap-11">
+			{#each projects.slice(2) as p, i}
 				<a
 					class="{REVEAL} group block"
 					style="--d: {i * 60}ms"
@@ -148,10 +183,13 @@
 		</div>
 	</section>
 
-	<section id="experience" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
-		<p class="{REVEAL} mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Experience</p>
-		<FlightPlan />
-		<div class="{REVEAL} mt-16">
+	<section id="experience" class="mt-24 grid scroll-mt-[88px] gap-16 md:grid-cols-2 max-sm:mt-[72px]">
+		<div>
+			<p class="{REVEAL} mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Experience</p>
+			<FlightPlan />
+		</div>
+		<div>
+			<div class="{REVEAL}">
 			<p class="mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Freelance</p>
 			<div class="border-t border-rule">
 				<div class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent">
@@ -164,7 +202,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="{REVEAL} mt-16">
+		<div class="{REVEAL} mt-12">
 			<p class="mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Education</p>
 			<div class="border-t border-rule">
 				<div class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent">
@@ -175,6 +213,7 @@
 					<span class="shrink-0 text-[11px] text-muted">{education.span}</span>
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 

@@ -20,7 +20,8 @@
 		const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 		function serve(dir: 1 | -1) {
-			state.ball = { x: W / 2, y: H / 2, vx: 4.4 * dir, vy: (Math.random() - 0.5) * 5 };
+			const base = Math.min(4.4 + 0.35 * (score.you + score.ai), 8.5);
+			state.ball = { x: W / 2, y: H / 2, vx: base * dir, vy: (Math.random() - 0.5) * 5 };
 		}
 
 		function draw() {
@@ -41,11 +42,11 @@
 			b.y += b.vy;
 			if (b.y < 6 || b.y > H - 6) b.vy *= -1;
 			if (b.x < 30 && Math.abs(b.y - state.you) < PADDLE_H / 2 + 6) {
-				b.vx = Math.abs(b.vx) * 1.04;
+				b.vx = Math.min(Math.abs(b.vx) * 1.07, 12);
 				b.vy += (b.y - state.you) * 0.09;
 			}
 			if (b.x > W - 30 && Math.abs(b.y - state.ai) < PADDLE_H / 2 + 6) {
-				b.vx = -Math.abs(b.vx) * 1.04;
+				b.vx = -Math.min(Math.abs(b.vx) * 1.07, 12);
 				b.vy += (b.y - state.ai) * 0.09;
 			}
 			state.ai += Math.max(-3.4, Math.min(3.4, b.y - state.ai));
