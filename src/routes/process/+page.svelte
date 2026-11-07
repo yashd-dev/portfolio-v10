@@ -1,10 +1,10 @@
 <script lang="ts">
-	import DesigningStep from '#lib/components/steps/DesigningStep.svelte';
-	import DevelopmentStep from '#lib/components/steps/DevelopmentStep.svelte';
-	import MicrointeractionsStep from '#lib/components/steps/MicrointeractionsStep.svelte';
-	import CommunicationStep from '#lib/components/steps/CommunicationStep.svelte';
-	import StepCircle from '#lib/components/steps/StepCircle.svelte';
-	import Mark from '#lib/components/Mark.svelte';
+	import DesigningStep from '#lib/components/steps/designingStep.svelte';
+	import DevelopmentStep from '#lib/components/steps/developmentStep.svelte';
+	import MicrointeractionsStep from '#lib/components/steps/microinteractionsStep.svelte';
+	import CommunicationStep from '#lib/components/steps/communicationStep.svelte';
+	import StepCircle from '#lib/components/steps/stepCircle.svelte';
+	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
 	import { projects, email } from '#lib/data/content.js';
 

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import HeroBirds from '#lib/components/HeroBirds.svelte';
-	import Polaroid from '#lib/components/Polaroid.svelte';
-	import Mark from '#lib/components/Mark.svelte';
+	import HeroBirds from '#lib/components/heroBirds.svelte';
+	import Polaroid from '#lib/components/polaroid.svelte';
+	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
-	import FlightPlan from '#lib/components/FlightPlan.svelte';
+	import FlightPlan from '#lib/components/flightPlan.svelte';
 	import { projects, socials, email, freelance, education } from '#lib/data/content.js';
 	import { toolIcons } from '#lib/data/icons.js';
 	import { REVEAL } from '#lib/reveal.js';

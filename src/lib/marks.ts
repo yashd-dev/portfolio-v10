@@ -1,4 +1,4 @@
-import type { MarkDefinition } from './components/Mark.svelte';
+import type { MarkDefinition } from './components/mark.svelte';
 
 export const highlightCalm: MarkDefinition = {
 	name: 'highlight-calm',

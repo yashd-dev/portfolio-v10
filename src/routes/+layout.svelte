@@ -5,9 +5,9 @@
 	import type { LayoutProps } from './$types';
 	import Lenis from 'lenis';
 	import { animate, inView } from 'motion';
-	import SiteNav from '#lib/components/SiteNav.svelte';
-	import Dock from '#lib/components/Dock.svelte';
-	import Cursor from '#lib/components/Cursor.svelte';
+	import SiteNav from '#lib/components/siteNav.svelte';
+	import Dock from '#lib/components/dock.svelte';
+	import Cursor from '#lib/components/cursor.svelte';
 
 	let { children }: LayoutProps = $props();
 
