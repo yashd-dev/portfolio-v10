@@ -11,23 +11,41 @@
 	class="relative left-[calc(50%-50vw)] mt-24 w-screen overflow-hidden max-sm:mt-[72px]"
 	aria-label="Contact"
 >
-	<div
-		aria-hidden="true"
-		class="pointer-events-none absolute inset-0 flex flex-row flex-wrap content-center items-center justify-center gap-3 [mask-image:linear-gradient(to_right,transparent,black_18%,black_82%,transparent)]"
-	>
-		{#each [...projects, ...projects] as p}
-			<div
-				class="aspect-video w-36 shrink-0 overflow-hidden rounded-md bg-neutral-100 shadow-sm ring-1 ring-black/10 sm:w-48 md:w-64"
-			>
-				<img
-					src={p.image}
-					alt=""
-					class="h-full w-full object-cover"
-					loading="lazy"
-					decoding="async"
-				/>
-			</div>
-		{/each}
+	<div aria-hidden="true" class="pointer-events-none absolute inset-0 hidden xl:block">
+		<div
+			class="absolute top-1/2 right-[calc(50%+448px)] flex -translate-y-1/2 flex-col gap-4 [mask-image:linear-gradient(to_right,transparent_0%,black_55%)]"
+		>
+			{#each projects.slice(0, 2) as p}
+				<div
+					class="h-[188px] w-60 shrink-0 overflow-hidden rounded-md bg-neutral-100 shadow-sm ring-1 ring-black/10"
+				>
+					<img
+						src={p.image}
+						alt=""
+						class="h-full w-full object-cover"
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+			{/each}
+		</div>
+		<div
+			class="absolute top-1/2 left-[calc(50%+448px)] flex -translate-y-1/2 flex-col gap-4 [mask-image:linear-gradient(to_left,transparent_0%,black_55%)]"
+		>
+			{#each projects.slice(2, 4) as p}
+				<div
+					class="h-[188px] w-60 shrink-0 overflow-hidden rounded-md bg-neutral-100 shadow-sm ring-1 ring-black/10"
+				>
+					<img
+						src={p.image}
+						alt=""
+						class="h-full w-full object-cover"
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+			{/each}
+		</div>
 	</div>
 	<div class="relative mx-auto max-w-[960px] px-5 py-16 sm:px-8 md:py-24">
 		{#if guides}

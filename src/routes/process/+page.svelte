@@ -6,9 +6,10 @@
 	import StepCircle from '#lib/components/steps/stepCircle.svelte';
 	import FaqSection from '#lib/components/faqSection.svelte';
 	import EnquiryForm from '#lib/components/enquiryForm.svelte';
+	import CtaSection from '#lib/components/ctaSection.svelte';
 	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
-	import { projects, email } from '#lib/data/content.js';
+	import { projects } from '#lib/data/content.js';
 
 	const stats = [
 		{ value: String(projects.length), label: 'selected projects' },
@@ -157,34 +158,7 @@
 
 	<EnquiryForm />
 
-	<div class="relative mt-24">
-		<div class="relative px-6 pt-6 pb-[220px] max-sm:pb-[170px] sm:px-10">
-			<h2 class="text-2xl font-medium tracking-tight text-ink">
-				Have a project or a role in mind?
-			</h2>
-			<p class="mt-3 max-w-[46ch] text-[15px] text-soft">
-				Tell me about it and we can set up a call.
-			</p>
-			<div class="mt-6 flex flex-wrap items-center gap-3">
-				<a
-					href="mailto:{email}"
-					class="inline-flex h-11 items-center rounded-full bg-[#2e74ff] px-6 text-[14px] font-medium text-white transition-[transform,background-color] duration-300 ease-(--ease-mn) hover:-translate-y-0.5 hover:bg-[#2667ff]"
-					data-cursor="Message me"
-				>
-					Message me
-				</a>
-				<a
-					href="https://cal.com/yashd-dev/discussion"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex h-11 items-center rounded-full px-5 text-[14px] font-medium text-[#2667ff] ring-2 ring-[#2e74ff] transition-[transform,background-color] duration-300 ease-(--ease-mn) ring-inset hover:-translate-y-0.5 hover:bg-[#2e74ff]/10"
-					data-cursor="Book a call"
-				>
-					Book a call
-				</a>
-			</div>
-		</div>
-	</div>
+	<CtaSection />
 </div>
 <div
 	aria-hidden="true"
