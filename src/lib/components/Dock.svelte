@@ -27,6 +27,7 @@
 			<img src="/avatar.jpg" alt="" class="block h-full w-full object-cover object-[50%_28%]" />
 		</a>
 		<span class="mx-1 h-[22px] w-px bg-rule" aria-hidden="true"></span>
+		<a class="inline-flex h-[38px] min-w-[38px] items-center justify-center rounded-full bg-black/[0.035] px-2.5 text-[13px] font-medium text-ink transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-black/[0.08]" href="/how-i-work" aria-label="How I work" data-cursor="How I work">Process</a>
 		<a class={icon} href="/play" aria-label="Play" data-cursor="Play">
 			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[17px]"><path d="M6 12h4m-2-2v4m7-3h.01M18 13h.01M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.54-.6-6.58-.68-7.26A4 4 0 0 0 17.32 5Z" /></svg>
 		</a>

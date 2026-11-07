@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import StepCircle from './StepCircle.svelte';
+	import { springMotion } from '#lib/spring.js';
 
 	let container: HTMLDivElement;
 	let c1: HTMLDivElement;
@@ -15,7 +15,8 @@
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		let cancelled = false;
 		const glide = { duration: 550, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' as FillMode };
-		const spring = { duration: 700, easing: 'cubic-bezier(0.3, 1.4, 0.5, 1)', fill: 'forwards' as FillMode };
+		const sp = springMotion(380, 28, 1);
+		const spring = { duration: sp.duration, easing: sp.easing, fill: 'forwards' as FillMode };
 		const center = (el: HTMLDivElement) => {
 			const r = el.getBoundingClientRect();
 			const c = container.getBoundingClientRect();
@@ -176,15 +177,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="px-4 py-6 md:px-8 md:py-8">
-		<div class="flex items-start gap-3">
-			<StepCircle n={1} from="#38bdf8" to="#2563eb" />
-			<h2 class="max-w-[30ch] text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
-				Designing
-				<span class="text-neutral-400">every screen in Figma first, with unlimited revisions until your first approval.</span>
-			</h2>
 		</div>
 	</div>
 </div>

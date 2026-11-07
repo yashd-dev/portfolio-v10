@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { springMotion } from '#lib/spring.js';
 	import { fly } from 'svelte/transition';
-	import StepCircle from './StepCircle.svelte';
 
 	const devices = [
 		{ id: 'macbook', image: '/work/actuallyfair.png', alt: 'Actually Fair storefront' },
@@ -11,6 +11,8 @@
 
 	let index = $state(0);
 	let island = $state<'idle' | 'loading' | 'connected'>('idle');
+	const im = springMotion(591.79, 48.82, 2.89);
+	const islandTransition = `transition: width ${im.duration}ms ${im.easing}, height ${im.duration}ms ${im.easing}, border-radius ${im.duration}ms ${im.easing}`;
 
 	onMount(() => {
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -41,21 +43,21 @@
 		>
 			{#key index}
 				<div
-					class="flex w-full max-w-[min(100%,320px)] items-center justify-center px-4"
+					class="flex w-full items-center justify-center px-4 {devices[index].id === 'iphone' ? 'max-w-[240px]' : devices[index].id === 'ipad' ? 'max-w-[400px]' : 'max-w-[480px]'}"
 					in:fly={{ y: 340, duration: 850, opacity: 0 }}
 					out:fly={{ y: -340, duration: 1050, opacity: 0 }}
 				>
 					{#if devices[index].id === 'macbook'}
 						<div class="mx-auto w-full max-w-2xl">
-							<div class="mx-auto w-64 [perspective:1000px]">
-								<div class="mx-auto h-32 [transform:rotateX(20deg)] [transform-origin:bottom]">
+							<div class="mx-auto w-96 [perspective:1000px]">
+								<div class="mx-auto h-48 [transform:rotateX(20deg)] [transform-origin:bottom]">
 									<div class="relative h-full w-full overflow-hidden rounded-t-lg bg-white">
 										<img src={devices[index].image} alt={devices[index].alt} class="absolute inset-0 h-full w-full object-cover object-center" />
 										<div class="absolute inset-x-0 top-0 z-10">
 											<div class="flex h-full w-full items-start justify-center pt-2">
 												<div
 													class="relative overflow-hidden bg-black transition-all duration-500 ease-mn"
-													style="width: {island === 'connected' ? 50 : island === 'loading' ? 20 : 36}px; height: 12px; border-radius: {island === 'connected' ? 8 : 6}px"
+													style="width: {island === 'connected' ? 50 : island === 'loading' ? 20 : 36}px; height: 12px; border-radius: {island === 'connected' ? 8 : 6}px; {islandTransition}"
 												>
 													{#if island === 'idle'}
 														<div class="absolute inset-0 flex items-center justify-center gap-1">
@@ -88,7 +90,7 @@
 						</div>
 					{:else if devices[index].id === 'iphone'}
 						<div class="mx-auto w-full max-w-2xl">
-							<div class="relative mx-auto w-32">
+							<div class="relative mx-auto w-40">
 								<div class="absolute top-14 -left-[2px] flex flex-col gap-2">
 									<div class="h-3 w-[2px] rounded-l-sm bg-neutral-300"></div>
 									<div class="h-5 w-[2px] rounded-l-sm bg-neutral-300"></div>
@@ -104,7 +106,7 @@
 											<div class="flex h-full w-full items-start justify-center pt-2">
 												<div
 													class="relative overflow-hidden bg-black transition-all duration-500 ease-mn"
-													style="width: {island === 'connected' ? 50 : island === 'loading' ? 20 : 36}px; height: 12px; border-radius: {island === 'connected' ? 8 : 6}px"
+													style="width: {island === 'connected' ? 50 : island === 'loading' ? 20 : 36}px; height: 12px; border-radius: {island === 'connected' ? 8 : 6}px; {islandTransition}"
 												>
 													{#if island === 'idle'}
 														<div class="absolute inset-0 flex items-center justify-center gap-1">
@@ -135,7 +137,7 @@
 						</div>
 					{:else}
 						<div class="mx-auto w-full max-w-2xl">
-							<div class="relative mx-auto w-56">
+							<div class="relative mx-auto w-72">
 								<div class="absolute top-8 -right-[2px] flex flex-col gap-2">
 									<div class="h-5 w-[2px] rounded-r-sm bg-neutral-300"></div>
 									<div class="h-5 w-[2px] rounded-r-sm bg-neutral-300"></div>
@@ -150,7 +152,7 @@
 											<div class="flex h-full w-full items-start justify-center pt-2">
 												<div
 													class="relative overflow-hidden bg-black transition-all duration-500 ease-mn"
-													style="width: {island === 'connected' ? 50 : island === 'loading' ? 20 : 36}px; height: 12px; border-radius: {island === 'connected' ? 8 : 6}px"
+													style="width: {island === 'connected' ? 50 : island === 'loading' ? 20 : 36}px; height: 12px; border-radius: {island === 'connected' ? 8 : 6}px; {islandTransition}"
 												>
 													{#if island === 'idle'}
 														<div class="absolute inset-0 flex items-center justify-center gap-1">
@@ -181,15 +183,6 @@
 					{/if}
 				</div>
 			{/key}
-		</div>
-	</div>
-	<div class="px-4 py-6 md:px-8 md:py-8">
-		<div class="flex items-start gap-3">
-			<StepCircle n={2} from="#facc15" to="#ca8a04" />
-			<h2 class="max-w-[30ch] text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
-				Development
-				<span class="text-neutral-400">with React, Next.js, SvelteKit and Tailwind, Shopify for ecommerce, and a CMS you can edit yourself.</span>
-			</h2>
 		</div>
 	</div>
 </div>

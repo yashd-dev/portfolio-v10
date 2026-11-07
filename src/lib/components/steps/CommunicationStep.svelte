@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { quartOut } from 'svelte/easing';
-	import StepCircle from './StepCircle.svelte';
 
 	type Msg = {
 		id: string;
@@ -126,15 +125,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="px-4 py-6 md:px-8 md:py-8">
-		<div class="flex items-start gap-3">
-			<StepCircle n={4} from="#fb923c" to="#ea580c" />
-			<h2 class="max-w-[30ch] text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
-				Communication
-				<span class="text-neutral-400">you see progress and share feedback along the way, not just at the end.</span>
-			</h2>
 		</div>
 	</div>
 </div>
