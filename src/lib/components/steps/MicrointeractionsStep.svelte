@@ -3,7 +3,7 @@
 	import StepCircle from './StepCircle.svelte';
 
 	const code =
-		'<div\n  role="slider"\n  class="relative h-8 w-full rounded-md bg-neutral-800"\n>\n  <div\n    class="absolute inset-y-0 left-0 rounded-l-md bg-neutral-600/90"\n    style="width: {value * 100}%"\n  />\n  <div\n    class="absolute top-1/2 h-5 w-3 rounded-sm bg-neutral-200"\n    style="left: {value * 100}%"\n  />\n</div>';
+		'<div role="slider" class="track">\n  <div class="fill"\n    style="width: {pct}%" />\n  <div class="thumb"\n    style="left: {pct}%" />\n</div>';
 
 	const images = ['/work/actuallyfair.png', '/work/strive.png', '/work/sshealthcare.png'];
 
@@ -71,7 +71,7 @@
 				class="w-full max-w-[min(100%,400px)] overflow-hidden rounded-3xl bg-white p-4 text-left shadow-[0_24px_40px_-20px_rgba(38,38,43,0.30),0_10px_24px_0_rgba(38,38,43,0.06),0_1px_1px_0_rgba(38,38,43,0.16),0_0_0_1px_rgba(38,38,43,0.05),0_8px_14px_-10px_rgba(38,38,43,0.40)]"
 			>
 				{#if phase === 'typing'}
-					<pre class="font-[ui-monospace,monospace] text-[11px] whitespace-pre-wrap break-all leading-relaxed tracking-tight text-[#24292f] md:text-xs"><code>{code.slice(0, charCount)}<span class="ml-px inline-block h-[1.1em] w-0.5 animate-pulse bg-[#0969da] align-[-0.125em]"></span></code></pre>
+					<pre class="text-[13px] leading-relaxed tracking-tight whitespace-pre text-[#24292f]"><code>{code.slice(0, charCount)}<span class="ml-px inline-block h-[1.1em] w-0.5 animate-pulse bg-[#0969da] align-[-0.125em]"></span></code></pre>
 				{:else}
 					<div class="mx-auto max-w-xs py-4">
 						<h3 class="text-base tracking-tight text-neutral-700">

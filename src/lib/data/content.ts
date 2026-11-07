@@ -79,8 +79,8 @@ export const experience = [
 ];
 
 export const socials = [
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/yashd-dev/' },
 	{ label: 'GitHub', href: 'https://github.com/yashd-dev' },
-	{ label: 'Mail', href: 'mailto:yashdeshpande714@gmail.com' },
 	{ label: 'yashd.in', href: 'https://yashd.in' }
 ];
 
