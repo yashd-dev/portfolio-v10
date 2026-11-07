@@ -9,6 +9,7 @@ export const projects = [
 			'A transparent shopping experience with clear product pages, calm flows, and headless Shopify underneath.',
 		link: 'https://actuallyfair.in/',
 		cta: 'Shop the store',
+		caseStudy: '/work/actually-fair',
 		image: '/work/actuallyfair.png',
 		problem: 'Ecommerce usually keeps pricing and sourcing opaque.',
 		outcome: 'A live headless Shopify storefront with clear product pages and calm flows.'
@@ -20,6 +21,7 @@ export const projects = [
 			'A calming therapy website for sessions, workshops, resources, and a softer booking experience.',
 		link: 'https://therapywithkinnari.com/',
 		cta: 'Book a session',
+		caseStudy: '/work/therapy-with-kinnari',
 		image: '/work/twk.png',
 		problem:
 			'A therapy practice needed sessions, workshops and resources to feel approachable online.',
@@ -33,6 +35,7 @@ export const projects = [
 			'A premium B2B aesthetics website for PDO threads, training programs, and medical product discovery.',
 		link: 'https://www.medizoneaesthetics.com/',
 		cta: 'Explore products',
+		caseStudy: '/work/medizone-aesthetics',
 		image: '/work/medizone.png',
 		problem:
 			'A premium B2B aesthetics brand needed its products and training programs discoverable online.',

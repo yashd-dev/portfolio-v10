@@ -1,0 +1,129 @@
+export const meta = {
+	title: 'Actually Fair',
+	role: 'Technical lead: storefront, headless Shopify, custom microservices',
+	stack: 'Headless Shopify, Next.js, Tailwind, Railway',
+	timeline: 'Dec 2025 to Aug 2026',
+	live: 'https://actuallyfair.in/',
+	liveLabel: 'actuallyfair.in',
+	hero: '/case/actually-fair/hero.png',
+	eyebrow: 'Actually Fair · Ecommerce',
+	subtitle:
+		'A transparent shopping experience across six categories, with clear product pages, calm flows and headless Shopify underneath.',
+	tags: ['Live store', 'Headless Shopify', 'Self-hosted', 'Cash on delivery'],
+	heroAlt: 'Actually Fair storefront homepage',
+	heroCaption: 'Actually Fair. Transparent pricing on every product, no, for real.',
+	sections: [
+		{ id: 'intro', label: 'Intro' },
+		{ id: 'overview', label: 'Overview' },
+		{ id: 'problem', label: 'The problem' },
+		{ id: 'storefront', label: 'The storefront' },
+		{ id: 'pricing', label: 'Pricing in the open' },
+		{ id: 'checkout', label: 'Cart and checkout' },
+		{ id: 'wish', label: 'Make a wish' },
+		{ id: 'under-the-hood', label: 'Under the hood' },
+		{ id: 'shipped', label: 'What shipped' },
+		{ id: 'takeaway', label: 'Takeaway' }
+	],
+	next: { href: '/work/therapy-with-kinnari', title: 'Therapy With Kinnari' }
+};
+
+<Section id="overview" title="Overview">
+	<Lead>
+		Actually Fair is a shopping site built around one idea: the price you see should make sense.
+	</Lead>
+	<P>
+		The store sells across athleisure, backpacks and travel gear, sunglasses, jewelry, electronics,
+		and skincare and grooming. It runs as a live, self-hosted storefront with real payments, real
+		inventory and cash on delivery.
+	</P>
+	<P>
+		I work on it as technical lead, end to end: the headless Shopify backend, the Next.js
+		storefront, and the custom services around them.
+	</P>
+</Section>
+
+<Section id="problem" title="The problem">
+	<P>
+		Online stores often keep pricing and sourcing opaque, and the shopper has no way to tell what
+		anything should actually cost.
+	</P>
+	<P>
+		Actually Fair's bet is that a store can win on the opposite: show fair pricing plainly, on every
+		product, and let that be the brand.
+	</P>
+</Section>
+
+<Section id="storefront" title="The storefront">
+	<P>
+		The catalog is wide, so the browsing has to stay calm. Categories sit in a predictable order,
+		each with its own landing view: athleisure, backpacks and travel, sunglasses, jewelry,
+		electronics, and skincare, with new arrivals surfaced per category.
+	</P>
+	<Fig
+		src="/case/actually-fair/section-1.png"
+		alt="Actually Fair catalog section with product cards and category navigation"
+		caption="Category browsing stays flat: each department is one tap away, with new arrivals under it."
+		wide
+	/>
+	<P>
+		Best sellers carry the discount math on the card itself, so the deal is legible before a single
+		product page opens.
+	</P>
+</Section>
+
+<Section id="pricing" title="Pricing in the open">
+	<Pullquote>transparent pricing on every product. no, for real.</Pullquote>
+	<P>
+		That line is the store's whole pitch, and the design treats it as a contract rather than a
+		slogan. Product cards show the selling price next to the reference price with the percentage
+		off, and product pages keep the same math in view instead of hiding it behind a sale badge.
+	</P>
+</Section>
+
+<Section id="checkout" title="Cart and checkout">
+	<P>
+		The cart and login flows follow familiar Indian ecommerce patterns: a persistent cart, a members
+		area, and cash on delivery at checkout. Nothing about paying asks the shopper to learn a new
+		pattern.
+	</P>
+	<Fig
+		src="/case/actually-fair/mobile.png"
+		alt="Actually Fair storefront on a phone"
+		caption="The storefront on a phone, with the same pricing math in view."
+		phone
+	/>
+</Section>
+
+<Section id="wish" title="Make a wish">
+	<P>
+		The store ships a small feature called Make A Wish: shoppers can ask for a product the catalog
+		does not carry yet. It turns a gap in inventory into a conversation instead of a dead end.
+	</P>
+</Section>
+
+<Section id="under-the-hood" title="Under the hood">
+	<StepRow
+		steps={['Shopper', 'Next.js storefront', 'Headless Shopify', 'Custom services', 'Railway']}
+	/>
+	<P>
+		The storefront is Next.js and Tailwind talking to headless Shopify for products, cart and
+		checkout. Around that core sit custom microservices for the parts Shopify does not cover,
+		self-hosted on Railway so the stack answers to the store, not the other way around.
+	</P>
+</Section>
+
+<Section id="shipped" title="What shipped">
+	<P>
+		A live headless Shopify storefront with clear product pages and calm flows, across six product
+		categories, with cash on delivery, a members area and a wish-request channel. It is in
+		production and selling today.
+	</P>
+</Section>
+
+<Section id="takeaway" title="Takeaway">
+	<P>
+		The interesting constraint was that "fair" is a design requirement, not a marketing one. Every
+		surface, from the product card to the checkout, has to hold the same promise or the brand falls
+		apart.
+	</P>
+</Section>

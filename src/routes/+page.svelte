@@ -58,7 +58,7 @@
 	<HeroBirds />
 </div>
 
-<main class="relative mx-auto w-full max-w-6xl px-5 pt-[320px] pb-10 max-sm:pt-[280px]">
+<main class="relative mx-auto w-full max-w-6xl px-5 pt-[320px] pb-10 max-sm:pt-[236px]">
 	<section id="intro" class="pg-intro relative">
 		<div class="mb-10 hidden items-start gap-5 max-sm:flex">
 			<Polaroid
@@ -260,27 +260,52 @@
 						>
 					{/each}
 				</div>
-				<a
-					class="group mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent"
-					href={p.link}
-					target="_blank"
-					rel="noopener noreferrer"
-					data-cursor={p.cta}
-				>
-					{p.cta}
-					<svg
-						class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-						width="13"
-						height="13"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+				<div class="mt-5 flex flex-wrap items-center gap-4">
+					{#if p.caseStudy}
+						<a
+							class="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors duration-200 hover:text-accent"
+							href={p.caseStudy}
+							data-cursor="Case study"
+						>
+							Read the case study
+							<svg
+								class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5"
+								width="13"
+								height="13"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg
+							>
+						</a>
+					{/if}
+					<a
+						class="group inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent {p.caseStudy
+							? 'text-muted'
+							: ''}"
+						href={p.link}
+						target="_blank"
+						rel="noopener noreferrer"
+						data-cursor={p.cta}
 					>
-				</a>
+						{p.cta}
+						<svg
+							class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+							width="13"
+							height="13"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+						>
+					</a>
+				</div>
 			</div>
 		{/snippet}
 

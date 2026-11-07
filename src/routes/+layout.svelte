@@ -83,20 +83,22 @@
 
 <svelte:head>
 	<link rel="icon" type="image/png" href="/favicon.png" />
-	<title>Yash Deshpande - Designer & Developer, Mumbai</title>
-	<meta
-		name="description"
-		content="Yash Deshpande designs and builds polished websites: storefronts, business sites and the TypeScript services behind them."
-	/>
-	<meta property="og:title" content="Yash Deshpande - Designer & Developer" />
-	<meta
-		property="og:description"
-		content="Polished websites that feel considered, work smoothly, and can grow into serious products."
-	/>
+	{#if !page.url.pathname.startsWith('/work/')}
+		<title>Yash Deshpande - Designer & Developer, Mumbai</title>
+		<meta
+			name="description"
+			content="Yash Deshpande designs and builds polished websites: storefronts, business sites and the TypeScript services behind them."
+		/>
+		<meta property="og:title" content="Yash Deshpande - Designer & Developer" />
+		<meta
+			property="og:description"
+			content="Polished websites that feel considered, work smoothly, and can grow into serious products."
+		/>
+		<meta property="og:image" content="/og.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+	{/if}
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content="/og.png" />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
@@ -109,8 +111,12 @@
 <div
 	class="relative isolate min-h-dvh overflow-x-clip bg-white font-sans text-[15px] leading-[1.6] text-ink antialiased selection:bg-hlblue selection:text-ink"
 >
-	<SiteNav />
+	{#if !page.url.pathname.startsWith('/work/')}
+		<SiteNav />
+	{/if}
 	{@render children()}
-	<Dock />
+	{#if !page.url.pathname.startsWith('/work/')}
+		<Dock />
+	{/if}
 	<Cursor />
 </div>
