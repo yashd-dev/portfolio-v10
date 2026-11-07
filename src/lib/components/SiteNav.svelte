@@ -20,7 +20,10 @@
 
 	function go(id: string) {
 		const el = document.getElementById(id);
-		if (!el) return;
+		if (!el) {
+			location.href = `/#${id}`;
+			return;
+		}
 		const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement | number, o?: object) => void } })
 			.__lenis;
 		if (lenis) lenis.scrollTo(id === 'intro' ? 0 : el, { offset: id === 'intro' ? 0 : -88, duration: 1.2 });
