@@ -5,6 +5,12 @@
 
 	type NavItem = { id: string; label: string; icon?: 'person' | 'grid' | 'plane' };
 
+	const PAGES = [
+		{ href: '/', label: 'Home' },
+		{ href: '/process', label: 'Process' },
+		{ href: '/tools', label: 'Tools' }
+	];
+
 	const LANDING: NavItem[] = [
 		{ id: 'intro', label: 'Intro', icon: 'person' },
 		{ id: 'work', label: 'Work', icon: 'grid' },
@@ -26,6 +32,7 @@
 		{ id: 'ship-host', label: 'Ship & host' }
 	];
 
+	let pathname = $derived(page.url.pathname);
 	let sections = $derived(
 		page.url.pathname === '/process' ? PROCESS : page.url.pathname === '/tools' ? TOOLS : LANDING
 	);
@@ -129,7 +136,7 @@
 >
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] max-sm:max-w-[calc(100vw-120px)] max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {scrolled
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] max-sm:max-w-[calc(100vw-252px)] max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {scrolled
 				? scrolledCls
 				: ''}"
 			role="navigation"
@@ -212,27 +219,24 @@
 			{/each}
 		</div>
 		<div class="inline-flex items-center gap-2">
-			<a
-				class="pointer-events-auto inline-grid size-[34px] place-items-center rounded-full bg-black/5 text-muted transition-[color,background-color,box-shadow] duration-200 hover:text-ink {scrolled
+			<nav
+				class="pointer-events-auto inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] {scrolled
 					? scrolledCls
 					: ''}"
-				href="/play"
-				aria-label="Play a game"
-				data-cursor="Play"
+				aria-label="Pages"
 			>
-				<svg
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="1.8"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="size-[17px]"
-					><path
-						d="M6 12h4m-2-2v4m7-3h.01M18 13h.01M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.54-.6-6.58-.68-7.26A4 4 0 0 0 17.32 5Z"
-					/></svg
-				>
-			</a>
+				{#each PAGES as p}
+					{@const isCurrent = p.href === '/' ? pathname === '/' : pathname.startsWith(p.href)}
+					<a
+						href={p.href}
+						data-cursor={p.label}
+						aria-current={isCurrent ? 'page' : undefined}
+						class="inline-flex h-8 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-colors duration-200 max-sm:px-2.5 {isCurrent
+							? 'bg-white text-ink shadow-[0_1px_2px_#00000014,0_0_0_0.5px_#0000000a]'
+							: 'text-muted hover:text-ink'}">{p.label}</a
+					>
+				{/each}
+			</nav>
 		</div>
 	</div>
 </header>

@@ -3,11 +3,12 @@
 		src,
 		alt,
 		caption,
+		cursor,
 		class: cls = ''
-	}: { src: string; alt: string; caption: string; class?: string } = $props();
+	}: { src: string; alt: string; caption: string; cursor?: string; class?: string } = $props();
 </script>
 
-<figure class="group w-48 {cls}">
+<figure class="group w-48 {cls}" data-cursor={cursor}>
 	<div
 		class="bg-white p-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-500 ease-out group-hover:shadow-[0_12px_36px_rgba(0,0,0,0.16)]"
 	>

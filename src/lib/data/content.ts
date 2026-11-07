@@ -8,6 +8,7 @@ export const projects = [
 		description:
 			'A transparent shopping experience with clear product pages, calm flows, and headless Shopify underneath.',
 		link: 'https://actuallyfair.in/',
+		cta: 'Shop the store',
 		image: '/work/actuallyfair.png',
 		problem: 'Ecommerce usually keeps pricing and sourcing opaque.',
 		outcome: 'A live headless Shopify storefront with clear product pages and calm flows.'
@@ -18,6 +19,7 @@ export const projects = [
 		description:
 			'A calming therapy website for sessions, workshops, resources, and a softer booking experience.',
 		link: 'https://therapywithkinnari.com/',
+		cta: 'Book a session',
 		image: '/work/twk.png',
 		problem:
 			'A therapy practice needed sessions, workshops and resources to feel approachable online.',
@@ -30,6 +32,7 @@ export const projects = [
 		description:
 			'A premium B2B aesthetics website for PDO threads, training programs, and medical product discovery.',
 		link: 'https://www.medizoneaesthetics.com/',
+		cta: 'Explore products',
 		image: '/work/medizone.png',
 		problem:
 			'A premium B2B aesthetics brand needed its products and training programs discoverable online.',
@@ -41,6 +44,7 @@ export const projects = [
 		description:
 			'A sharp consultancy website with focused services, restrained visuals, and a clearer business presence.',
 		link: 'http://striveconsultancy.yashd.in/',
+		cta: 'Explore services',
 		image: '/work/strive.png',
 		problem: 'A consultancy needed a sharper, clearer business presence.',
 		outcome: 'A live site with focused services and restrained visuals.'
@@ -50,6 +54,7 @@ export const projects = [
 		meta: 'Next.js, Tailwind, Vercel, Google Translate',
 		description: 'A veterinary healthcare website with multilingual content and appointment flows.',
 		link: 'https://healthcare.yashd.in/',
+		cta: 'Book an appointment',
 		image: '/work/sshealthcare.png',
 		problem: 'Veterinary healthcare information needed to reach people in more than one language.',
 		outcome: 'A live multilingual site with appointment flows.'
@@ -60,6 +65,7 @@ export const projects = [
 		description:
 			'A handcrafted Paithani storefront for bags, clutches and accessories, rooted in Maharashtrian textile heritage.',
 		link: 'https://www.mypaithani.com/',
+		cta: 'Shop the collection',
 		image: '/work/mypaithani.png',
 		problem: 'Handcrafted Paithani textiles needed a storefront worthy of the craft.',
 		outcome: 'A live SvelteKit storefront for bags, clutches and accessories.'

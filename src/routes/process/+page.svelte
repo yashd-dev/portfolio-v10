@@ -4,6 +4,8 @@
 	import MicrointeractionsStep from '#lib/components/steps/microinteractionsStep.svelte';
 	import CommunicationStep from '#lib/components/steps/communicationStep.svelte';
 	import StepCircle from '#lib/components/steps/stepCircle.svelte';
+	import FaqSection from '#lib/components/faqSection.svelte';
+	import EnquiryForm from '#lib/components/enquiryForm.svelte';
 	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
 	import { projects, email } from '#lib/data/content.js';
@@ -74,13 +76,15 @@
 </script>
 
 <div
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[560px] bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_55%,transparent_100%)] bg-cover bg-[center_71%] opacity-85 [filter:saturate(0.85)_brightness(1.02)]"
+></div>
+
+<div
 	class="relative mx-auto w-full max-w-6xl before:pointer-events-none before:absolute before:top-24 before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] before:[background-size:1px_8px] after:pointer-events-none after:absolute after:top-24 after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] after:[background-size:1px_8px]"
 >
-	<div class="relative px-6 pt-32 pb-16 sm:px-10">
-		<div
-			class="pointer-events-none absolute top-0 left-[calc(50%-50vw)] h-full w-screen bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.6)_45%,transparent_100%)] bg-cover bg-[center_top] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)]"
-		></div>
-		<h1 class="relative max-w-[16ch] text-4xl font-medium tracking-tight text-ink md:text-5xl">
+	<div class="relative px-6 pt-[320px] pb-16 max-sm:pt-[280px] sm:px-10">
+		<h1 class="relative max-w-[16ch] text-2xl font-medium tracking-tight text-ink">
 			How I <Mark definition={highlightCalm} fillColor="#8ab6f2">work</Mark>
 		</h1>
 		<p class="relative mt-4 max-w-[46ch] text-soft">
@@ -92,7 +96,7 @@
 	<div class="grid grid-cols-3 gap-4 border-y border-dashed border-neutral-200 px-6 py-8 sm:px-10">
 		{#each stats as s}
 			<div>
-				<p class="text-3xl font-medium tracking-tight text-ink">{s.value}</p>
+				<p class="text-2xl font-medium tracking-tight text-ink">{s.value}</p>
 				<p class="mt-2 text-[13px] leading-snug text-soft">{s.label}</p>
 			</div>
 		{/each}
@@ -149,12 +153,13 @@
 		</div>
 	</div>
 
+	<FaqSection />
+
+	<EnquiryForm />
+
 	<div class="relative mt-24">
-		<div
-			class="pointer-events-none absolute bottom-0 left-[calc(50%-50vw)] h-[380px] w-screen bg-[url(/reef.webp)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)]"
-		></div>
-		<div class="relative px-6 pt-6 pb-48 sm:px-10">
-			<h2 class="text-3xl font-medium tracking-tight text-ink md:text-4xl">
+		<div class="relative px-6 pt-6 pb-[220px] max-sm:pb-[170px] sm:px-10">
+			<h2 class="text-2xl font-medium tracking-tight text-ink">
 				Have a project or a role in mind?
 			</h2>
 			<p class="mt-3 max-w-[46ch] text-[15px] text-soft">
@@ -181,3 +186,7 @@
 		</div>
 	</div>
 </div>
+<div
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 bottom-0 -z-20 h-[420px] bg-[url(/reef.webp)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] transition-opacity duration-500 max-sm:h-[300px]"
+></div>
