@@ -19,10 +19,7 @@
 		const measure = () => {
 			raf = 0;
 			scrolled = scrollY > 24;
-			if (location.pathname !== '/') {
-				active = '';
-				return;
-			}
+			if (location.pathname !== '/') return;
 			const trigger = innerHeight * 0.4;
 			let current = 'intro';
 			for (const s of SECTIONS) {
@@ -130,7 +127,7 @@
 							<svg viewBox="0 0 24 20" class="size-[13px] shrink-0"><path fill="currentColor" d="M10.8 4.5 10.8 9.5 4.5 9.5Z M13.2 2.5 13.2 9.5 20 9.5Z M11.4 2h1.2v10.8h-1.2Z M2 13 22 13 18.5 17.5 5.5 17.5Z" /></svg>
 						{/if}
 					</span>
-					<span class={isActive || page.url.pathname !== '/' ? '' : 'max-sm:sr-only'}>{s.label}</span>
+					<span class={isActive ? '' : 'max-sm:sr-only'}>{s.label}</span>
 				</a>
 			{/each}
 		</div>
