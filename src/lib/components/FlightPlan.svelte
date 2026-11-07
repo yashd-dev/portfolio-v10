@@ -40,13 +40,24 @@
 	});
 </script>
 
-<div class="fp">
-	<p class="fp-label" aria-hidden="true">Flight plan</p>
-	<ol bind:this={list} class="fp-list" style="--fp-p: {progress}">
-		<span class="fp-rail" aria-hidden="true"></span>
-		<span class="fp-lit" aria-hidden="true"></span>
-		<span class="fp-head" aria-hidden="true">
-			<svg class="fp-plane" viewBox="0 0 16 15" fill="none">
+<div class="relative">
+	<p class="mb-3.5 pl-[30px] text-[10px] uppercase tracking-[0.1em] text-accent" aria-hidden="true">Flight plan</p>
+	<ol bind:this={list} class="relative m-0 list-none p-0 pl-[30px]" style="--fp-p: {progress}">
+		<span
+			class="absolute top-0 bottom-0 left-[5px] w-px [background-image:linear-gradient(to_bottom,var(--color-faint)_50%,transparent_50%)] [background-size:1px_6px]"
+			aria-hidden="true"
+		></span>
+		<span
+			class="absolute top-0 left-[5px] -ml-[0.25px] w-[1.5px] bg-accent shadow-[0_0_6px_#2f5bea4d]"
+			style="height: calc(var(--fp-p) * 100%)"
+			aria-hidden="true"
+		></span>
+		<span
+			class="absolute top-0 left-[-3px] grid size-[17px] -translate-y-1/2 place-items-center bg-white text-accent will-change-[top]"
+			style="top: calc(var(--fp-p) * 100%)"
+			aria-hidden="true"
+		>
+			<svg class="h-[13px] w-[14px] rotate-180" viewBox="0 0 16 15" fill="none">
 				<path
 					d="M8 0c.73 0 1.32 1.05 1.32 2.35v2.2l6.13 3.54c.25.14.4.4.4.69v1.1a.44.44 0 0 1-.56.42L9.32 8.5v3.06l1.9 1.33c.15.11.24.28.24.47v.79a.44.44 0 0 1-.56.42L8 13.79l-2.9.78a.44.44 0 0 1-.56-.42v-.79c0-.19.09-.36.24-.47l1.9-1.33V8.5L.71 10.3a.44.44 0 0 1-.56-.42v-1.1c0-.29.15-.55.4-.69l6.13-3.54v-2.2C6.68 1.05 7.27 0 8 0Z"
 					fill="currentColor"
@@ -54,21 +65,27 @@
 			</svg>
 		</span>
 		{#each experience as stop, i}
-			<li class="fp-stop" class:is-reached={i < reached}>
-				<span class="fp-dot" aria-hidden="true"></span>
-				<div class="fp-row">
+			{@const isReached = i < reached}
+			<li class="fp-stop relative pb-[34px] last:pb-1">
+				<span
+					class="absolute top-2 left-[-28px] size-[7px] rounded-full transition-[box-shadow,background-color,transform] duration-300 ease-(--ease-mn) {isReached
+						? 'scale-115 bg-accent shadow-[inset_0_0_0_1.5px_var(--color-accent)]'
+						: 'bg-white shadow-[inset_0_0_0_1.5px_var(--color-faint)]'}"
+					aria-hidden="true"
+				></span>
+				<div class="flex items-baseline justify-between gap-3">
 					{#if stop.link}
-						<a class="fp-company" href={stop.link} target="_blank" rel="noopener noreferrer">{stop.org}</a>
+						<a class="font-medium transition-colors duration-200 hover:text-accent" href={stop.link} target="_blank" rel="noopener noreferrer">{stop.org}</a>
 					{:else}
-						<span class="fp-company">{stop.org}</span>
+						<span class="font-medium">{stop.org}</span>
 					{/if}
-					<span class="fp-dates">{stop.span}</span>
+					<span class="text-[11px] whitespace-nowrap text-muted">{stop.span}</span>
 				</div>
-				<p class="fp-role">
-					{stop.role} <span class="fp-code">· {stop.place}</span>
+				<p class="m-0 text-[14px] text-muted">
+					{stop.role} <span class="text-[11px] whitespace-nowrap">· {stop.place}</span>
 				</p>
 				{#if stop.note}
-					<p class="fp-note">{stop.note}</p>
+					<p class="mt-1 text-[14px] leading-[1.6] text-soft">{stop.note}</p>
 				{/if}
 			</li>
 		{/each}

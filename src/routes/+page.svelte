@@ -1,8 +1,9 @@
 <script lang="ts">
 	import AboutMe from '#lib/components/AboutMe.svelte';
 	import FlightPlan from '#lib/components/FlightPlan.svelte';
-	import { projects, socials, email } from '#lib/data/content.js';
+	import { projects, socials, email, freelance, education } from '#lib/data/content.js';
 	import { toolIcons } from '#lib/data/icons.js';
+	import { REVEAL } from '#lib/reveal.js';
 
 	const COLORS: Record<string, string> = {
 		Figma: '#f24e1e',
@@ -28,54 +29,61 @@
 	}
 </script>
 
-<div class="pg-sky" style="--pg-scene: url(/beach.webp)" aria-hidden="true"></div>
+<div
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[560px] bg-[url(/beach.webp)] bg-cover bg-[center_top] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.6)_40%,transparent_100%)] transition-opacity duration-500"
+></div>
 
-<main class="pg-shell">
-	<section id="intro" class="pg-intro">
+<main
+	class="relative mx-auto w-full max-w-[640px] px-5 pt-[140px] pb-10 before:pointer-events-none before:absolute before:top-24 before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[background-size:1px_8px] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] after:pointer-events-none after:absolute after:top-24 after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[background-size:1px_8px] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] max-sm:pt-28 max-sm:before:hidden max-sm:after:hidden"
+>
+	<section id="intro" class="pg-intro relative">
 		<AboutMe />
-		<h1 class="pg-name pg-reveal" style="--d: 60ms">Hey, I'm Yash Deshpande</h1>
-		<p class="pg-role pg-reveal" style="--d: 100ms">a designer & developer based in Mumbai</p>
-		<div class="pg-bio pg-bio--first pg-reveal" style="--d: 160ms">
-			<p>
+		<h1 class="{REVEAL} font-display text-[16px] font-medium leading-normal" style="--d: 60ms">
+			Hey, I'm Yash Deshpande
+		</h1>
+		<p class={REVEAL} style="--d: 100ms">a designer & developer based in Mumbai</p>
+		<div class="{REVEAL} mt-[26px]" style="--d: 160ms">
+			<p class="text-pretty text-soft">
 				I design and build websites that feel considered and work smoothly, and I stick around
-				after launch. Right now I'm a technical lead at
-				<a
-					href="https://actuallyfair.in/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="pg-hl pg-hl--blue pg-hl--link">Actually Fair</a
+				after launch. Right now I'm taking on
+				<mark class="-mx-px rounded bg-hlblue px-[3px] text-ink box-decoration-clone">client projects</mark
 				>.
 			</p>
 		</div>
-		<div class="pg-bio pg-reveal" style="--d: 220ms">
-			<p>
+		<div class="{REVEAL} mt-4" style="--d: 220ms">
+			<p class="text-pretty text-soft">
 				I've worked across storefronts, therapy and healthcare sites, and consultancy pages, from
 				Figma to production
-				<mark class="pg-hl pg-hl--peach">TypeScript</mark> across SvelteKit, headless
-				<mark class="pg-hl pg-hl--green">Shopify</mark>
+				<mark class="-mx-px rounded bg-hlpeach px-[3px] text-ink box-decoration-clone">TypeScript</mark>
+				across SvelteKit, headless
+				<mark class="-mx-px rounded bg-hlgreen px-[3px] text-ink box-decoration-clone">Shopify</mark>
 				and the odd microservice.
 			</p>
 		</div>
-		<nav class="pg-links pg-reveal" style="--d: 280ms" aria-label="Links">
-			{#each socials as s}
+		<nav class="{REVEAL} mt-6 flex flex-wrap items-center gap-y-1 text-muted" style="--d: 280ms" aria-label="Links">
+			{#each socials as s, i}
+				{#if i > 0}<span class="mx-2 text-faint">·</span>{/if}
 				<a
 					href={s.href}
-					target={s.href.startsWith('http') ? '_blank' : undefined}
-					rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}>{s.label}</a
+					target="_blank"
+					rel="noopener noreferrer"
+					class="transition-colors duration-200 hover:text-ink">{s.label}</a
 				>
 			{/each}
 			<button
 				type="button"
-				class="pg-email"
+				class="inline-flex cursor-pointer items-center gap-1.5 transition-colors duration-200 hover:text-ink max-sm:mt-1 max-sm:basis-full"
 				data-cursor="Copy email"
 				aria-label="Copy email address {email}"
 				onclick={copyEmail}
 			>
+				<span class="mx-2 hidden text-faint max-sm:hidden! sm:inline">·</span>
 				<span>{email}</span>
-				<span class="pg-email__hint" aria-live="polite">
-					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<span class="inline-flex min-w-[13px] text-xs" aria-live="polite">
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-muted" aria-hidden="true">
 						{#if copied}
-							<path d="M20 6 9 17l-5-5" />
+							<path d="M20 6 9 17l-5-5" class="text-accent" />
 						{:else}
 							<rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" />
 						{/if}
@@ -83,13 +91,21 @@
 				</span>
 			</button>
 		</nav>
-		<div class="pg-tools pg-reveal" style="--d: 340ms">
-			<div class="pg-tools__track">
+		<div
+			class="{REVEAL} group mt-9 mb-2 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]"
+			style="--d: 340ms"
+		>
+			<div class="flex w-max animate-tools group-hover:[animation-play-state:paused] motion-reduce:animate-none">
 				{#each [0, 1] as half}
-					<ul class="pg-tools__row" aria-hidden={half === 1}>
+					<ul class="m-0 flex list-none items-center gap-12 px-6 py-2" aria-hidden={half === 1}>
 						{#each toolIcons as t}
-							<li class="pg-tools__item" style="--c: {COLORS[t.name] ?? '#151515'}">
-								<svg viewBox="0 0 24 24" role="img" aria-label={t.name}><path d={t.path} /></svg>
+							<li class="group/item grid h-[30px] flex-none place-items-center" style="--c: {COLORS[t.name] ?? '#151515'}">
+								<svg
+									viewBox="0 0 24 24"
+									role="img"
+									aria-label={t.name}
+									class="block h-[26px] w-auto fill-ink opacity-[0.28] transition-[fill,opacity,transform] duration-[350ms] ease-(--ease-spring) group-hover/item:-translate-y-0.5 group-hover/item:scale-[1.12] group-hover/item:fill-(--c) group-hover/item:opacity-100"
+								><path d={t.path} /></svg>
 							</li>
 						{/each}
 					</ul>
@@ -98,46 +114,80 @@
 		</div>
 	</section>
 
-	<section id="work" class="pg-section">
-		<p class="pg-label pg-reveal">Selected work</p>
-		<div class="pg-projects">
+	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
+		<p class="{REVEAL} mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Selected work</p>
+		<div class="grid gap-14 max-sm:gap-11">
 			{#each projects as p, i}
 				<a
-					class="pg-project pg-reveal"
+					class="{REVEAL} group block"
 					style="--d: {i * 60}ms"
 					href={p.link}
 					target="_blank"
 					rel="noopener noreferrer"
 					data-cursor="Visit site"
 				>
-					<div class="pg-project__frame">
-						<img src={p.image} alt="{p.name} homepage" loading="lazy" />
+					<div class="rounded-2xl transition-[transform,opacity] duration-[180ms] ease-(--ease-mn) group-active:scale-[0.975] group-active:opacity-[0.88]">
+						<img
+							src={p.image}
+							alt="{p.name} homepage"
+							loading="lazy"
+							class="block aspect-[16/10] w-full rounded-2xl bg-card object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.04)] transition-[transform,filter] duration-[700ms] ease-(--ease-mn) group-hover:scale-[1.012]"
+						/>
 					</div>
-					<div class="pg-project__text">
-						<h3>
+					<div class="mt-4">
+						<h3 class="flex items-center gap-1.5 text-[15px] font-medium leading-[1.4]">
 							{p.name}
-							<svg class="pg-project__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+							<svg class="-translate-x-1 text-muted opacity-0 transition-[opacity,transform] duration-300 ease-(--ease-mn) group-hover:translate-x-0 group-hover:opacity-100" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
 						</h3>
-						<p class="pg-project__meta">{p.meta}</p>
-						<p class="pg-project__desc">{p.description}</p>
+						<p class="mt-0.5 mb-2 text-[11px] tracking-[0.02em] text-faint">{p.meta}</p>
+						<p class="text-[14px] leading-[1.6] text-soft">{p.description}</p>
 					</div>
 				</a>
 			{/each}
 		</div>
 	</section>
 
-	<section id="experience" class="pg-section">
-		<p class="pg-label pg-reveal">Experience</p>
+	<section id="experience" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
+		<p class="{REVEAL} mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Experience</p>
 		<FlightPlan />
+		<div class="{REVEAL} mt-16">
+			<p class="mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Freelance</p>
+			<div class="border-t border-rule">
+				<div class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent">
+					<div>
+						<span class="font-medium">{freelance.org}</span>
+						<span class="text-muted"> · {freelance.role} · {freelance.place}</span>
+						<p class="mt-0.5 text-soft">{freelance.note}</p>
+					</div>
+					<span class="shrink-0 text-[11px] text-muted">{freelance.span}</span>
+				</div>
+			</div>
+		</div>
+		<div class="{REVEAL} mt-16">
+			<p class="mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">Education</p>
+			<div class="border-t border-rule">
+				<div class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent">
+					<div>
+						<span class="font-medium">{education.org}</span>
+						<span class="text-muted"> · {education.role} · {education.place}</span>
+					</div>
+					<span class="shrink-0 text-[11px] text-muted">{education.span}</span>
+				</div>
+			</div>
+		</div>
 	</section>
 
-	<footer class="pg-footer pg-reveal">
-		<p class="pg-footer__thanks">Thanks for stopping by.</p>
-		<p class="pg-footer__meta">
-			<a href="/how-i-work">How I work</a> · <a href="/tools">Tools</a> ·
-			<a href="/play">Play</a> · © 2026
+	<footer class="{REVEAL} mt-28 pb-[220px] text-[14px] max-sm:pb-[170px]">
+		<p class="font-medium">Thanks for stopping by.</p>
+		<p class="mt-1 text-muted">
+			<a href="/how-i-work" class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current">How I work</a> ·
+			<a href="/tools" class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current">Tools</a> ·
+			<a href="/play" class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current">Play</a> · © 2026
 		</p>
 	</footer>
 </main>
 
-<div class="pg-meadow" style="--pg-scene: url(/reef.webp)" aria-hidden="true"></div>
+<div
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 bottom-0 -z-20 h-[420px] bg-[url(/reef.webp)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)] transition-opacity duration-500 max-sm:h-[300px]"
+></div>

@@ -48,7 +48,7 @@
 		update();
 		const ro = new ResizeObserver(update);
 		ro.observe(item);
-		track.querySelectorAll('.pg-nav__item').forEach((el) => ro.observe(el));
+		track.querySelectorAll('.pg-nav-item').forEach((el) => ro.observe(el));
 		document.fonts?.ready.then(update).catch(() => {});
 		return () => ro.disconnect();
 	});
@@ -72,45 +72,73 @@
 				});
 		};
 	}
+
+	const scrolledCls =
+		'bg-white/72 shadow-[0_0_0_1px_var(--color-rule),0_6px_24px_#0000000f] backdrop-blur-[14px] backdrop-saturate-150';
 </script>
 
-<header class="pg-nav" class:is-scrolled={scrolled}>
-	<div class="pg-nav__inner">
-		<div class="pg-nav__track" role="navigation" aria-label="Sections" bind:this={track}>
+<header
+	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 pt-4 max-sm:px-3 max-sm:pt-3 max-sm:before:absolute max-sm:before:inset-x-0 max-sm:before:top-0 max-sm:before:-bottom-[22px] max-sm:before:-z-10 max-sm:before:pointer-events-none max-sm:before:bg-white/62 max-sm:before:opacity-0 max-sm:before:backdrop-blur-[14px] max-sm:before:backdrop-saturate-140 max-sm:before:[mask-image:linear-gradient(to_bottom,#000_62%,transparent)] max-sm:before:transition-opacity max-sm:before:duration-300 {scrolled
+		? 'max-sm:before:opacity-100'
+		: ''}"
+>
+	<div class="mx-auto flex max-w-[640px] items-center justify-between gap-3">
+		<div
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] {scrolled
+				? scrolledCls
+				: ''}"
+			role="navigation"
+			aria-label="Sections"
+			bind:this={track}
+		>
 			{#if pill}
 				<span
-					class="pg-nav__pill"
+					class="absolute top-[3px] bottom-[3px] left-0 rounded-full bg-white shadow-[0_1px_2px_#00000014,0_0_0_0.5px_#0000000a] transition-[transform,width] duration-[550ms] ease-(--ease-mn) motion-reduce:transition-none"
 					style:transform="translateX({pill.x}px)"
 					style:width="{pill.w}px"
 					aria-hidden="true"
 				></span>
 			{/if}
 			{#each SECTIONS as s}
+				{@const isActive = s.id === active}
 				<a
 					href="#{s.id}"
 					data-id={s.id}
 					data-cursor={s.label}
-					class="pg-nav__item"
-					class:is-active={s.id === active}
-					aria-current={s.id === active ? 'true' : undefined}
+					class="pg-nav-item relative z-[1] inline-flex h-8 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-colors duration-200 max-sm:px-2.5 {isActive
+						? 'text-ink'
+						: 'text-muted'} hover:text-ink"
+					aria-current={isActive ? 'true' : undefined}
 					onclick={go(s.id)}
 				>
-					<span class="pg-nav__icon" aria-hidden="true">
+					<span
+						class="inline-grid h-[14px] place-items-center overflow-hidden transition-[width,opacity,margin] duration-[450ms] ease-(--ease-mn) {isActive
+							? 'mr-1.5 w-[14px] opacity-100'
+							: 'w-0 opacity-0 max-sm:w-[14px] max-sm:opacity-75'}"
+						aria-hidden="true"
+					>
 						{#if s.icon === 'person'}
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[13px] shrink-0"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
 						{:else if s.icon === 'grid'}
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" /></svg>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[13px] shrink-0"><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" /></svg>
 						{:else}
-							<svg viewBox="0 0 16 15"><path fill="currentColor" d="M8 0c.73 0 1.32 1.05 1.32 2.35v2.2l6.13 3.54c.25.14.4.4.4.69v1.1a.44.44 0 0 1-.56.42L9.32 8.5v3.06l1.9 1.33c.15.11.24.28.24.47v.79a.44.44 0 0 1-.56.42L8 13.79l-2.9.78a.44.44 0 0 1-.56-.42v-.79c0-.19.09-.36.24-.47l1.9-1.33V8.5L.71 10.3a.44.44 0 0 1-.56-.42v-1.1c0-.29.15-.55.4-.69l6.13-3.54v-2.2C6.68 1.05 7.27 0 8 0Z" /></svg>
+							<svg viewBox="0 0 16 15" class="size-[13px] shrink-0"><path fill="currentColor" d="M8 0c.73 0 1.32 1.05 1.32 2.35v2.2l6.13 3.54c.25.14.4.4.4.69v1.1a.44.44 0 0 1-.56.42L9.32 8.5v3.06l1.9 1.33c.15.11.24.28.24.47v.79a.44.44 0 0 1-.56.42L8 13.79l-2.9.78a.44.44 0 0 1-.56-.42v-.79c0-.19.09-.36.24-.47l1.9-1.33V8.5L.71 10.3a.44.44 0 0 1-.56-.42v-1.1c0-.29.15-.55.4-.69l6.13-3.54v-2.2C6.68 1.05 7.27 0 8 0Z" /></svg>
 						{/if}
 					</span>
-					<span class="pg-nav__label">{s.label}</span>
+					<span class={isActive ? '' : 'max-sm:sr-only'}>{s.label}</span>
 				</a>
 			{/each}
 		</div>
-		<div class="pg-nav__right">
-			<a class="pg-nav__play" href="/play" aria-label="Play a game" data-cursor="Play">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h4m-2-2v4m7-3h.01M18 13h.01M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.54-.6-6.58-.68-7.26A4 4 0 0 0 17.32 5Z" /></svg>
+		<div class="inline-flex items-center gap-2">
+			<a
+				class="pointer-events-auto inline-grid size-[34px] place-items-center rounded-full bg-black/5 text-muted transition-[color,background-color,box-shadow] duration-200 hover:text-ink {scrolled
+					? scrolledCls
+					: ''}"
+				href="/play"
+				aria-label="Play a game"
+				data-cursor="Play"
+			>
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[17px]"><path d="M6 12h4m-2-2v4m7-3h.01M18 13h.01M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.54-.6-6.58-.68-7.26A4 4 0 0 0 17.32 5Z" /></svg>
 			</a>
 		</div>
 	</div>

@@ -45,14 +45,6 @@ export const projects = [
 
 export const experience = [
 	{
-		org: 'Freelance',
-		role: 'Designer & developer',
-		place: 'Mumbai',
-		span: '2026 - Now',
-		note: 'Storefronts, sites and the services behind them, for clients.',
-		link: ''
-	},
-	{
 		org: 'Actually Fair',
 		role: 'Technical lead',
 		place: 'Remote',
@@ -67,16 +59,23 @@ export const experience = [
 		span: '',
 		note: 'Internal tools and a full-stack platform, with stakeholder wireframing.',
 		link: ''
-	},
-	{
-		org: 'MPSTME, NMIMS',
-		role: 'BTech Computer Engineering',
-		place: 'Mumbai',
-		span: '2022 - 2028',
-		note: '',
-		link: ''
 	}
 ];
+
+export const freelance = {
+	org: 'Freelance',
+	role: 'Designer & developer',
+	place: 'Mumbai',
+	span: '2026 - Now',
+	note: 'Storefronts, sites and the services behind them, for clients.'
+};
+
+export const education = {
+	org: 'MPSTME, NMIMS',
+	role: 'BTech Computer Engineering',
+	place: 'Mumbai',
+	span: '2022 - 2028'
+};
 
 export const socials = [
 	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/yashd-dev/' },

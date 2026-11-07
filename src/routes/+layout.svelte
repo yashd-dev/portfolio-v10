@@ -1,6 +1,5 @@
 <script lang="ts">
 	import './layout.css';
-	import '#lib/pg.css';
 	import { onMount, tick } from 'svelte';
 	import { page } from '$app/state';
 	import type { LayoutProps } from './$types';
@@ -32,6 +31,8 @@
 			document.querySelectorAll('.rv').forEach((el) => {
 				el.classList.remove('translate-y-3.5', 'opacity-0', 'blur-[6px]');
 			});
+		if (reduced) document.querySelectorAll('.pg-reveal').forEach((el) => el.classList.add('is-in'));
+		addEventListener('pg:intro-done', scanReveals);
 		revealIo = new IntersectionObserver(
 			(entries) => {
 				for (const e of entries)
@@ -69,6 +70,7 @@
 			delete (window as unknown as { __lenis?: Lenis }).__lenis;
 			revealIo?.disconnect();
 			revealIo = null;
+			removeEventListener('pg:intro-done', scanReveals);
 		};
 	});
 
@@ -76,7 +78,11 @@
 
 	function scanReveals() {
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		document.querySelectorAll('.rv, .pg-reveal').forEach((el) => revealIo?.observe(el));
+		const playing = document.documentElement.classList.contains('pg-intro-playing');
+		document.querySelectorAll('.rv, .pg-reveal').forEach((el) => {
+			if (playing && el.closest('.pg-intro')) return;
+			revealIo?.observe(el);
+		});
 	}
 
 	$effect(() => {
@@ -110,7 +116,9 @@
 	/>
 </svelte:head>
 
-<div class="pg-page">
+<div
+	class="relative isolate min-h-dvh overflow-x-clip bg-white font-sans text-[15px] leading-[1.6] text-ink antialiased selection:bg-hlblue selection:text-ink"
+>
 	<SiteNav />
 	{@render children()}
 	<Dock />
