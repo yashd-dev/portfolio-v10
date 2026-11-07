@@ -8,7 +8,9 @@ export const projects = [
 		description:
 			'A transparent shopping experience with clear product pages, calm flows, and headless Shopify underneath.',
 		link: 'https://actuallyfair.in/',
-		image: '/work/actuallyfair.png'
+		image: '/work/actuallyfair.png',
+		problem: 'Ecommerce usually keeps pricing and sourcing opaque.',
+		outcome: 'A live headless Shopify storefront with clear product pages and calm flows.'
 	},
 	{
 		name: 'Therapy With Kinnari',
@@ -16,7 +18,11 @@ export const projects = [
 		description:
 			'A calming therapy website for sessions, workshops, resources, and a softer booking experience.',
 		link: 'https://therapywithkinnari.com/',
-		image: '/work/twk.png'
+		image: '/work/twk.png',
+		problem:
+			'A therapy practice needed sessions, workshops and resources to feel approachable online.',
+		outcome:
+			'A calming live site for sessions, workshops and resources, with a softer booking experience.'
 	},
 	{
 		name: 'Medizone Aesthetics',
@@ -24,7 +30,10 @@ export const projects = [
 		description:
 			'A premium B2B aesthetics website for PDO threads, training programs, and medical product discovery.',
 		link: 'https://www.medizoneaesthetics.com/',
-		image: '/work/medizone.png'
+		image: '/work/medizone.png',
+		problem:
+			'A premium B2B aesthetics brand needed its products and training programs discoverable online.',
+		outcome: 'A live site for PDO threads, training programs and medical product discovery.'
 	},
 	{
 		name: 'Strive Consultancy',
@@ -32,14 +41,18 @@ export const projects = [
 		description:
 			'A sharp consultancy website with focused services, restrained visuals, and a clearer business presence.',
 		link: 'http://striveconsultancy.yashd.in/',
-		image: '/work/strive.png'
+		image: '/work/strive.png',
+		problem: 'A consultancy needed a sharper, clearer business presence.',
+		outcome: 'A live site with focused services and restrained visuals.'
 	},
 	{
 		name: 'SS Healthcare',
 		meta: 'Next.js, Tailwind, Vercel, Google Translate',
 		description: 'A veterinary healthcare website with multilingual content and appointment flows.',
 		link: 'https://healthcare.yashd.in/',
-		image: '/work/sshealthcare.png'
+		image: '/work/sshealthcare.png',
+		problem: 'Veterinary healthcare information needed to reach people in more than one language.',
+		outcome: 'A live multilingual site with appointment flows.'
 	},
 	{
 		name: 'MyPaithani',
@@ -47,7 +60,9 @@ export const projects = [
 		description:
 			'A handcrafted Paithani storefront for bags, clutches and accessories, rooted in Maharashtrian textile heritage.',
 		link: 'https://www.mypaithani.com/',
-		image: '/work/mypaithani.png'
+		image: '/work/mypaithani.png',
+		problem: 'Handcrafted Paithani textiles needed a storefront worthy of the craft.',
+		outcome: 'A live SvelteKit storefront for bags, clutches and accessories.'
 	}
 ];
 

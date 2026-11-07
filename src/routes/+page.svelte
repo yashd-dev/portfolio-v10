@@ -9,6 +9,31 @@
 	import { REVEAL } from '#lib/reveal.js';
 
 	let copied = $state(false);
+	let activeWork = $state(0);
+	let workSection = $state<HTMLElement | null>(null);
+
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		let raf = 0;
+		const onScroll = () => {
+			cancelAnimationFrame(raf);
+			raf = requestAnimationFrame(() => {
+				if (!workSection) return;
+				const r = workSection.getBoundingClientRect();
+				const total = r.height - window.innerHeight;
+				if (total <= 0) return;
+				const progress = Math.min(Math.max(-r.top / total, 0), 0.999);
+				activeWork = Math.floor(progress * projects.length);
+			});
+		};
+		window.addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+			cancelAnimationFrame(raf);
+		};
+	});
 
 	async function copyEmail() {
 		try {
@@ -42,9 +67,7 @@
 				class="{REVEAL} mt-8 w-36 rotate-2 transition-transform duration-500 ease-out hover:rotate-0 motion-reduce:transition-none"
 			/>
 		</div>
-		<div
-			class="relative before:pointer-events-none before:absolute before:-top-[44px] before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px,#000_calc(100%-56px),transparent)] before:[background-size:1px_8px] after:pointer-events-none after:absolute after:-top-[44px] after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px,#000_calc(100%-56px),transparent)] after:[background-size:1px_8px] max-sm:before:hidden max-sm:after:hidden"
-		>
+		<div class="relative">
 			<div class="max-w-[600px]">
 				<h1 class="{REVEAL} text-[16px] leading-normal font-medium" style="--d: 60ms">
 					Hey, I'm Yash Deshpande
@@ -179,51 +202,123 @@
 		</div>
 	</section>
 
-	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
-		<p class="{REVEAL} mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-			Selected work
-		</p>
-		<div class="grid gap-x-8 gap-y-14 max-sm:gap-11 sm:grid-cols-2">
-			{#each projects as p, i}
+	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]" bind:this={workSection}>
+		{#snippet workDetail(p: (typeof projects)[number])}
+			<div class="p-2 pb-0">
 				<a
-					class="{REVEAL} group block"
-					style="--d: {i * 60}ms"
+					class="group block"
 					href={p.link}
 					target="_blank"
 					rel="noopener noreferrer"
 					data-cursor="Visit site"
 				>
-					<div
-						class="rounded-2xl transition-[transform,opacity] duration-[180ms] ease-(--ease-mn) group-active:scale-[0.975] group-active:opacity-[0.88]"
-					>
-						<img
-							src={p.image}
-							alt="{p.name} homepage"
-							loading="lazy"
-							class="block aspect-[16/10] w-full rounded-2xl bg-card object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.04)] transition-[transform,filter] duration-[700ms] ease-(--ease-mn) group-hover:scale-[1.012]"
-						/>
-					</div>
-					<div class="mt-4">
-						<h3 class="flex items-center gap-1.5 text-[15px] leading-[1.4] font-medium">
-							{p.name}
-							<svg
-								class="-translate-x-1 text-muted opacity-0 transition-[opacity,transform] duration-300 ease-(--ease-mn) group-hover:translate-x-0 group-hover:opacity-100"
-								width="13"
-								height="13"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
-							>
-						</h3>
-						<p class="mt-0.5 mb-2 text-[11px] tracking-[0.02em] text-faint">{p.meta}</p>
-						<p class="text-[14px] leading-[1.6] text-soft">{p.description}</p>
-					</div>
+					<img
+						src={p.image}
+						alt="{p.name} homepage"
+						loading="lazy"
+						class="block aspect-[16/10] w-full rounded-xl bg-card object-cover"
+					/>
 				</a>
-			{/each}
+			</div>
+			<div class="p-6 max-sm:p-5">
+				<h3 class="text-[18px] leading-[1.35] font-medium">{p.name}</h3>
+				<div class="mt-4 grid grid-cols-[72px_1fr] gap-y-3 text-[14px] leading-[1.6]">
+					<span class="text-faint">Problem</span>
+					<p class="text-soft">{p.problem}</p>
+					<span class="text-faint">Outcome</span>
+					<p>{p.outcome}</p>
+				</div>
+				<div class="mt-4 flex flex-wrap gap-1.5">
+					{#each p.meta.split(', ') as tag}
+						<span
+							class="rounded-full px-2.5 py-0.5 text-[11px] text-muted shadow-[0_0_0_1px_var(--color-rule)]"
+							>{tag}</span
+						>
+					{/each}
+				</div>
+				<a
+					class="group mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent"
+					href={p.link}
+					target="_blank"
+					rel="noopener noreferrer"
+					data-cursor="Visit site"
+				>
+					Visit site
+					<svg
+						class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+						width="13"
+						height="13"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+					>
+				</a>
+			</div>
+		{/snippet}
+
+		<div class="lg:grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16">
+			<div
+				class="max-lg:mb-[22px] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-center"
+			>
+				<p class="{REVEAL} text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
+					Selected work
+				</p>
+				<div class="mt-8 hidden lg:block">
+					<h3 class="text-[24px] leading-[1.25] font-medium">{projects[activeWork].name}</h3>
+					<p class="mt-2 text-[12px] tracking-[0.02em] text-faint">{projects[activeWork].meta}</p>
+					<p class="mt-1 text-[11px] text-faint">
+						{String(activeWork + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+					</p>
+					<a
+						class="group mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent"
+						href={projects[activeWork].link}
+						target="_blank"
+						rel="noopener noreferrer"
+						data-cursor="Visit site"
+					>
+						Visit site
+						<svg
+							class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+							width="13"
+							height="13"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+						>
+					</a>
+				</div>
+			</div>
+
+			<div class="hidden space-y-12 lg:block">
+				{#each projects as p, i}
+					<div
+						class="{REVEAL} rounded-2xl bg-white shadow-[0_0_0_1px_var(--color-rule),0_10px_30px_rgba(0,0,0,0.05)]"
+						style="--d: {i * 60}ms"
+					>
+						{@render workDetail(p)}
+					</div>
+				{/each}
+			</div>
+
+			<div class="space-y-14 lg:hidden">
+				{#each projects as p, i}
+					<article class={REVEAL} style="--d: {i * 60}ms">
+						<div
+							class="rounded-2xl bg-white shadow-[0_0_0_1px_var(--color-rule),0_10px_30px_rgba(0,0,0,0.05)]"
+						>
+							{@render workDetail(p)}
+						</div>
+					</article>
+				{/each}
+			</div>
 		</div>
 	</section>
 
