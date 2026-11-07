@@ -76,7 +76,10 @@
 
 		function point(e: PointerEvent) {
 			const r = canvas.getBoundingClientRect();
-			state.you = Math.max(PADDLE_H / 2, Math.min(H - PADDLE_H / 2, ((e.clientY - r.top) / r.height) * H));
+			state.you = Math.max(
+				PADDLE_H / 2,
+				Math.min(H - PADDLE_H / 2, ((e.clientY - r.top) / r.height) * H)
+			);
 		}
 
 		canvas.addEventListener('pointermove', point);
@@ -84,7 +87,7 @@
 			point(e);
 			start();
 		});
-		(startGame = start);
+		startGame = start;
 		if (reduced) draw();
 		else {
 			state.you = H / 2;
@@ -99,7 +102,9 @@
 	let startGame: () => void;
 </script>
 
-<div class="relative z-10 mx-auto max-w-6xl border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10">
+<div
+	class="relative z-10 mx-auto max-w-6xl border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10"
+>
 	<h1 class="text-2xl font-normal tracking-tight text-neutral-700">Pong</h1>
 	<p class="mt-2 text-neutral-500">Move your pointer over the board. First to 7.</p>
 	<div class="mt-8 flex items-center justify-between text-sm text-muted">
@@ -114,8 +119,14 @@
 	></canvas>
 	<button
 		onclick={() => startGame()}
-		class="mt-4 rounded-full border border-neutral-200 px-4 py-1.5 text-sm text-soft transition-colors duration-200 hover:bg-card"
+		class="mt-4 rounded-full bg-[#2e74ff] px-4 py-1.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#2667ff]"
 	>
-		{winner ? (winner === 'you' ? 'You win - again?' : 'AI wins - rematch?') : running ? 'Restart' : 'Start'}
+		{winner
+			? winner === 'you'
+				? 'You win - again?'
+				: 'AI wins - rematch?'
+			: running
+				? 'Restart'
+				: 'Start'}
 	</button>
 </div>

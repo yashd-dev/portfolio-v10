@@ -35,7 +35,7 @@
 						>
 							<svg
 								viewBox="0 0 24 24"
-								class="size-5"
+								class="size-5 opacity-60 grayscale transition-[filter,opacity] duration-300 group-hover:opacity-100 group-hover:grayscale-0"
 								style="fill: {t.color}"
 								role="img"
 								aria-label={t.name}><path d={t.path} /></svg

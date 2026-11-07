@@ -221,7 +221,7 @@
 						src={p.image}
 						alt="{p.name} homepage"
 						loading="lazy"
-						class="block aspect-[16/10] w-full rounded-xl bg-card object-cover"
+						class="block aspect-[16/10] w-full rounded-xl bg-card object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.04)] transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
 					/>
 				</a>
 			</div>
@@ -333,28 +333,268 @@
 		</div>
 	</section>
 
-	<section class="mt-24 text-center max-sm:mt-[72px]" aria-label="Contact">
-		<h2 class="{REVEAL} text-2xl font-medium tracking-tight text-ink">
-			Have a project or a role in mind?
+	<section class="mt-24 max-sm:mt-[72px]" aria-label="Contact">
+		<h2 class="{REVEAL} text-center text-2xl font-medium tracking-tight text-ink">
+			Have a <Mark definition={highlightCalm} fillColor="#2e74ff">project or a role</Mark> in mind?
 		</h2>
-		<div class="{REVEAL} mt-6 flex flex-wrap items-center justify-center gap-3" style="--d: 90ms">
-			<a
-				href="/process"
-				class="inline-flex h-11 items-center rounded-full bg-ink px-6 text-[14px] font-medium text-white transition-[transform,opacity] duration-300 ease-(--ease-mn) hover:-translate-y-0.5 hover:opacity-90"
-				data-cursor="See how I work"
+		<div
+			class="{REVEAL} mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl bg-black/10 shadow-[0_0_0_1px_var(--color-rule),0_10px_30px_rgba(0,0,0,0.05)] sm:grid-cols-2"
+			style="--d: 90ms"
+		>
+			<div
+				class="flex h-full min-h-0 flex-col justify-between bg-white ring-1 ring-black/10 ring-inset"
 			>
-				See how I work
-			</a>
+				<div class="relative flex-1">
+					<div class="mx-auto w-full max-w-sm px-4 py-4 md:px-8 md:py-12">
+						<h3 class="text-xl font-medium text-ink">Start a project</h3>
+						<p class="mt-2 max-w-sm text-sm text-soft">
+							For founders and teams who need a site designed and built.
+						</p>
+						<span class="mt-4 block min-h-5 text-sm leading-5 text-soft/70">Freelance projects</span
+						>
+						<p class="text-3xl font-bold text-ink">Talk to me</p>
+						<ul class="mt-6 flex flex-col gap-2 text-sm text-ink/80">
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-[#2e74ff]"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>Designed in Figma first, revised until you approve it</span>
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-[#2e74ff]"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>SvelteKit, React and Tailwind, production ready</span>
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-[#2e74ff]"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>A CMS you can edit yourself</span>
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-[#2e74ff]"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>Progress and feedback along the way, not just at the end</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<a
+					href="/process"
+					class="block w-full cursor-pointer bg-linear-to-b from-[#3578ff] to-[#4d8dff] px-6 py-4 text-center text-[15px] font-semibold text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.25)_inset] ring ring-white/40 ring-offset-2 ring-offset-[#4d8dff] transition-all duration-200 ring-inset hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.45)_inset] hover:ring-white/60 active:scale-98"
+					data-cursor="See how I work">See how I work</a
+				>
+			</div>
+			<div
+				class="flex h-full min-h-0 flex-col justify-between bg-linear-to-b from-[#3578ff] to-[#4d8dff] text-white ring-1 ring-white/20 ring-inset"
+			>
+				<div class="relative flex-1">
+					<div class="mx-auto w-full max-w-sm px-4 py-4 md:px-8 md:py-12">
+						<div class="flex items-center justify-between gap-2">
+							<h3 class="text-xl font-medium">Hire me</h3>
+							<span
+								class="shrink-0 rounded-full bg-white/15 px-2.5 py-1 text-xs font-medium text-white ring-1 ring-white/25 ring-inset"
+								>Open to work</span
+							>
+						</div>
+						<p class="mt-2 max-w-sm text-sm text-white/80">
+							I'm open to job opportunities alongside freelance work.
+						</p>
+						<span class="mt-4 block min-h-5 text-sm leading-5 text-white/70">Class of 2028</span>
+						<p class="text-3xl font-bold">Talk to me</p>
+						<ul class="mt-6 flex flex-col gap-2 text-sm text-white/90">
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>Technical lead at Actually Fair</span>
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>Full-stack developer at KonectU</span>
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>Production TypeScript across SvelteKit and headless Shopify</span>
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>BTech Computer Engineering, MPSTME NMIMS</span>
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="size-5 shrink-0 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									><path
+										d="M12.0001 21.1501C17.0535 21.1501 21.1501 17.0535 21.1501 12.0001C21.1501 6.94669 17.0535 2.8501 12.0001 2.8501C6.94669 2.8501 2.8501 6.94669 2.8501 12.0001C2.8501 17.0535 6.94669 21.1501 12.0001 21.1501Z"
+										fill="currentColor"
+										opacity="0.28"
+									/><path
+										d="M8.5 12.5124L10.8412 14.851C11.9672 12.8821 13.5256 11.1944 15.3987 9.91536L15.5 9.84619M21.1501 12.0001C21.1501 17.0535 17.0535 21.1501 12.0001 21.1501C6.94669 21.1501 2.8501 17.0535 2.8501 12.0001C2.8501 6.94669 6.94669 2.8501 12.0001 2.8501C17.0535 2.8501 21.1501 17.0535 21.1501 12.0001Z"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+									/></svg
+								>
+								<span>Based in Mumbai</span>
+							</li>
+						</ul>
+						<a
+							href="/yash-deshpande-resume.pdf"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="mt-4 inline-block text-sm text-white/70 underline decoration-white/40 decoration-dotted underline-offset-[0.2em] transition-colors hover:text-white"
+							data-cursor="Resume">Read my resume</a
+						>
+					</div>
+				</div>
+				<a
+					href="https://cal.com/yashd-dev/discussion"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="block w-full cursor-pointer bg-linear-to-b from-[#3578ff] to-[#4d8dff] px-6 py-4 text-center text-[15px] font-semibold text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.25)_inset] ring ring-white/40 ring-offset-2 ring-offset-[#4d8dff] transition-all duration-200 ring-inset hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.45)_inset] hover:ring-white/60 active:scale-98"
+					data-cursor="Book a call">Book a call</a
+				>
+			</div>
+		</div>
+		<p class="{REVEAL} mt-6 text-center text-sm text-soft" style="--d: 140ms">
 			<a
 				href="https://cal.com/yashd-dev/discussion"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex h-11 items-center rounded-full border border-neutral-200 bg-white/70 px-5 text-[14px] font-medium text-ink backdrop-blur-sm transition-colors hover:bg-white"
-				data-cursor="Book a call"
+				class="font-medium text-ink underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em]"
+				data-cursor="Book a call">Schedule a call</a
 			>
-				Book a call
-			</a>
-		</div>
+			or email me at
+			<a
+				href="mailto:{email}"
+				class="underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em]"
+				data-cursor="Email">{email}</a
+			>
+		</p>
 	</section>
 
 	<section

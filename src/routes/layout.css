@@ -50,3 +50,8 @@ html.pg-hide-cursor [data-cursor-native] button,
 html.pg-hide-cursor [data-cursor-native] button * {
 	cursor: pointer !important;
 }
+
+:focus-visible {
+	outline: 2px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+	outline-offset: 3px;
+}

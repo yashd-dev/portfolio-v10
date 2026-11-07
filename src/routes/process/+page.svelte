@@ -71,13 +71,6 @@
 			panel: CommunicationStep
 		}
 	];
-
-	let copied = $state(false);
-	async function copyEmail() {
-		await navigator.clipboard.writeText(email);
-		copied = true;
-		setTimeout(() => (copied = false), 1600);
-	}
 </script>
 
 <div
@@ -170,7 +163,7 @@
 			<div class="mt-6 flex flex-wrap items-center gap-3">
 				<a
 					href="mailto:{email}"
-					class="inline-flex h-11 items-center rounded-full bg-ink px-6 text-[14px] font-medium text-white transition-[transform,opacity] duration-300 ease-(--ease-mn) hover:-translate-y-0.5 hover:opacity-90"
+					class="inline-flex h-11 items-center rounded-full bg-[#2e74ff] px-6 text-[14px] font-medium text-white transition-[transform,background-color] duration-300 ease-(--ease-mn) hover:-translate-y-0.5 hover:bg-[#2667ff]"
 					data-cursor="Message me"
 				>
 					Message me
@@ -179,19 +172,11 @@
 					href="https://cal.com/yashd-dev/discussion"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex h-11 items-center rounded-full border border-neutral-200 bg-white/70 px-5 text-[14px] font-medium text-ink backdrop-blur-sm transition-colors hover:bg-white"
+					class="inline-flex h-11 items-center rounded-full px-5 text-[14px] font-medium text-[#2667ff] ring-2 ring-[#2e74ff] transition-[transform,background-color] duration-300 ease-(--ease-mn) ring-inset hover:-translate-y-0.5 hover:bg-[#2e74ff]/10"
 					data-cursor="Book a call"
 				>
 					Book a call
 				</a>
-				<button
-					type="button"
-					class="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-5 text-[14px] font-medium text-ink backdrop-blur-sm transition-colors hover:bg-white"
-					onclick={copyEmail}
-					data-cursor="Copy email"
-				>
-					{copied ? 'Copied' : email}
-				</button>
 			</div>
 		</div>
 	</div>
