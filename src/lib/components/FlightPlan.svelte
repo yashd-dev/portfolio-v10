@@ -36,7 +36,6 @@
 </script>
 
 <div class="relative">
-	<p class="mb-3.5 pl-[30px] text-[10px] uppercase tracking-[0.1em] text-sea" aria-hidden="true">The voyage</p>
 	<ol bind:this={list} class="relative m-0 list-none p-0 pl-[30px]" style="--fp-p: 0">
 		<span
 			class="absolute top-0 bottom-0 left-[5px] w-px [background-image:linear-gradient(to_bottom,var(--color-faint)_50%,transparent_50%)] [background-size:1px_6px]"

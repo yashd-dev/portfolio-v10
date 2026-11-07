@@ -76,10 +76,12 @@
 	}
 </script>
 
-<div class="relative mx-auto w-full max-w-6xl pb-40 before:pointer-events-none before:absolute before:top-24 before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[background-size:1px_8px] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] after:pointer-events-none after:absolute after:top-24 after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[background-size:1px_8px] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)]">
+<div
+	class="relative mx-auto w-full max-w-6xl before:pointer-events-none before:absolute before:top-24 before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] before:[background-size:1px_8px] after:pointer-events-none after:absolute after:top-24 after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] after:[background-size:1px_8px]"
+>
 	<div class="relative px-6 pt-32 pb-16 sm:px-10">
 		<div
-			class="pointer-events-none absolute top-0 left-[calc(50%-50vw)] h-full w-screen bg-[url(/beach.webp)] bg-cover bg-[center_top] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.6)_45%,transparent_100%)]"
+			class="pointer-events-none absolute top-0 left-[calc(50%-50vw)] h-full w-screen bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.6)_45%,transparent_100%)] bg-cover bg-[center_top] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)]"
 		></div>
 		<h1 class="relative max-w-[16ch] text-4xl font-medium tracking-tight text-ink md:text-5xl">
 			How I <Mark definition={highlightCalm} fillColor="#8ab6f2">work</Mark>
@@ -100,7 +102,7 @@
 	</div>
 
 	<div class="px-6 sm:px-10">
-		<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+		<p class="mt-16 mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
 			What I can help with
 		</p>
 		<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -124,7 +126,7 @@
 			{/each}
 		</div>
 
-		<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+		<p class="mt-16 mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
 			The process
 		</p>
 		<div
@@ -133,7 +135,7 @@
 			{#each steps as s}
 				<section class="flex min-w-0 flex-col px-4 py-6 md:px-8 md:py-8">
 					<div
-						class="h-[320px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] md:h-[360px]"
+						class="h-[440px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] md:h-[500px]"
 					>
 						<s.panel />
 					</div>
@@ -152,7 +154,7 @@
 
 	<div class="relative mt-24">
 		<div
-			class="pointer-events-none absolute bottom-0 left-[calc(50%-50vw)] h-[380px] w-screen bg-[url(/reef.webp)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)]"
+			class="pointer-events-none absolute bottom-0 left-[calc(50%-50vw)] h-[380px] w-screen bg-[url(/reef.webp)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)]"
 		></div>
 		<div class="relative px-6 pt-6 pb-48 sm:px-10">
 			<h2 class="text-3xl font-medium tracking-tight text-ink md:text-4xl">

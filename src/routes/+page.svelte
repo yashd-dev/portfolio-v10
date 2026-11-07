@@ -222,11 +222,17 @@
 			</div>
 			<div class="p-6 max-sm:p-5">
 				<h3 class="text-[18px] leading-[1.35] font-medium">{p.name}</h3>
-				<div class="mt-4 grid grid-cols-[72px_1fr] gap-y-3 text-[14px] leading-[1.6]">
-					<span class="text-faint">Problem</span>
-					<p class="text-soft">{p.problem}</p>
-					<span class="text-faint">Outcome</span>
-					<p>{p.outcome}</p>
+				<div
+					class="mt-4 grid grid-cols-[72px_1fr] gap-y-3 text-[14px] leading-[1.6] max-sm:flex max-sm:flex-col max-sm:gap-y-4"
+				>
+					<div class="contents max-sm:flex max-sm:flex-col max-sm:gap-y-1">
+						<span class="text-faint">Problem</span>
+						<p class="text-soft">{p.problem}</p>
+					</div>
+					<div class="contents max-sm:flex max-sm:flex-col max-sm:gap-y-1">
+						<span class="text-faint">Outcome</span>
+						<p>{p.outcome}</p>
+					</div>
 				</div>
 				<div class="mt-4 flex flex-wrap gap-1.5">
 					{#each p.meta.split(', ') as tag}
