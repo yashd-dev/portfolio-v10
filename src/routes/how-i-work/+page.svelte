@@ -5,7 +5,7 @@
 	import CommunicationStep from '#lib/components/steps/CommunicationStep.svelte';
 	import StepCircle from '#lib/components/steps/StepCircle.svelte';
 	import Mark from '#lib/components/Mark.svelte';
-	import { highlightCalm, circleCalm } from '#lib/marks.js';
+	import { highlightCalm } from '#lib/marks.js';
 	import { projects, email } from '#lib/data/content.js';
 
 	const stats = [
@@ -46,29 +46,25 @@
 			n: 1,
 			title: 'Designing',
 			note: 'every screen in Figma first, with unlimited revisions until your first approval.',
-			panel: DesigningStep,
-			tilt: '-rotate-[0.75deg]'
+			panel: DesigningStep
 		},
 		{
 			n: 2,
 			title: 'Development',
 			note: 'with React, Next.js, SvelteKit and Tailwind, Shopify for ecommerce, and a CMS you can edit yourself.',
-			panel: DevelopmentStep,
-			tilt: 'rotate-[0.75deg]'
+			panel: DevelopmentStep
 		},
 		{
 			n: 3,
 			title: 'Microinteractions',
 			note: 'small details, built by hand, that make a page feel alive.',
-			panel: MicrointeractionsStep,
-			tilt: '-rotate-[0.75deg]'
+			panel: MicrointeractionsStep
 		},
 		{
 			n: 4,
 			title: 'Communication',
 			note: 'you see progress and share feedback along the way, not just at the end.',
-			panel: CommunicationStep,
-			tilt: 'rotate-[0.75deg]'
+			panel: CommunicationStep
 		}
 	];
 
@@ -80,10 +76,10 @@
 	}
 </script>
 
-<div class="relative z-10 mx-auto max-w-6xl border-x border-neutral-200 bg-white pb-40">
-	<div class="relative overflow-hidden px-6 pt-32 pb-16 sm:px-10">
+<div class="relative mx-auto w-full max-w-6xl pb-40 before:pointer-events-none before:absolute before:top-24 before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[background-size:1px_8px] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] after:pointer-events-none after:absolute after:top-24 after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[background-size:1px_8px] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)]">
+	<div class="relative px-6 pt-32 pb-16 sm:px-10">
 		<div
-			class="pointer-events-none absolute inset-x-0 top-0 h-full bg-[url(/beach.webp)] bg-cover bg-[center_top] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.6)_45%,transparent_100%)]"
+			class="pointer-events-none absolute top-0 left-[calc(50%-50vw)] h-full w-screen bg-[url(/beach.webp)] bg-cover bg-[center_top] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.6)_45%,transparent_100%)]"
 		></div>
 		<h1 class="relative max-w-[16ch] text-4xl font-medium tracking-tight text-ink md:text-5xl">
 			How I <Mark definition={highlightCalm} fillColor="#8ab6f2">work</Mark>
@@ -94,12 +90,10 @@
 		</p>
 	</div>
 
-	<div class="grid grid-cols-3 gap-4 border-y border-neutral-200 px-6 py-8 sm:px-10">
+	<div class="grid grid-cols-3 gap-4 border-y border-dashed border-neutral-200 px-6 py-8 sm:px-10">
 		{#each stats as s}
 			<div>
-				<p class="text-3xl font-medium tracking-tight text-ink">
-					<Mark definition={circleCalm} color="#6ba3c6">{s.value}</Mark>
-				</p>
+				<p class="text-3xl font-medium tracking-tight text-ink">{s.value}</p>
 				<p class="mt-2 text-[13px] leading-snug text-soft">{s.label}</p>
 			</div>
 		{/each}
@@ -112,7 +106,7 @@
 		<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
 			{#each services as s}
 				<div
-					class="group flex aspect-square cursor-default flex-col rounded-2xl border border-neutral-200 p-4 transition-[transform,box-shadow] duration-300 ease-(--ease-mn) hover:-translate-y-1 hover:-rotate-1 hover:shadow-[0_16px_32px_-16px_rgba(38,38,43,0.25)] md:p-5"
+					class="group flex aspect-square cursor-default flex-col rounded-2xl border border-neutral-200 p-4 transition-[transform,box-shadow] duration-300 ease-(--ease-mn) hover:-translate-y-1 hover:shadow-[0_16px_32px_-16px_rgba(38,38,43,0.25)] md:p-5"
 				>
 					<p class="text-[15px] font-medium text-ink">{s.name}</p>
 					<svg
@@ -133,19 +127,23 @@
 		<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
 			The process
 		</p>
-		<div class="grid gap-x-8 gap-y-14 md:grid-cols-2">
+		<div
+			class="grid grid-cols-1 border-y border-dashed border-neutral-200 md:grid-cols-2 [&>*]:border-dashed [&>*]:border-neutral-200 [&>*:not(:last-child)]:border-b md:[&>*:nth-child(n+3)]:border-b-0 md:[&>*:nth-child(odd)]:border-r"
+		>
 			{#each steps as s}
-				<section>
-					<div class="flex items-start gap-3.5">
-						<StepCircle n={s.n} />
-						<h2 class="mt-2.5 text-[16px] font-medium text-ink">
-							{s.title} <span class="font-normal text-soft">{s.note}</span>
-						</h2>
-					</div>
+				<section class="flex min-w-0 flex-col px-4 py-6 md:px-8 md:py-8">
 					<div
-						class="mt-5 h-[320px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] transition-transform duration-500 ease-(--ease-mn) hover:rotate-0 md:h-[360px] {s.tilt}"
+						class="h-[320px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] md:h-[360px]"
 					>
 						<s.panel />
+					</div>
+					<div class="mt-6 flex items-start gap-3">
+						<StepCircle n={s.n} />
+						<h2
+							class="mt-1 max-w-[30ch] text-lg font-semibold tracking-tight text-balance text-neutral-700 md:text-xl"
+						>
+							{s.title} <span class="text-neutral-700/50">{s.note}</span>
+						</h2>
 					</div>
 				</section>
 			{/each}
@@ -154,7 +152,7 @@
 
 	<div class="relative mt-24">
 		<div
-			class="pointer-events-none absolute inset-x-0 bottom-0 h-[380px] bg-[url(/reef.webp)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)]"
+			class="pointer-events-none absolute bottom-0 left-[calc(50%-50vw)] h-[380px] w-screen bg-[url(/reef.webp)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)]"
 		></div>
 		<div class="relative px-6 pt-6 pb-48 sm:px-10">
 			<h2 class="text-3xl font-medium tracking-tight text-ink md:text-4xl">

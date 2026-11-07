@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 
 	const SECTIONS = [
 		{ id: 'intro', label: 'Intro', icon: 'person' },
@@ -126,10 +127,10 @@
 						{:else if s.icon === 'grid'}
 							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[13px] shrink-0"><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" /></svg>
 						{:else}
-							<svg viewBox="0 0 24 20" class="size-[13px] shrink-0"><path fill="currentColor" d="M2.5 9.5 12 2.5 21.5 9.5ZM3.5 12.5 20.5 12.5 17 17.5 7 17.5Z" /></svg>
+							<svg viewBox="0 0 24 20" class="size-[13px] shrink-0"><path fill="currentColor" d="M10.8 4.5 10.8 9.5 4.5 9.5Z M13.2 2.5 13.2 9.5 20 9.5Z M11.4 2h1.2v10.8h-1.2Z M2 13 22 13 18.5 17.5 5.5 17.5Z" /></svg>
 						{/if}
 					</span>
-					<span class={isActive ? '' : 'max-sm:sr-only'}>{s.label}</span>
+					<span class={isActive || page.url.pathname !== '/' ? '' : 'max-sm:sr-only'}>{s.label}</span>
 				</a>
 			{/each}
 		</div>
