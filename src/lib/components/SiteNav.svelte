@@ -86,7 +86,7 @@
 		? 'max-sm:before:opacity-100'
 		: ''}"
 >
-	<div class="mx-auto flex max-w-[640px] items-center justify-between gap-3">
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
 		<div
 			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] {scrolled
 				? scrolledCls

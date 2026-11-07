@@ -3,6 +3,9 @@
 	import DevelopmentStep from '#lib/components/steps/DevelopmentStep.svelte';
 	import MicrointeractionsStep from '#lib/components/steps/MicrointeractionsStep.svelte';
 	import CommunicationStep from '#lib/components/steps/CommunicationStep.svelte';
+	import StepCircle from '#lib/components/steps/StepCircle.svelte';
+	import Mark from '#lib/components/Mark.svelte';
+	import { highlightCalm, circleCalm } from '#lib/marks.js';
 	import { projects, email } from '#lib/data/content.js';
 
 	const stats = [
@@ -12,36 +15,60 @@
 	];
 
 	const services = [
-		{ name: 'Design', note: 'Every screen in Figma first, revised until you approve it.' },
-		{ name: 'Development', note: 'SvelteKit, Next.js, React and Tailwind, production ready.' },
-		{ name: 'Ecommerce', note: 'Headless Shopify storefronts with calm, clear flows.' },
-		{ name: 'CMS', note: 'A Sanity setup you can edit yourself.' }
+		{
+			name: 'Design',
+			note: 'Every screen in Figma first, revised until you approve it.',
+			icon: '<path d="m12 19 7-7 3 3-7 7-3-3z" /><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="m2 2 7.586 7.586" /><circle cx="11" cy="11" r="2" />',
+			color: '#f24e1e'
+		},
+		{
+			name: 'Development',
+			note: 'SvelteKit, Next.js, React and Tailwind, production ready.',
+			icon: '<path d="m8 6-6 6 6 6M16 6l6 6-6 6" />',
+			color: '#3178c6'
+		},
+		{
+			name: 'Ecommerce',
+			note: 'Headless Shopify storefronts with calm, clear flows.',
+			icon: '<path d="M6 7h12l1.5 13.5a1 1 0 0 1-1 1.1h-13a1 1 0 0 1-1-1.1L6 7Z" /><path d="M9 10V6a3 3 0 0 1 6 0v4" />',
+			color: '#7ab55c'
+		},
+		{
+			name: 'CMS',
+			note: 'A Sanity setup you can edit yourself.',
+			icon: '<path d="M4 5h16M4 12h16M4 19h10" />',
+			color: '#f03e2f'
+		}
 	];
 
 	const steps = [
 		{
-			n: '01',
+			n: 1,
 			title: 'Designing',
 			note: 'every screen in Figma first, with unlimited revisions until your first approval.',
-			panel: DesigningStep
+			panel: DesigningStep,
+			tilt: '-rotate-[0.75deg]'
 		},
 		{
-			n: '02',
+			n: 2,
 			title: 'Development',
 			note: 'with React, Next.js, SvelteKit and Tailwind, Shopify for ecommerce, and a CMS you can edit yourself.',
-			panel: DevelopmentStep
+			panel: DevelopmentStep,
+			tilt: 'rotate-[0.75deg]'
 		},
 		{
-			n: '03',
+			n: 3,
 			title: 'Microinteractions',
 			note: 'small details, built by hand, that make a page feel alive.',
-			panel: MicrointeractionsStep
+			panel: MicrointeractionsStep,
+			tilt: '-rotate-[0.75deg]'
 		},
 		{
-			n: '04',
+			n: 4,
 			title: 'Communication',
 			note: 'you see progress and share feedback along the way, not just at the end.',
-			panel: CommunicationStep
+			panel: CommunicationStep,
+			tilt: 'rotate-[0.75deg]'
 		}
 	];
 
@@ -53,69 +80,106 @@
 	}
 </script>
 
-<div class="relative z-10 mx-auto max-w-[720px] border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10">
-	<h1 class="text-2xl font-normal tracking-tight text-neutral-700">How I work</h1>
-	<p class="mt-2 max-w-[46ch] text-neutral-500">
-		We start with a conversation, agree scope and sign a contract. Then I design in Figma and build, and you see the design before it becomes a finished website.
-	</p>
+<div class="relative z-10 mx-auto max-w-6xl border-x border-neutral-200 bg-white pb-40">
+	<div class="relative overflow-hidden px-6 pt-32 pb-16 sm:px-10">
+		<div
+			class="pointer-events-none absolute inset-x-0 top-0 h-full bg-[url(/beach.webp)] bg-cover bg-[center_top] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.6)_45%,transparent_100%)]"
+		></div>
+		<h1 class="relative max-w-[16ch] text-4xl font-medium tracking-tight text-ink md:text-5xl">
+			How I <Mark definition={highlightCalm} fillColor="#8ab6f2">work</Mark>
+		</h1>
+		<p class="relative mt-4 max-w-[46ch] text-soft">
+			We start with a conversation, agree scope and sign a contract. Then I design in Figma and
+			build, and you see the design before it becomes a finished website.
+		</p>
+	</div>
 
-	<div class="mt-12 grid grid-cols-3 gap-4 border-y border-neutral-200 py-6">
+	<div class="grid grid-cols-3 gap-4 border-y border-neutral-200 px-6 py-8 sm:px-10">
 		{#each stats as s}
 			<div>
-				<p class="text-2xl font-medium tracking-tight text-ink">{s.value}</p>
-				<p class="mt-1 text-[13px] leading-snug text-soft">{s.label}</p>
+				<p class="text-3xl font-medium tracking-tight text-ink">
+					<Mark definition={circleCalm} color="#6ba3c6">{s.value}</Mark>
+				</p>
+				<p class="mt-2 text-[13px] leading-snug text-soft">{s.label}</p>
 			</div>
 		{/each}
 	</div>
 
-	<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">What I can help with</p>
-	<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-		{#each services as s}
-			<div class="flex aspect-square flex-col justify-between rounded-2xl border border-neutral-200 p-4">
-				<p class="text-[15px] font-medium text-ink">{s.name}</p>
-				<p class="text-[13px] leading-snug text-soft">{s.note}</p>
-			</div>
-		{/each}
-	</div>
-
-	<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">The process</p>
-	<div class="flex flex-col gap-14">
-		{#each steps as s}
-			<section>
-				<div class="flex items-baseline gap-3">
-					<span class="text-[13px] font-medium text-faint">{s.n}</span>
-					<h2 class="text-[16px] font-medium text-ink">
-						{s.title} <span class="font-normal text-soft">{s.note}</span>
-					</h2>
-				</div>
-				<div class="mt-5 h-[400px] overflow-hidden rounded-2xl border border-neutral-200 md:h-[440px]">
-					<s.panel />
-				</div>
-			</section>
-		{/each}
-	</div>
-
-	<div class="mt-20 border-t border-neutral-200 pt-10">
-		<h2 class="text-[16px] font-medium text-ink">Have a project in mind?</h2>
-		<p class="mt-1.5 max-w-[46ch] text-[15px] text-soft">
-			Tell me what you are working on and we can set up a call.
+	<div class="px-6 sm:px-10">
+		<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+			What I can help with
 		</p>
-		<div class="mt-5 flex flex-wrap items-center gap-3">
-			<a
-				href="mailto:{email}"
-				class="inline-flex h-10 items-center rounded-full bg-ink px-5 text-[14px] font-medium text-white transition-opacity hover:opacity-85"
-				data-cursor="Message me"
-			>
-				Message me
-			</a>
-			<button
-				type="button"
-				class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-full border border-neutral-200 px-4 text-[14px] font-medium text-ink transition-colors hover:bg-neutral-50"
-				onclick={copyEmail}
-				data-cursor="Copy email"
-			>
-				{copied ? 'Copied' : email}
-			</button>
+		<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+			{#each services as s}
+				<div
+					class="group flex aspect-square cursor-default flex-col rounded-2xl border border-neutral-200 p-4 transition-[transform,box-shadow] duration-300 ease-(--ease-mn) hover:-translate-y-1 hover:-rotate-1 hover:shadow-[0_16px_32px_-16px_rgba(38,38,43,0.25)] md:p-5"
+				>
+					<p class="text-[15px] font-medium text-ink">{s.name}</p>
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.6"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="mx-auto my-auto size-9 text-neutral-300 transition-colors duration-300 group-hover:text-(--c) md:size-11"
+						style="--c: {s.color}">{@html s.icon}</svg
+					>
+					<p class="text-[13px] leading-snug text-soft">{s.note}</p>
+				</div>
+			{/each}
+		</div>
+
+		<p class="mt-16 mb-[22px] text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+			The process
+		</p>
+		<div class="flex flex-col gap-16">
+			{#each steps as s}
+				<section>
+					<div class="flex items-start gap-3.5">
+						<StepCircle n={s.n} />
+						<h2 class="mt-2.5 text-[16px] font-medium text-ink">
+							{s.title} <span class="font-normal text-soft">{s.note}</span>
+						</h2>
+					</div>
+					<div
+						class="mt-5 h-[400px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] transition-transform duration-500 ease-(--ease-mn) hover:rotate-0 md:h-[440px] {s.tilt}"
+					>
+						<s.panel />
+					</div>
+				</section>
+			{/each}
+		</div>
+	</div>
+
+	<div class="relative mt-24">
+		<div
+			class="pointer-events-none absolute inset-x-0 bottom-0 h-[380px] bg-[url(/reef.webp)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)]"
+		></div>
+		<div class="relative px-6 pt-6 pb-48 sm:px-10">
+			<h2 class="text-3xl font-medium tracking-tight text-ink md:text-4xl">
+				Have a project in mind?
+			</h2>
+			<p class="mt-3 max-w-[46ch] text-[15px] text-soft">
+				Tell me what you are working on and we can set up a call.
+			</p>
+			<div class="mt-6 flex flex-wrap items-center gap-3">
+				<a
+					href="mailto:{email}"
+					class="inline-flex h-11 items-center rounded-full bg-ink px-6 text-[14px] font-medium text-white transition-[transform,opacity] duration-300 ease-(--ease-mn) hover:-translate-y-0.5 hover:opacity-90"
+					data-cursor="Message me"
+				>
+					Message me
+				</a>
+				<button
+					type="button"
+					class="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-5 text-[14px] font-medium text-ink backdrop-blur-sm transition-colors hover:bg-white"
+					onclick={copyEmail}
+					data-cursor="Copy email"
+				>
+					{copied ? 'Copied' : email}
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

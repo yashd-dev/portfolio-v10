@@ -98,7 +98,7 @@
 	let startGame: () => void;
 </script>
 
-<div class="relative z-10 mx-auto max-w-[720px] border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10">
+<div class="relative z-10 mx-auto max-w-6xl border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10">
 	<h1 class="text-2xl font-normal tracking-tight text-neutral-700">Pong</h1>
 	<p class="mt-2 text-neutral-500">Move your pointer over the board. First to 7.</p>
 	<div class="mt-8 flex items-center justify-between text-sm text-muted">

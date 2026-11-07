@@ -18,3 +18,18 @@ export const highlightCalm: MarkDefinition = {
 		}
 	]
 };
+
+export const circleCalm: MarkDefinition = {
+	name: 'circle-calm',
+	viewBox: '0 0 100 48',
+	placement: { top: '-8%', left: '-8%', width: '116%', height: '122%' },
+	layer: 'front',
+	layers: [
+		{
+			type: 'stroke',
+			path: 'M53 3 C77 2 96 10 97 23 C99 38 75 45 49 45 C23 46 3 38 3 25 C2 11 26 4 53 3',
+			strokeWidth: 2.1,
+			timing: { duration: 620 }
+		}
+	]
+};

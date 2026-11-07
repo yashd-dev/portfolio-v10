@@ -2,7 +2,7 @@
 	import { toolIcons } from '#lib/data/icons.js';
 </script>
 
-<div class="relative z-10 mx-auto max-w-[720px] border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10">
+<div class="relative z-10 mx-auto max-w-6xl border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10">
 	<h1 class="text-2xl font-normal tracking-tight text-neutral-700">Tools I reach for</h1>
 	<p class="mt-2 text-neutral-500">The everyday stack behind the projects on the front page.</p>
 	<div class="mt-10 grid grid-cols-2 border-t border-l border-neutral-200 sm:grid-cols-3">
