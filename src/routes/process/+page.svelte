@@ -44,24 +44,28 @@
 	const steps = [
 		{
 			n: 1,
+			id: 'designing',
 			title: 'Designing',
 			note: 'every screen in Figma first, with unlimited revisions until your first approval.',
 			panel: DesigningStep
 		},
 		{
 			n: 2,
+			id: 'development',
 			title: 'Development',
 			note: 'with React, Next.js, SvelteKit and Tailwind, Shopify for ecommerce, and a CMS you can edit yourself.',
 			panel: DevelopmentStep
 		},
 		{
 			n: 3,
+			id: 'microinteractions',
 			title: 'Microinteractions',
 			note: 'small details, built by hand, that make a page feel alive.',
 			panel: MicrointeractionsStep
 		},
 		{
 			n: 4,
+			id: 'communication',
 			title: 'Communication',
 			note: 'you see progress and share feedback along the way, not just at the end.',
 			panel: CommunicationStep
@@ -133,7 +137,7 @@
 			class="grid grid-cols-1 border-y border-dashed border-neutral-200 md:grid-cols-2 [&>*]:border-dashed [&>*]:border-neutral-200 [&>*:not(:last-child)]:border-b md:[&>*:nth-child(n+3)]:border-b-0 md:[&>*:nth-child(odd)]:border-r"
 		>
 			{#each steps as s}
-				<section class="flex min-w-0 flex-col px-4 py-6 md:px-8 md:py-8">
+				<section id={s.id} class="flex min-w-0 scroll-mt-[88px] flex-col px-4 py-6 md:px-8 md:py-8">
 					<div
 						class="h-[440px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] md:h-[500px]"
 					>
@@ -158,10 +162,10 @@
 		></div>
 		<div class="relative px-6 pt-6 pb-48 sm:px-10">
 			<h2 class="text-3xl font-medium tracking-tight text-ink md:text-4xl">
-				Have a project in mind?
+				Have a project or a role in mind?
 			</h2>
 			<p class="mt-3 max-w-[46ch] text-[15px] text-soft">
-				Tell me what you are working on and we can set up a call.
+				Tell me about it and we can set up a call.
 			</p>
 			<div class="mt-6 flex flex-wrap items-center gap-3">
 				<a
@@ -170,6 +174,15 @@
 					data-cursor="Message me"
 				>
 					Message me
+				</a>
+				<a
+					href="https://cal.com/yashd-dev/discussion"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex h-11 items-center rounded-full border border-neutral-200 bg-white/70 px-5 text-[14px] font-medium text-ink backdrop-blur-sm transition-colors hover:bg-white"
+					data-cursor="Book a call"
+				>
+					Book a call
 				</a>
 				<button
 					type="button"

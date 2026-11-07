@@ -58,7 +58,7 @@
 	<button
 		type="button"
 		class="block cursor-pointer rounded-[14px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-		onclick={() => goto('/how-i-work')}
+		onclick={() => goto('/process')}
 		aria-label="Know about me: how I work"
 		data-cursor="Know about me"
 	>

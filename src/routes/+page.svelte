@@ -77,7 +77,8 @@
 					<p class="text-pretty text-soft">
 						I design and build websites that feel considered and work smoothly, and I stick around
 						after launch. Right now I'm taking on
-						<Mark definition={highlightCalm} fillColor="#8ab6f2">client projects</Mark>.
+						<Mark definition={highlightCalm} fillColor="#8ab6f2">freelance projects</Mark>
+						and I'm open to job opportunities.
 					</p>
 				</div>
 				<div class="{REVEAL} mt-6" style="--d: 220ms">
@@ -138,6 +139,10 @@
 						</svg>
 					</span>
 				</button>
+				<span class="mx-2 text-faint max-sm:hidden" aria-hidden="true">·</span>
+				<a href="/process" class="transition-colors duration-200 hover:text-ink max-sm:mt-1"
+					>How I work</a
+				>
 			</nav>
 		</div>
 
@@ -328,6 +333,30 @@
 		</div>
 	</section>
 
+	<section class="mt-24 text-center max-sm:mt-[72px]" aria-label="Contact">
+		<h2 class="{REVEAL} text-2xl font-medium tracking-tight text-ink">
+			Have a project or a role in mind?
+		</h2>
+		<div class="{REVEAL} mt-6 flex flex-wrap items-center justify-center gap-3" style="--d: 90ms">
+			<a
+				href="/process"
+				class="inline-flex h-11 items-center rounded-full bg-ink px-6 text-[14px] font-medium text-white transition-[transform,opacity] duration-300 ease-(--ease-mn) hover:-translate-y-0.5 hover:opacity-90"
+				data-cursor="See how I work"
+			>
+				See how I work
+			</a>
+			<a
+				href="https://cal.com/yashd-dev/discussion"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex h-11 items-center rounded-full border border-neutral-200 bg-white/70 px-5 text-[14px] font-medium text-ink backdrop-blur-sm transition-colors hover:bg-white"
+				data-cursor="Book a call"
+			>
+				Book a call
+			</a>
+		</div>
+	</section>
+
 	<section
 		id="experience"
 		class="mt-24 grid scroll-mt-[88px] gap-16 max-sm:mt-[72px] md:grid-cols-2"
@@ -379,7 +408,7 @@
 		<p class="font-medium">Thanks for stopping by.</p>
 		<p class="mt-1 text-muted">
 			<a
-				href="/how-i-work"
+				href="/process"
 				class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current"
 				>How I work</a
 			>

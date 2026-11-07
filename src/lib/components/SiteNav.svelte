@@ -3,37 +3,69 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
-	const SECTIONS = [
+	type NavItem = { id: string; label: string; icon?: 'person' | 'grid' | 'plane' };
+
+	const LANDING: NavItem[] = [
 		{ id: 'intro', label: 'Intro', icon: 'person' },
 		{ id: 'work', label: 'Work', icon: 'grid' },
 		{ id: 'experience', label: 'Experience', icon: 'plane' }
-	] as const;
+	];
+	const PROCESS: NavItem[] = [
+		{ id: 'designing', label: 'Designing' },
+		{ id: 'development', label: 'Development' },
+		{ id: 'microinteractions', label: 'Microinteractions' },
+		{ id: 'communication', label: 'Communication' }
+	];
+	const TOOLS: NavItem[] = [
+		{ id: 'design', label: 'Design' },
+		{ id: 'web', label: 'Web' },
+		{ id: 'mobile', label: 'Mobile' },
+		{ id: 'backend-data', label: 'Backend & data' },
+		{ id: 'ai', label: 'AI' },
+		{ id: 'cms-commerce', label: 'CMS & commerce' },
+		{ id: 'ship-host', label: 'Ship & host' }
+	];
+
+	let sections = $derived(
+		page.url.pathname === '/process' ? PROCESS : page.url.pathname === '/tools' ? TOOLS : LANDING
+	);
 
 	let active = $state('intro');
 	let scrolled = $state(false);
 	let track: HTMLDivElement;
 	let pill = $state<{ x: number; w: number } | null>(null);
 
+	let suppressUntil = 0;
+
+	function measure() {
+		scrolled = scrollY > 24;
+		if (Date.now() < suppressUntil) return;
+		const ids = sections.map((s) => s.id);
+		if (!ids.some((id) => document.getElementById(id))) return;
+		const trigger = innerHeight * 0.4;
+		let current = ids[0];
+		for (const id of ids) {
+			const el = document.getElementById(id);
+			if (el && el.getBoundingClientRect().top <= trigger) current = id;
+		}
+		if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4)
+			current = ids[ids.length - 1];
+		active = current;
+	}
+
 	onMount(() => {
 		let raf = 0;
-		const measure = () => {
-			raf = 0;
-			scrolled = scrollY > 24;
-			if (location.pathname !== '/') return;
-			const trigger = innerHeight * 0.4;
-			let current = 'intro';
-			for (const s of SECTIONS) {
-				const el = document.getElementById(s.id);
-				if (el && el.getBoundingClientRect().top <= trigger) current = s.id;
-			}
-			if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4)
-				current = SECTIONS[SECTIONS.length - 1].id;
-			active = current;
-		};
 		const onScroll = () => {
-			if (!raf) raf = requestAnimationFrame(measure);
+			if (!raf)
+				raf = requestAnimationFrame(() => {
+					raf = 0;
+					measure();
+				});
 		};
-		raf = requestAnimationFrame(measure);
+		raf = requestAnimationFrame(() => {
+			raf = 0;
+			measure();
+		});
 		addEventListener('scroll', onScroll, { passive: true });
 		addEventListener('resize', onScroll);
 		return () => {
@@ -41,6 +73,11 @@
 			removeEventListener('scroll', onScroll);
 			removeEventListener('resize', onScroll);
 		};
+	});
+
+	$effect(() => {
+		sections;
+		requestAnimationFrame(measure);
 	});
 
 	$effect(() => {
@@ -64,8 +101,14 @@
 				goto(`/#${id}`);
 				return;
 			}
+			active = id;
+			suppressUntil = Date.now() + 1400;
 			const offset = id === 'intro' ? 0 : -88;
-			const lenis = (window as unknown as { __lenis?: { scrollTo: (t: number | HTMLElement, o?: object) => void } }).__lenis;
+			const lenis = (
+				window as unknown as {
+					__lenis?: { scrollTo: (t: number | HTMLElement, o?: object) => void };
+				}
+			).__lenis;
 			if (lenis) lenis.scrollTo(id === 'intro' ? 0 : el, { offset, duration: 1.2 });
 			else
 				window.scrollTo({
@@ -80,13 +123,13 @@
 </script>
 
 <header
-	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 pt-4 max-sm:px-3 max-sm:pt-3 max-sm:before:absolute max-sm:before:inset-x-0 max-sm:before:top-0 max-sm:before:-bottom-[22px] max-sm:before:-z-10 max-sm:before:pointer-events-none max-sm:before:bg-white/62 max-sm:before:opacity-0 max-sm:before:backdrop-blur-[14px] max-sm:before:backdrop-saturate-140 max-sm:before:[mask-image:linear-gradient(to_bottom,#000_62%,transparent)] max-sm:before:transition-opacity max-sm:before:duration-300 {scrolled
+	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 pt-4 max-sm:px-3 max-sm:pt-3 max-sm:before:pointer-events-none max-sm:before:absolute max-sm:before:inset-x-0 max-sm:before:top-0 max-sm:before:-bottom-[22px] max-sm:before:-z-10 max-sm:before:bg-white/62 max-sm:before:[mask-image:linear-gradient(to_bottom,#000_62%,transparent)] max-sm:before:opacity-0 max-sm:before:backdrop-blur-[14px] max-sm:before:backdrop-saturate-140 max-sm:before:transition-opacity max-sm:before:duration-300 {scrolled
 		? 'max-sm:before:opacity-100'
 		: ''}"
 >
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] {scrolled
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] max-sm:max-w-[calc(100vw-120px)] max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {scrolled
 				? scrolledCls
 				: ''}"
 			role="navigation"
@@ -101,7 +144,7 @@
 					aria-hidden="true"
 				></span>
 			{/if}
-			{#each SECTIONS as s}
+			{#each sections as s}
 				{@const isActive = s.id === active}
 				<a
 					href="#{s.id}"
@@ -113,21 +156,58 @@
 					aria-current={isActive ? 'true' : undefined}
 					onclick={go(s.id)}
 				>
-					<span
-						class="inline-grid h-[14px] place-items-center overflow-hidden transition-[width,opacity,margin] duration-[450ms] ease-(--ease-mn) {isActive
-							? 'mr-1.5 w-[14px] opacity-100'
-							: 'w-0 opacity-0 max-sm:w-[14px] max-sm:opacity-75'}"
-						aria-hidden="true"
-					>
-						{#if s.icon === 'person'}
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[13px] shrink-0"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
-						{:else if s.icon === 'grid'}
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[13px] shrink-0"><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" /></svg>
-						{:else}
-							<svg viewBox="0 0 24 20" class="size-[13px] shrink-0"><path fill="currentColor" d="M10.8 4.5 10.8 9.5 4.5 9.5Z M13.2 2.5 13.2 9.5 20 9.5Z M11.4 2h1.2v10.8h-1.2Z M2 13 22 13 18.5 17.5 5.5 17.5Z" /></svg>
-						{/if}
-					</span>
-					<span class={isActive ? '' : 'max-sm:sr-only'}>{s.label}</span>
+					{#if s.icon}
+						<span
+							class="inline-grid h-[14px] place-items-center overflow-hidden transition-[width,opacity,margin] duration-[450ms] ease-(--ease-mn) {isActive
+								? 'mr-1.5 w-[14px] opacity-100'
+								: 'w-0 opacity-0 max-sm:w-[14px] max-sm:opacity-75'}"
+							aria-hidden="true"
+						>
+							{#if s.icon === 'person'}
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.8"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="size-[13px] shrink-0"
+									><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg
+								>
+							{:else if s.icon === 'grid'}
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.8"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="size-[13px] shrink-0"
+									><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect
+										x="13.5"
+										y="3"
+										width="7.5"
+										height="7.5"
+										rx="2"
+									/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect
+										x="13.5"
+										y="13.5"
+										width="7.5"
+										height="7.5"
+										rx="2"
+									/></svg
+								>
+							{:else}
+								<svg viewBox="0 0 24 20" class="size-[13px] shrink-0"
+									><path
+										fill="currentColor"
+										d="M10.8 4.5 10.8 9.5 4.5 9.5Z M13.2 2.5 13.2 9.5 20 9.5Z M11.4 2h1.2v10.8h-1.2Z M2 13 22 13 18.5 17.5 5.5 17.5Z"
+									/></svg
+								>
+							{/if}
+						</span>
+					{/if}
+					<span class={isActive ? '' : s.icon ? 'max-sm:sr-only' : ''}>{s.label}</span>
 				</a>
 			{/each}
 		</div>
@@ -140,7 +220,18 @@
 				aria-label="Play a game"
 				data-cursor="Play"
 			>
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-[17px]"><path d="M6 12h4m-2-2v4m7-3h.01M18 13h.01M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.54-.6-6.58-.68-7.26A4 4 0 0 0 17.32 5Z" /></svg>
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.8"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-[17px]"
+					><path
+						d="M6 12h4m-2-2v4m7-3h.01M18 13h.01M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.54-.6-6.58-.68-7.26A4 4 0 0 0 17.32 5Z"
+					/></svg
+				>
 			</a>
 		</div>
 	</div>
