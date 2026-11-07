@@ -40,6 +40,14 @@ export const projects = [
 		description: 'A veterinary healthcare website with multilingual content and appointment flows.',
 		link: 'https://healthcare.yashd.in/',
 		image: '/work/sshealthcare.png'
+	},
+	{
+		name: 'MyPaithani',
+		meta: 'SvelteKit, Tailwind, Vercel',
+		description:
+			'A handcrafted Paithani storefront for bags, clutches and accessories, rooted in Maharashtrian textile heritage.',
+		link: 'https://www.mypaithani.com/',
+		image: '/work/mypaithani.png'
 	}
 ];
 

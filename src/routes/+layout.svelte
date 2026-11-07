@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import type { LayoutProps } from './$types';
 	import Lenis from 'lenis';
+	import { animate, inView } from 'motion';
 	import SiteNav from '#lib/components/SiteNav.svelte';
 	import Dock from '#lib/components/Dock.svelte';
 	import Cursor from '#lib/components/Cursor.svelte';
@@ -28,60 +29,49 @@
 
 		const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		if (reduced)
-			document.querySelectorAll('.rv').forEach((el) => {
+			document.querySelectorAll('.rv, .pg-reveal').forEach((el) => {
 				el.classList.remove('translate-y-3.5', 'opacity-0', 'blur-[6px]');
 			});
-		if (reduced) document.querySelectorAll('.pg-reveal').forEach((el) => el.classList.add('is-in'));
 		addEventListener('pg:intro-done', scanReveals);
-		revealIo = new IntersectionObserver(
-			(entries) => {
-				for (const e of entries)
-					if (e.isIntersecting) {
-						const el = e.target as HTMLElement;
-						if (el.classList.contains('pg-reveal')) el.classList.add('is-in');
-						else {
-							const a = el.animate(
-								[
-									{ opacity: 0, transform: 'translateY(14px)', filter: 'blur(6px)' },
-									{ opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' }
-								],
-								{
-									duration: 900,
-									delay: Number(el.dataset.d || 0),
-									easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
-									fill: 'forwards'
-								}
-							);
-							a.onfinish = () => {
-								el.classList.remove('translate-y-3.5', 'opacity-0', 'blur-[6px]');
-								a.cancel();
-							};
-						}
-						revealIo?.unobserve(el);
-					}
-			},
-			{ rootMargin: '0px 0px -12% 0px', threshold: 0.05 }
-		);
 		if (!reduced) scanReveals();
 
 		return () => {
 			cancelAnimationFrame(raf);
 			lenis?.destroy();
 			delete (window as unknown as { __lenis?: Lenis }).__lenis;
-			revealIo?.disconnect();
-			revealIo = null;
+			stopReveals.forEach((stop) => stop());
+			stopReveals = [];
 			removeEventListener('pg:intro-done', scanReveals);
 		};
 	});
 
-	let revealIo: IntersectionObserver | null = null;
+	let stopReveals: (() => void)[] = [];
 
 	function scanReveals() {
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		const playing = document.documentElement.classList.contains('pg-intro-playing');
-		document.querySelectorAll('.rv, .pg-reveal').forEach((el) => {
-			if (playing && el.closest('.pg-intro')) return;
-			revealIo?.observe(el);
+		document.querySelectorAll<HTMLElement>('.rv, .pg-reveal').forEach((el) => {
+			if (el.dataset.rvDone || (playing && el.closest('.pg-intro'))) return;
+			el.dataset.rvDone = '1';
+			const delay = (parseFloat(el.style.getPropertyValue('--d')) || 0) / 1000;
+			let fired = false;
+			const stop = inView(
+				el,
+				() => {
+					if (fired) return;
+					fired = true;
+					stop();
+					animate(
+						el,
+						{ opacity: [0, 1], y: [14, 0], filter: ['blur(6px)', 'blur(0px)'] },
+						{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }
+					).finished.then(() => {
+						el.classList.remove('translate-y-3.5', 'opacity-0', 'blur-[6px]');
+					});
+				},
+				{ margin: '0px 0px -12% 0px' }
+			);
+			stopReveals.push(stop);
 		});
 	}
 
