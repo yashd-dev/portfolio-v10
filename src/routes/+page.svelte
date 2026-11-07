@@ -1,5 +1,7 @@
 <script lang="ts">
 	import AboutMe from '#lib/components/AboutMe.svelte';
+	import Mark from '#lib/components/Mark.svelte';
+	import { highlightCalm } from '#lib/marks.js';
 	import FlightPlan from '#lib/components/FlightPlan.svelte';
 	import { projects, socials, email, freelance, education } from '#lib/data/content.js';
 	import { toolIcons } from '#lib/data/icons.js';
@@ -47,17 +49,16 @@
 			<p class="text-pretty text-soft">
 				I design and build websites that feel considered and work smoothly, and I stick around
 				after launch. Right now I'm taking on
-				<mark class="-mx-px rounded bg-hlblue px-[3px] text-ink box-decoration-clone">client projects</mark
-				>.
+				<Mark definition={highlightCalm} fillColor="#8ab6f2">client projects</Mark>.
 			</p>
 		</div>
 		<div class="{REVEAL} mt-4" style="--d: 220ms">
 			<p class="text-pretty text-soft">
 				I've worked across storefronts, therapy and healthcare sites, and consultancy pages, from
 				Figma to production
-				<mark class="-mx-px rounded bg-hlpeach px-[3px] text-ink box-decoration-clone">TypeScript</mark>
+				<Mark definition={highlightCalm} fillColor="#ffb26b">TypeScript</Mark>
 				across SvelteKit, headless
-				<mark class="-mx-px rounded bg-hlgreen px-[3px] text-ink box-decoration-clone">Shopify</mark>
+				<Mark definition={highlightCalm} fillColor="#8ed3a4">Shopify</Mark>
 				and the odd microservice.
 			</p>
 		</div>
