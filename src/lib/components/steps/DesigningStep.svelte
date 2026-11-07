@@ -181,7 +181,7 @@
 	<div class="px-4 py-6 md:px-8 md:py-8">
 		<div class="flex items-start gap-3">
 			<StepCircle n={1} from="#38bdf8" to="#2563eb" />
-			<h2 class="max-w-[30ch] font-display text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
+			<h2 class="max-w-[30ch] text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
 				Designing
 				<span class="text-neutral-400">every screen in Figma first, with unlimited revisions until your first approval.</span>
 			</h2>

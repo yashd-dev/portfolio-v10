@@ -3,7 +3,7 @@
 	import StepCircle from './StepCircle.svelte';
 
 	const code =
-		'<div role="slider" class="track">\n  <div class="fill"\n    style="width: {pct}%" />\n  <div class="thumb"\n    style="left: {pct}%" />\n</div>';
+		'<div role="slider" class="track" data-cursor-hand="grab" data-cursor="Drag">\n  <div class="fill"\n    style="width: {pct}%" />\n  <div class="thumb"\n    style="left: {pct}%" />\n</div>';
 
 	const images = ['/work/actuallyfair.png', '/work/strive.png', '/work/sshealthcare.png'];
 
@@ -138,7 +138,7 @@
 	<div class="px-4 py-6 md:px-8 md:py-8">
 		<div class="flex items-start gap-3">
 			<StepCircle n={3} from="#fb7185" to="#e11d48" />
-			<h2 class="max-w-[30ch] font-display text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
+			<h2 class="max-w-[30ch] text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
 				Microinteractions
 				<span class="text-neutral-400">small details, built by hand, that make a page feel alive.</span>
 			</h2>

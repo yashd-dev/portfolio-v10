@@ -186,7 +186,7 @@
 	<div class="px-4 py-6 md:px-8 md:py-8">
 		<div class="flex items-start gap-3">
 			<StepCircle n={2} from="#facc15" to="#ca8a04" />
-			<h2 class="max-w-[30ch] font-display text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
+			<h2 class="max-w-[30ch] text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
 				Development
 				<span class="text-neutral-400">with React, Next.js, SvelteKit and Tailwind, Shopify for ecommerce, and a CMS you can edit yourself.</span>
 			</h2>

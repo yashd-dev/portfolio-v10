@@ -39,7 +39,7 @@
 >
 	<section id="intro" class="pg-intro relative">
 		<AboutMe />
-		<h1 class="{REVEAL} font-display text-[16px] font-medium leading-normal" style="--d: 60ms">
+		<h1 class="{REVEAL} text-[16px] font-medium leading-normal" style="--d: 60ms">
 			Hey, I'm Yash Deshpande
 		</h1>
 		<p class={REVEAL} style="--d: 100ms">a designer & developer based in Mumbai</p>

@@ -18,6 +18,10 @@
 		const measure = () => {
 			raf = 0;
 			scrolled = scrollY > 24;
+			if (location.pathname !== '/') {
+				active = '';
+				return;
+			}
 			const trigger = innerHeight * 0.4;
 			let current = 'intro';
 			for (const s of SECTIONS) {
