@@ -188,7 +188,7 @@
 			<StepCircle n={2} from="#facc15" to="#ca8a04" />
 			<h2 class="max-w-[30ch] font-display text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
 				Development
-				<span class="text-neutral-400">with the latest stack and tools, performance optimized and scalable.</span>
+				<span class="text-neutral-400">with React, Next.js, SvelteKit and Tailwind, Shopify for ecommerce, and a CMS you can edit yourself.</span>
 			</h2>
 		</div>
 	</div>

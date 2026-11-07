@@ -8,10 +8,10 @@
 <div class="relative z-10 mx-auto max-w-[1100px] border-x border-neutral-200 bg-white pt-24">
 	<div class="px-4 py-8 md:px-8 md:py-12">
 		<h1 class="max-w-[40ch] font-display text-2xl font-normal tracking-tight text-neutral-700">
-			A process tuned for momentum
+			How I work
 		</h1>
 		<p class="mt-2 max-w-[46ch] text-neutral-500">
-			Design, build, polish, and stay in sync. Nothing gets lost in the handoff.
+			We start with a conversation, agree scope and sign a contract. Then I design in Figma and build, and you see the design before it becomes a finished website.
 		</p>
 	</div>
 	<div

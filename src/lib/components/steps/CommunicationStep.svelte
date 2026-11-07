@@ -9,7 +9,6 @@
 		name: string;
 		time: string;
 		body: string;
-		link?: { domain: string; title: string };
 	};
 
 	const initial: Msg[] = [
@@ -25,10 +24,9 @@
 			mine: true,
 			name: 'Yash',
 			time: '9:42 AM',
-			body: 'Done, eased the timing and added a small delay on enter so it lands softer. Preview link:',
-			link: { domain: 'pages.dev', title: 'Preview - hero-motion-v2' }
+			body: 'Done, eased the timing and added a small delay on enter so it lands softer. Sharing a preview link in a sec.'
 		},
-		{ id: '3', mine: false, name: 'Client', time: '9:46 AM', body: 'Perfect, this is exactly the cadence we wanted. Ship it.' }
+		{ id: '3', mine: false, name: 'Client', time: '9:46 AM', body: 'Got it, checking on my phone now.' }
 	];
 
 	let messages = $state<Msg[]>(initial);
@@ -67,13 +65,7 @@
 			<div class="flex h-full min-h-0 w-full flex-col bg-[#fafafa] text-[13px] leading-relaxed">
 				<div class="flex shrink-0 items-center justify-between border-b border-neutral-200/90 bg-white px-3 py-2.5">
 					<span class="truncate font-semibold text-neutral-800"><span class="text-neutral-400">#</span>daily-updates</span>
-					<div class="flex items-center gap-1.5 text-[11px] text-neutral-500">
-						<span class="relative flex size-2">
-							<span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400/40"></span>
-							<span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
-						</span>
-						Live
-					</div>
+					<span class="rounded-md bg-neutral-100 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500">Interactive demo</span>
 				</div>
 				<div class="relative flex min-h-0 flex-1 flex-col">
 					<div class="pointer-events-none absolute inset-x-0 top-0 z-10 h-6 bg-gradient-to-b from-[#fafafa] to-transparent"></div>
@@ -102,19 +94,6 @@
 											: 'rounded-tl-md bg-white text-neutral-800 ring-neutral-200/80'}"
 									>
 										{m.body}
-										{#if m.link}
-											<div
-												class="mt-2 flex max-w-[min(100%,18rem)] gap-2 overflow-hidden rounded-lg border text-left shadow-sm {m.mine
-													? 'border-white/25 bg-white/10'
-													: 'border-neutral-200/90 bg-white'}"
-											>
-												<div class="w-1 shrink-0 {m.mine ? 'bg-white/50' : 'bg-sky-500'}"></div>
-												<div class="min-w-0 flex-1 py-2 pr-2">
-													<p class="text-[10px] font-medium tracking-wider uppercase {m.mine ? 'text-white/70' : 'text-neutral-400'}">{m.link.domain}</p>
-													<p class="mt-0.5 truncate text-xs leading-snug font-medium {m.mine ? 'text-white' : 'text-neutral-800'}">{m.link.title}</p>
-												</div>
-											</div>
-										{/if}
 									</div>
 								</div>
 							</div>
@@ -154,7 +133,7 @@
 			<StepCircle n={4} from="#fb923c" to="#ea580c" />
 			<h2 class="max-w-[30ch] font-display text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
 				Communication
-				<span class="text-neutral-400">one clear channel, regular updates, no chasing.</span>
+				<span class="text-neutral-400">you see progress and share feedback along the way, not just at the end.</span>
 			</h2>
 		</div>
 	</div>

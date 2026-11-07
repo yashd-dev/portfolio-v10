@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 
 	const items = [
 		{ id: 'intro', label: 'Intro', icon: 'person' },
 		{ id: 'work', label: 'Work', icon: 'grid' },
 		{ id: 'experience', label: 'Experience', icon: 'plane' }
+	];
+	const routes = [
+		{ href: '/how-i-work', label: 'Process', icon: 'steps' },
+		{ href: '/tools', label: 'Tools', icon: 'wrench' },
+		{ href: '/play', label: 'Play', icon: 'game' }
 	];
 
 	let active = $state('intro');
@@ -97,6 +103,26 @@
 					{/if}
 				</span>
 				<span class={active === it.id ? 'ml-1.5' : 'max-sm:ml-0 max-sm:hidden'}>{it.label}</span>
+			</a>
+		{/each}
+		<span class="mx-1 h-4 w-px bg-black/10"></span>
+		{#each routes as r}
+			<a
+				href={r.href}
+				class="relative z-10 flex items-center gap-1.5 rounded-full px-3 py-1.5 uppercase transition-colors duration-200 {page.url.pathname === r.href
+					? 'text-ink'
+					: 'text-muted hover:text-ink'}"
+			>
+				<span class="inline-flex w-3.5 place-items-center" aria-hidden="true">
+					{#if r.icon === 'steps'}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="h-3.5 w-3.5 shrink-0"><path d="M4 6h10M4 12h16M4 18h7" /></svg>
+					{:else if r.icon === 'wrench'}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 shrink-0"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2.1-.7-.7-2.1z" /></svg>
+					{:else}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 shrink-0"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.3 5H6.7a4 4 0 0 0-4 3.6L2 16a2.5 2.5 0 0 0 4.3 1.7L8 15h8l1.7 2.7A2.5 2.5 0 0 0 22 16l-.7-7.4a4 4 0 0 0-4-3.6z" /></svg>
+					{/if}
+				</span>
+				<span class="max-sm:hidden">{r.label}</span>
 			</a>
 		{/each}
 	</div>

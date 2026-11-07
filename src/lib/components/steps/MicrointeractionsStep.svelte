@@ -140,7 +140,7 @@
 			<StepCircle n={3} from="#fb7185" to="#e11d48" />
 			<h2 class="max-w-[30ch] font-display text-lg font-normal tracking-tight text-balance text-neutral-700 md:text-xl">
 				Microinteractions
-				<span class="text-neutral-400">that feel intentional and make your page memorable.</span>
+				<span class="text-neutral-400">small details, built by hand, that make a page feel alive.</span>
 			</h2>
 		</div>
 	</div>
