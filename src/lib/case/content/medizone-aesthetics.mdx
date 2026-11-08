@@ -16,11 +16,12 @@ export const meta = {
 		{ id: 'intro', label: 'Intro' },
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'problem', label: 'The problem' },
+		{ id: 'role', label: 'Role and constraints' },
+		{ id: 'decisions', label: 'Key decisions' },
 		{ id: 'catalog', label: 'Organizing the catalog' },
 		{ id: 'trust', label: 'Trust as a feature' },
 		{ id: 'teaching', label: 'Content that teaches' },
-		{ id: 'cms', label: 'Editing without a developer' },
-		{ id: 'shipped', label: 'What shipped' },
+		{ id: 'outcome', label: 'Outcome' },
 		{ id: 'takeaway', label: 'Takeaway' }
 	],
 	next: { href: '/work/actually-fair', title: 'Actually Fair' }
@@ -33,15 +34,70 @@ export const meta = {
 	</Lead>
 	<P>
 		The catalog spans Bio-Meyisun PDO threads, the Starfill dermal filler range, and Brili MDS
-		nutraceuticals, alongside training programs for practitioners who use them.
+		nutraceuticals, alongside training programs for the practitioners who use them. The buyers are
+		clinics, doctors and distributors: people who purchase for a practice, not for themselves.
 	</P>
 </Section>
 
 <Section id="problem" title="The problem">
 	<P>
-		The brand's products and training programs have to be discoverable online. The buyers are
-		clinics and doctors arriving with technical questions, so the answers have to be easy to find
-		and the site has to read as professional as the products.
+		The brand had a website, but it was an old WordPress build left unmaintained: out of date, and
+		visibly behind the quality of the products. For buyers who are clinics, doctors and
+		distributors, a neglected site reads as a neglected business.
+	</P>
+	<P>
+		The rebuild started with an R&D pass on the B2B aesthetics space: how these products are
+		evaluated, and by whom. The answer set the brief. The people searching arrive with technical
+		questions. Which thread type for which procedure, which filler variant for which area, what
+		training exists before they commit. If those answers are hard to find, the buyer moves on.
+	</P>
+	<P>
+		So the site has two jobs at once: read as professional as the products, and answer clinical
+		questions in clinical language without making the visitor dig.
+	</P>
+</Section>
+
+<Section id="role" title="Role and constraints">
+	<P>
+		I ran the R&D, repositioned the site as a B2B catalog, and designed and built it end to end,
+		including the CMS behind it.
+	</P>
+	<P>The constraints shaped everything:</P>
+	<ul>
+		<li>
+			The reader is an expert. A dermatologist evaluating a thread range cannot be sold to with
+			lifestyle copy; the site has to carry real specifications.
+		</li>
+		<li>
+			The catalog changes weekly. New products, new training batches, new posts, and none of it can
+			wait on a developer.
+		</li>
+		<li>
+			Claims need care. These are clinical products, so every credential is presented as the brand
+			presents it, and the design lets evidence carry the persuasion.
+		</li>
+	</ul>
+</Section>
+
+<Section id="decisions" title="Key decisions">
+	<Subhead>Organize by clinical purpose, not by SKU</Subhead>
+	<P>
+		Practitioners think in procedures and use cases, so the catalog is grouped the way they think:
+		threads for tissue lifting and collagen stimulation, fillers mapped to treatment areas,
+		nutraceuticals as their own family. Each line gets its own space instead of one undifferentiated
+		grid.
+	</P>
+	<Subhead>Put the numbers on the page</Subhead>
+	<P>
+		Professional buyers look for specifications, so the copy works at spec level: the Brili MDS
+		strips list their 250 mg of L-glutathione and 20 mg of vitamin C per strip, the collagen shot
+		its 7.5 g of hydrolyzed collagen. The detail is the persuasion.
+	</P>
+	<Subhead>Treat education as a product</Subhead>
+	<P>
+		For this audience, the support around the product is part of the product. Training is a
+		first-class section with procedure videos and technical guidance, not a footer link, and the
+		enquiry paths route by product interest so a conversation starts with context.
 	</P>
 </Section>
 
@@ -49,8 +105,7 @@ export const meta = {
 	<P>
 		The product lines are grouped the way practitioners think: threads for tissue lifting and
 		collagen stimulation, the Starfill filler range mapped to use cases from lips to jawline, and
-		nutraceuticals like collagen shots and mouth-dissolving glutathione. Each line gets its own
-		space instead of one undifferentiated grid.
+		nutraceuticals like collagen shots and mouth-dissolving glutathione.
 	</P>
 	<Fig
 		src="/case/medizone-aesthetics/section-1.png"
@@ -58,41 +113,67 @@ export const meta = {
 		caption="Product lines are separated by clinical purpose, not by SKU."
 		wide
 	/>
+	<P>
+		The Starfill range shows the level the copy works at. The variants are not interchangeable, so
+		the site says exactly what each one is for:
+	</P>
+	<Tbl
+		head={['Starfill variant', 'Presented for']}
+		rows={[
+			['Plus', 'Lips, hands, under-eye and tear trough'],
+			['Deep Plus', 'Russian lips, cheeks'],
+			['Implant Plus', 'Jawline, chin and nose']
+		]}
+	/>
 </Section>
 
 <Section id="trust" title="Trust as a feature">
 	<P>
 		For medical buyers, trust signals are content. The site foregrounds its product credentials,
-		presenting the range as FDA-approved, and treats the training programs as a first-class section
-		rather than a footer link.
+		presenting the range as FDA-approved, and backs the claims with a before-and-after gallery so
+		practitioners can judge documented results for themselves.
+	</P>
+	<P>
+		The design choice is restraint: no lifestyle gloss, no urgency tricks. Evidence is given room,
+		and the reader's expertise is treated as a given.
 	</P>
 </Section>
 
 <Section id="teaching" title="Content that teaches">
 	<P>
-		Blogs and training pages do the long selling: hair restoration, nose redefinition and procedure
-		explainers let a doctor research on their own schedule before ever reaching out.
+		The Training and Procedure section gives practitioners hands-on grounding in the products: basic
+		and advanced procedure videos with detailed technical guidance, taught by specialists and KOLs.
+		A doctor evaluating a thread range can watch it used before ever reaching out.
 	</P>
 	<Fig
 		src="/case/medizone-aesthetics/section-2.png"
-		alt="Medizone Aesthetics training and content section"
-		caption="Education pages carry the detail professional buyers come for."
+		alt="Medizone Aesthetics training and procedure video section"
+		caption="Clinical education is a section of its own: procedure videos with technical guidance."
 		wide
 	/>
-</Section>
-
-<Section id="cms" title="Editing without a developer">
 	<P>
-		Next.js with Sanity underneath means new products, new training batches and new posts are the
-		team's own work. A catalog business changes weekly; the site changes with it.
+		Blogs do the long selling alongside it. Hair restoration, nose redefinition and procedure
+		explainers let a doctor research on their own schedule, and arrive at the enquiry form already
+		informed.
 	</P>
 </Section>
 
-<Section id="shipped" title="What shipped">
+<Section id="outcome" title="Outcome">
 	<P>
-		A live site for PDO threads, training programs and medical product discovery, editable through
-		Sanity, with the trust structure a clinical buyer expects.
+		A live site for PDO threads, training programs and medical product discovery, running on Next.js
+		with Sanity underneath. New products, new training batches and new posts are the team's own work
+		now; a catalog business changes weekly, and the site changes with it.
 	</P>
+	<P>
+		Enquiries route by product interest, and WhatsApp and a call stay one tap away for buyers who
+		would rather talk.
+	</P>
+	<Fig
+		src="/case/medizone-aesthetics/mobile.png"
+		alt="Medizone Aesthetics homepage on a phone"
+		caption="On a phone, the product lines lead and a conversation is always one tap away."
+		phone
+	/>
 </Section>
 
 <Section id="takeaway" title="Takeaway">

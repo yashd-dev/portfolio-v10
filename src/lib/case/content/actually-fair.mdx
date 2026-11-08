@@ -9,19 +9,21 @@ export const meta = {
 	eyebrow: 'Actually Fair · Ecommerce',
 	subtitle:
 		'A transparent shopping experience across six categories, with clear product pages, calm flows and headless Shopify underneath.',
-	tags: ['Live store', 'Headless Shopify', 'Self-hosted', 'Cash on delivery'],
+	tags: ['Live store', 'Headless Shopify', 'Self-hosted', 'Cash on delivery', 'PostHog A/B tests'],
 	heroAlt: 'Actually Fair storefront homepage',
 	heroCaption: 'Actually Fair. Transparent pricing on every product, no, for real.',
 	sections: [
 		{ id: 'intro', label: 'Intro' },
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'problem', label: 'The problem' },
+		{ id: 'role', label: 'Role and constraints' },
+		{ id: 'decisions', label: 'Key decisions' },
 		{ id: 'storefront', label: 'The storefront' },
 		{ id: 'pricing', label: 'Pricing in the open' },
 		{ id: 'checkout', label: 'Cart and checkout' },
-		{ id: 'wish', label: 'Make a wish' },
+		{ id: 'iteration', label: 'Testing and iteration' },
 		{ id: 'under-the-hood', label: 'Under the hood' },
-		{ id: 'shipped', label: 'What shipped' },
+		{ id: 'outcome', label: 'Outcome' },
 		{ id: 'takeaway', label: 'Takeaway' }
 	],
 	next: { href: '/work/therapy-with-kinnari', title: 'Therapy With Kinnari' }
@@ -34,22 +36,77 @@ export const meta = {
 	<P>
 		The store sells across athleisure, backpacks and travel gear, sunglasses, jewelry, electronics,
 		and skincare and grooming. It runs as a live, self-hosted storefront with real payments, real
-		inventory and cash on delivery.
-	</P>
-	<P>
-		I work on it as technical lead, end to end: the headless Shopify backend, the Next.js
-		storefront, and the custom services around them.
+		inventory and cash on delivery, and it is selling today.
 	</P>
 </Section>
 
 <Section id="problem" title="The problem">
 	<P>
-		Online stores often keep pricing and sourcing opaque, and the shopper has no way to tell what
-		anything should actually cost.
+		Online stores often keep pricing and sourcing opaque. Reference prices are inflated, the sale
+		never ends, and the shopper has no way to tell what anything should actually cost.
 	</P>
 	<P>
 		Actually Fair's bet is that a store can win on the opposite: show fair pricing plainly, on every
-		product, and let that be the brand.
+		product, and let that be the brand. The catch is that this turns pricing into a design problem.
+		If the math is legible on one page and hidden on the next, the promise collapses.
+	</P>
+	<P>
+		There was a craft problem alongside the business one. The store ran on a stock Shopify theme,
+		and the theme could no longer give the design the control the brand needed.
+	</P>
+	<Callout title="The real constraint">
+		"Fair" only works if every surface shows the same math: the category grid, the product page, the
+		cart and the checkout. One vague price anywhere and the whole brand reads as marketing.
+	</Callout>
+</Section>
+
+<Section id="role" title="Role and constraints">
+	<P>
+		I worked on the store as technical lead, end to end: the storefront, the backend services and
+		the internal tooling the team works in.
+	</P>
+	<P>The work shipped against real constraints:</P>
+	<ul>
+		<li>
+			A live store. Changes went out against real orders and real inventory, not a staging
+			playground.
+		</li>
+		<li>
+			A self-hosted budget. The stack had to stay cheap to run, so it is built from parts the store
+			owns rather than rented platforms.
+		</li>
+		<li>
+			Shoppers trained by Indian ecommerce. Cash on delivery, a members area and familiar cart
+			patterns are expectations, not features.
+		</li>
+	</ul>
+</Section>
+
+<Section id="decisions" title="Key decisions">
+	<Subhead>Headless over a theme</Subhead>
+	<P>
+		The store moved off the stock Shopify theme to a headless Next.js and Tailwind build. Shopify
+		still owns products, cart and checkout; everything the shopper sees is ours to design. The
+		tradeoff is real, a theme is free and headless is work, but the brand lives in the details of
+		how prices and products are presented, and those details were exactly what the theme would not
+		give up.
+	</P>
+	<Subhead>Transparency as a component rule</Subhead>
+	<P>
+		Fair pricing is enforced at the component level, not the copy level. Every product card shows
+		the selling price next to the reference price with the percentage off, and the product page and
+		cart repeat the same math in the same shape. It is a rule about what components must render,
+		which is the only way a promise survives every screen.
+	</P>
+	<Subhead>Own the services where Shopify stops</Subhead>
+	<P>
+		Whatever Shopify does not cover became a small service we own, self-hosted on Railway: a reviews
+		service so social proof lives in the store's own database, an order-ingestion webhook service
+		that keeps internal tooling in sync as orders land, and a custom CMS, because Sanity was not a
+		fit for this team's workload. Owning the services changes what features cost: something like
+		Make A Wish, where shoppers ask for a product the catalog does not carry yet, is a small build
+		inside our own stack instead of a plugin hunt. It turns a gap in inventory into a conversation,
+		and every request is a signal about what to stock next.
 	</P>
 </Section>
 
@@ -57,17 +114,18 @@ export const meta = {
 	<P>
 		The catalog is wide, so the browsing has to stay calm. Categories sit in a predictable order,
 		each with its own landing view: athleisure, backpacks and travel, sunglasses, jewelry,
-		electronics, and skincare, with new arrivals surfaced per category.
+		electronics, and skincare, with new arrivals surfaced per category. No department is more than
+		one tap away, and no page asks the shopper to hunt.
 	</P>
 	<Fig
 		src="/case/actually-fair/section-1.png"
-		alt="Actually Fair catalog section with product cards and category navigation"
-		caption="Category browsing stays flat: each department is one tap away, with new arrivals under it."
+		alt="Actually Fair women's athleisure category with product cards showing prices and discount badges"
+		caption="A category landing view: flat layout, product cards, and the pricing math already on the card."
 		wide
 	/>
 	<P>
 		Best sellers carry the discount math on the card itself, so the deal is legible before a single
-		product page opens.
+		product page opens. The grid does the selling; the product page only has to confirm it.
 	</P>
 </Section>
 
@@ -75,8 +133,19 @@ export const meta = {
 	<Pullquote>transparent pricing on every product. no, for real.</Pullquote>
 	<P>
 		That line is the store's whole pitch, and the design treats it as a contract rather than a
-		slogan. Product cards show the selling price next to the reference price with the percentage
-		off, and product pages keep the same math in view instead of hiding it behind a sale badge.
+		slogan. The percentage off sits on the card as a badge, the reference price sits next to the
+		selling price, and the shopper never has to take the deal on faith.
+	</P>
+	<Fig
+		src="/case/actually-fair/section-2.png"
+		alt="Actually Fair handbags category with discount percentage badges on product cards"
+		caption="The discount is never a mystery: selling price, reference price and percentage off, side by side."
+		wide
+	/>
+	<P>
+		The same rule holds in the cart. The shopper never has to wonder whether the price changed
+		between the grid and the checkout, because it is the same number, presented the same way, the
+		whole way through.
 	</P>
 </Section>
 
@@ -84,20 +153,22 @@ export const meta = {
 	<P>
 		The cart and login flows follow familiar Indian ecommerce patterns: a persistent cart, a members
 		area, and cash on delivery at checkout. Nothing about paying asks the shopper to learn a new
-		pattern.
+		pattern, which matters for a young brand that has no trust surplus to spend.
 	</P>
 	<Fig
 		src="/case/actually-fair/mobile.png"
 		alt="Actually Fair storefront on a phone"
-		caption="The storefront on a phone, with the same pricing math in view."
+		caption="The storefront on a phone, with the same pricing math in view on a small screen."
 		phone
 	/>
 </Section>
 
-<Section id="wish" title="Make a wish">
+<Section id="iteration" title="Testing and iteration">
 	<P>
-		The store ships a small feature called Make A Wish: shoppers can ask for a product the catalog
-		does not carry yet. It turns a gap in inventory into a conversation instead of a dead end.
+		The storefront is refined against evidence, not taste alone. PostHog A/B tests run against the
+		live store, and the results guide what ships, with particular attention to the mobile
+		experience. The loop is simple: change one surface, watch what shoppers do, keep what earns
+		itself.
 	</P>
 </Section>
 
@@ -107,16 +178,22 @@ export const meta = {
 	/>
 	<P>
 		The storefront is Next.js and Tailwind talking to headless Shopify for products, cart and
-		checkout. Around that core sit custom microservices for the parts Shopify does not cover,
-		self-hosted on Railway so the stack answers to the store, not the other way around.
+		checkout. Around that core sit about eight custom microservices, self-hosted on Railway,
+		covering reviews, order ingestion, the custom CMS and the rest of what the store needs beyond
+		Shopify.
 	</P>
 </Section>
 
-<Section id="shipped" title="What shipped">
+<Section id="outcome" title="Outcome">
 	<P>
 		A live headless Shopify storefront with clear product pages and calm flows, across six product
-		categories, with cash on delivery, a members area and a wish-request channel. It is in
-		production and selling today.
+		categories, with cash on delivery, a members area and a wish-request channel. Under it, a set of
+		custom services and internal tools that the store runs on every day.
+	</P>
+	<P>
+		Over the period this work was shipping, the store's monthly revenue grew by 210%, with a
+		significant Meta ads push driving much of that growth alongside the site itself. The storefront
+		and the services behind it carried their share.
 	</P>
 </Section>
 
@@ -124,6 +201,7 @@ export const meta = {
 	<P>
 		The interesting constraint was that "fair" is a design requirement, not a marketing one. Every
 		surface, from the product card to the checkout, has to hold the same promise or the brand falls
-		apart.
+		apart. Most of the work was not making the claim louder, but making it survive contact with
+		every screen.
 	</P>
 </Section>

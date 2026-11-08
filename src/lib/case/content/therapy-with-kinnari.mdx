@@ -1,6 +1,6 @@
 export const meta = {
 	title: 'Therapy With Kinnari',
-	role: 'Designer & developer: design, build, CMS setup',
+	role: 'Designer & developer: recovery, design, build, CMS setup',
 	stack: 'Next.js, Sanity',
 	timeline: '2026',
 	live: 'https://therapywithkinnari.com/',
@@ -16,11 +16,12 @@ export const meta = {
 		{ id: 'intro', label: 'Intro' },
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'problem', label: 'The problem' },
+		{ id: 'role', label: 'Role and constraints' },
+		{ id: 'decisions', label: 'Key decisions' },
 		{ id: 'voice', label: 'A calmer voice' },
 		{ id: 'structure', label: 'The structure' },
 		{ id: 'booking', label: 'Booking without friction' },
-		{ id: 'cms', label: 'Editing it herself' },
-		{ id: 'shipped', label: 'What shipped' },
+		{ id: 'outcome', label: 'Outcome' },
 		{ id: 'takeaway', label: 'Takeaway' }
 	],
 	next: { href: '/work/medizone-aesthetics', title: 'Medizone Aesthetics' }
@@ -33,15 +34,79 @@ export const meta = {
 	</Lead>
 	<P>
 		The practice offers talk therapy and art therapy, rooted in trauma-informed, evidence-based
-		approaches. The site covers services, workshops, articles, a community space, FAQs and booking.
+		approaches, for children, teenagers and adults in one-on-one sessions. The site covers services,
+		workshops, articles, a community space, FAQs and booking.
 	</P>
 </Section>
 
 <Section id="problem" title="The problem">
 	<P>
-		The practice offers sessions, workshops and resources, and all of it has to feel approachable
-		online. A therapy site can easily read like a clinic: sterile, credential-first, and hard to
-		take the first step from. For someone already overwhelmed, that tone is a wall.
+		The practice had a website, but it had effectively been lost. The domain had been let expire,
+		requested changes were going nowhere, and the Google Business profile patients rely on to find
+		and trust the practice was in a mess. Online, the practice was hard to find and harder to reach,
+		and none of it was hers to fix: every change had to go through someone else.
+	</P>
+	<P>
+		So the brief was really two briefs. First, restore the basics: the domain, the business
+		presence, the ability to change things. Then build a site that actually feels like Kinnari, on a
+		subject where the wrong tone is a wall. A therapy site can easily read like a clinic: sterile,
+		credential-first, and hard to take the first step from. For someone already overwhelmed, that
+		tone costs the practice the exact visitor it exists for.
+	</P>
+</Section>
+
+<Section id="role" title="Role and constraints">
+	<P>
+		I took on the recovery and the rebuild end to end: restored the domain, sorted out the Google
+		Business setup, then designed and built the new site and the CMS behind it.
+	</P>
+	<P>The design constraints shaped everything:</P>
+	<ul>
+		<li>
+			Picture the visitor honestly: someone arriving sad, confused or unsure, on one of their harder
+			days. The measure of every page is how quickly that person can reach out.
+		</li>
+		<li>
+			The client is a practitioner, not a technical user. Once the site launched, changing it could
+			not mean calling a developer.
+		</li>
+		<li>The subject is sensitive. Privacy is a design requirement, not a policy page.</li>
+		<li>
+			Warmth without haze. The site had to stay clean and uncluttered, with concrete answers about
+			cost, format and confidentiality never more than a tap away.
+		</li>
+	</ul>
+</Section>
+
+<Section id="decisions" title="Key decisions">
+	<Subhead>Design for the overwhelmed visitor</Subhead>
+	<P>
+		The design brief I worked to was a person, not a market: someone having a hard day, arriving
+		with low energy and less certainty. Every page is judged by one question: how quickly can this
+		person reach out from here? That ruled out clever navigation, dense pages and anything that
+		makes a tired visitor work. It is also why the site is clean rather than busy: clutter asks for
+		attention this visitor does not have, so each screen carries one idea and one next step.
+	</P>
+	<Subhead>Many touchpoints, each one low-pressure</Subhead>
+	<P>
+		People reach out in different ways, especially when reaching out is hard. So the site keeps
+		several doors open at all times: the Let's Talk invitation on every page, a WhatsApp button that
+		follows the scroll for the visitor who would rather type than talk, plain contact details for
+		those who want a phone number or an email address, and a Schedule A Session path for the person
+		who is ready. No door is locked behind a long form, and no scroll depth leaves the visitor
+		without a way forward.
+	</P>
+	<Subhead>Structure by state of mind, not org chart</Subhead>
+	<P>
+		The pages map to the ways someone actually arrives: what sessions look like, what group formats
+		exist, what to read if you are not ready to book, and the practical worries people rarely ask
+		out loud. Nobody has to understand the practice to find their way around it.
+	</P>
+	<Subhead>Privacy in the details</Subhead>
+	<P>
+		Client kind words appear signed with flower names: Anemone, Marigold, Dahlia. The site can show
+		what sessions mean to people without ever exposing who they are. For a therapy practice, that
+		choice is the brand.
 	</P>
 </Section>
 
@@ -54,14 +119,21 @@ export const meta = {
 	</P>
 	<P>
 		That voice carries through the whole site: therapy is described as "understanding you, not
-		fixing you", with talk and art as two doors into the same room.
+		fixing you", with talk and art as two doors into the same room. Approaches like CBT, DBT,
+		mindfulness and person-centered therapy are named plainly, as reassurance rather than jargon.
 	</P>
+	<Fig
+		src="/case/therapy-with-kinnari/mobile.png"
+		alt="Therapy With Kinnari homepage on a phone, opening with an empathetic headline"
+		caption="The site opens on a feeling, not a credential list. Help is one tap away throughout."
+		phone
+	/>
 </Section>
 
 <Section id="structure" title="The structure">
 	<P>
-		The pages map to the ways someone might arrive: Services for what sessions look like, Workshops
-		for group formats, Articles and Community for people not ready to book, and an FAQ for the
+		Services describe what sessions look like, Workshops cover the group formats, Articles and
+		Community give people who are not ready to book somewhere to be, and an FAQ answers the
 		practical worries, cost, format, confidentiality, that usually go unasked.
 	</P>
 	<Fig
@@ -70,28 +142,37 @@ export const meta = {
 		caption="Sections are written for the visitor's state of mind, not the business's org chart."
 		wide
 	/>
+	<P>
+		The art-based workshops carry the practice into workplaces: guided creative sessions for teams,
+		offered in the same unhurried tone as the practice itself.
+	</P>
+	<Fig
+		src="/case/therapy-with-kinnari/section-2.png"
+		alt="Photos from Therapy With Kinnari art workshops"
+		caption="Workshops carry the practice into workplaces: a pause, not a procedure."
+		wide
+	/>
 </Section>
 
 <Section id="booking" title="Booking without friction">
 	<P>
-		Every page offers the same low-pressure door: Let's Talk. Booking a session is one calm step,
-		not a form gauntlet, because the moment someone decides to reach out is the moment the site
-		should get out of the way.
+		Booking a session is one calm step, not a form gauntlet. Sessions work in person in Mulund West,
+		Mumbai, or from the comfort of home, and the site says so in the visitor's own terms: "choose
+		what feels right for you." The moment someone decides to reach out is the moment the site should
+		get out of the way.
 	</P>
 </Section>
 
-<Section id="cms" title="Editing it herself">
+<Section id="outcome" title="Outcome">
 	<P>
-		The site runs on Next.js with Sanity behind it, so articles, workshops and FAQs are Kinnari's to
-		change. A therapist's site is a living thing: new groups, new writing, new answers. None of that
-		should need a developer.
+		The practice is back online on its own domain, with its Google Business presence restored and a
+		site that finally feels like Kinnari. It runs on Next.js with Sanity behind it, so articles,
+		workshops and FAQs are hers to change. A therapist's site is a living thing: new groups, new
+		writing, new answers. None of that needs a developer anymore.
 	</P>
-</Section>
-
-<Section id="shipped" title="What shipped">
 	<P>
-		A calming live site for sessions, workshops and resources, with a softer booking experience,
-		editable end to end through Sanity.
+		The result is warm where the practice's old presence was broken and clinical, and structured
+		around the visitor's first step.
 	</P>
 </Section>
 
