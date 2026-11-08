@@ -1,18 +1,11 @@
+import RelayAvatar from './RelayAvatar';
+
 export type Persona = {
 	name: string;
 	tag: string;
 	quote: string;
 	rows: { label: string; text: string }[];
 };
-
-function initials(name: string): string {
-	return name
-		.replace(/^(The|A|An)\s+/i, '')
-		.split(/\s+/)
-		.slice(0, 2)
-		.map((w) => w[0]?.toUpperCase() ?? '')
-		.join('');
-}
 
 export default function Personas({ items }: { items: Persona[] }) {
 	return (
@@ -21,7 +14,7 @@ export default function Personas({ items }: { items: Persona[] }) {
 				<article className="case-persona" key={p.name}>
 					<header className="case-persona__head">
 						<span className="case-persona__avatar" aria-hidden="true">
-							{initials(p.name)}
+							<RelayAvatar name={p.name} />
 						</span>
 						<div>
 							<h3 className="case-persona__name">{p.name}</h3>

@@ -1,0 +1,105 @@
+export const meta = {
+	title: 'How Relay works: texting over Bluetooth, no internet needed',
+	date: '2026-11-08',
+	summary:
+		'A deep-dive into Relay, the Bluetooth mesh chat app we built: the custom packet format, flooding, self-certifying identity, encrypted private chats, file transfer and the Nostr side.'
+};
+
+Soo a while back me and my friends (Kshitij, Ria and Akshat) got stuck on one question: can two phones chat with nothing but Bluetooth? No wifi, no cell network, no server in between. Bluetooth mesh messaging had its public moment when Jack Dorsey dropped bitchat last year, and Relay's codebase still carries the bitchat package name internally. But reading about it is one thing. We wanted to actually get phones talking ourselves, and understand every piece of how. That's Relay, and this post is a dump of the interesting parts.
+
+Relay does two independent things: nearby messaging over BLE mesh (the fun part), and internet messaging over Nostr relays (the practical part). You pick one per chat. Let's start with BLE.
+
+<Fig phone src="/blog/how-relay-works/splash.jpg" alt="Relay splash screen" caption="The Relay splash screen." />
+
+<Fig phone src="/blog/how-relay-works/new-chat.jpg" alt="Relay new chat sheet: chat nearby over Bluetooth, or new internet chat with an Internet ID" caption="Starting a chat: nearby over Bluetooth, or internet with an Internet ID." />
+
+## Why BLE, and why every phone is both sides
+
+Classic Bluetooth is built for streams like audio, and pairing is a whole ceremony. BLE is built for tiny packets and low power, and any phone can advertise and scan at the same time. That second property is what makes a mesh possible at all.
+
+In Relay every phone runs both roles at once:
+
+- A GATT server hosting our own custom service (a 128-bit UUID we generated for the app, 6f8d2f55-...)
+- A GATT client continuously scanning for that same UUID and connecting to every phone it finds (capped at 16 simultaneous links)
+
+So there's no server phone and no client phone. Any two phones in range form a link, negotiate a 512-byte MTU, and both can push packets at each other through one characteristic. A foreground service keeps the whole thing alive when the app is in the background.
+
+<Fig phone src="/blog/how-relay-works/how-it-works.jpg" alt="Relay onboarding: find nearby, messages hop, stay private" caption="Onboarding: find nearby, messages hop, stay private." />
+
+## Our own little protocol on top
+
+On top of BLE we wrote our own binary packet format. To be clear, not a new Bluetooth standard, just our own protocol riding on standard BLE. Every packet is, byte by byte:
+
+**version, type, ttl, flags | 8-byte timestamp | 16-byte random packet id | 8-byte sender id | optional 8-byte recipient id | payload up to 4kb | signature**
+
+The type byte alone tells you the shape of the whole system: ANNOUNCE, MESSAGE, ENCRYPTED, ACK, FRAGMENT, PING, PONG, FILE_CONTROL, FILE_CHUNK, CONTROL, HANDSHAKE, LEAVE. Twelve packet types run the entire app.
+
+## But BLE writes are tiny
+
+Even with a negotiated 512-byte MTU, a 4kb packet doesn't fit in one write. So packets get split into fragments, each with its own 10-byte header: two magic bytes (0xBC01), the message id, the fragment index and the total count. The receiving side reassembles them, with a 60-second timeout and hard caps on how many assemblies can be open at once, so a glitchy sender can't eat your memory.
+
+## The mesh part: just flood it
+
+Here's the bit we found most fun. When you message someone your phone can't see directly, there is no routing table. Phones flood.
+
+- Every phone that hears a packet checks its 16-byte id against a seen-cache (5000 entries, 10-minute window) and drops duplicates
+- If the packet is addressed to you, you deliver it
+- Otherwise you decrement the ttl and re-broadcast it
+
+Ttl starts at 5, so a message can hop through up to five phones before it dies. Dedup is what keeps flooding from melting down: the same packet can arrive from three different neighbours, but only the first copy counts. Flooding wastes some airtime compared to real routing, but routing tables need everyone to agree on the topology, and the topology changes every few seconds when people literally walk around. Flooding just doesn't care.
+
+We tried this with three phones (mine and two friends'), and the texts actually hopped from one phone to the next :))
+
+<Fig phone src="/blog/how-relay-works/what-is-relay.jpg" alt="Relay onboarding: messages hopping through nearby devices" caption="Onboarding: messages hop through other Relay devices." />
+
+## Identity without accounts
+
+No phone numbers, no accounts, no server. The first time you open the app it generates two P-256 keypairs on your phone, one for encryption and one for signing. Your nearby id is just a hash of both public keys.
+
+Every 30 seconds your phone broadcasts a signed announcement: your display name plus both public keys, signed with your signing key. When another phone hears it, it re-derives your id from the keys and verifies the signature before trusting anything, so nobody can announce themselves as you. Private keys sit in keystore-backed encrypted storage and are excluded from device backups.
+
+## Private chats: ECDH + AES-GCM
+
+The public nearby group is plaintext on purpose, and the app says so right in the group: anyone in Bluetooth range can read it. Private chats are different. We run ECDH between your encryption key and theirs, SHA-256 the shared secret into an AES key, and encrypt every message with AES-GCM (fresh random 12-byte IV, 128-bit tag). Phones relaying your packet in the middle only ever see ciphertext.
+
+<Fig phone src="/blog/how-relay-works/nearby-group.jpg" alt="Relay nearby group chat showing the public group banner and messages delivered over BLE" caption="The nearby group: public on purpose, delivered over BLE." />
+
+A private message from someone new doesn't just land in your chats. It waits in a requests tab until you accept, and the accept itself is a signed CONTROL packet that keeps retrying until it actually reaches the mesh.
+
+## Double ticks, Bluetooth edition
+
+When your phone receives a message it sends back a signed ACK naming the 16-byte packet id it got. That's what flips the tick to delivered. Since the ack floods back with its own ttl, the sender can roughly tell how many hops the delivery took. The code itself flags the caveat: a relay in the middle could fudge the ttl, so the hop count is approximate, not authenticated.
+
+## Out of range? Queue it
+
+Sending is never blocked. If your friend walks out of range mid-conversation, the message sits in a pending queue on your phone and the app keeps retrying: when any new link comes up, when your friend's announcement arrives, and on every 30-second tick. When they walk back, it just goes through.
+
+<Fig phone src="/blog/how-relay-works/discover.jpg" alt="Relay discover tab scanning for nearby devices, with contacts shown out of range" caption="Discover: still scanning, with friends currently out of range." />
+
+## Files over Bluetooth, slowly
+
+Yes, actual files. There's a second protocol for it: 36-byte chunk headers, 1kb chunks, pause, resume, cancel, and a SHA-256 check of the whole file at the end. The app caps transfers at 1 MiB on a direct link and 250 KiB over multiple hops, and a phone that's busy forwarding someone else's file won't start its own transfer at the same time, because BLE bandwidth shared across hops is genuinely tiny. It works, just bring patience.
+
+## The internet side: Nostr
+
+BLE covers nearby. For everything else we plugged in Nostr, which is basically a set of independent relays that store and forward signed events, with no single server owning the network. Your internet identity is a secp256k1 keypair and your public id is an npub you can share as a QR code.
+
+<Fig phone src="/blog/how-relay-works/chat-list.jpg" alt="Relay chat list with Nostr npub contacts and nearby contacts showing route status" caption="The chat list: Nostr contacts by npub, nearby contacts with their route status." />
+
+Private internet messages are NIP-17 gift wraps, and the layering is genuinely elegant: the real message (a rumor, kind 14) is signed and encrypted into a seal (kind 13) addressed to the recipient, and the seal gets wrapped once more into a gift wrap (kind 1059) signed by a random throwaway key, so the relay storing it can't even tell who sent it. Encryption is NIP-44, chacha20 over an ECDH shared secret. You announce which relays are your inbox with a signed kind-10050 event, and anyone messaging you publishes to those relays.
+
+One honest detail: for internet messages the app says relay accepted, not delivered. A relay accepting your event only means a server stored it, not that your friend got it or read it.
+
+<Fig phone src="/blog/how-relay-works/open-network.jpg" alt="Relay onboarding: Nostr relays form an open network" caption="Onboarding: the Nostr side, an open network." />
+
+## What's not done (the honest list)
+
+- BLE and Nostr don't auto-switch. You pick nearby or internet per chat. Unified sync between them is a whole problem we parked.
+- Background Nostr delivery uses Android's WorkManager, and Android's minimum periodic interval is 15 minutes. Messages arriving while the app is closed can lag. Platform limit, not laziness.
+- Flooding is simple and robust, but it duplicates traffic and the ttl caps how far a message can travel.
+- BLE range is whatever your phone's radio feels like that day. Walls make it worse.
+- It's a prototype, not an emergency comms service. Don't stake your life on it :))
+
+## The code
+
+The whole thing is Kotlin + Jetpack Compose, open source at [github.com/DeveloperKSD/RELAY](https://github.com/DeveloperKSD/RELAY). Built with Kshitij, Ria and Akshat, with Fahim sir mentoring us through it.

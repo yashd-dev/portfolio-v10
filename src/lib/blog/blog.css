@@ -170,3 +170,12 @@
 .blog-article__footer a:hover {
 	color: #2667ff;
 }
+
+.blog-fig--phone {
+	text-align: center;
+}
+.blog-fig--phone img {
+	width: auto;
+	max-width: 300px;
+	margin-inline: auto;
+}

@@ -16,9 +16,19 @@ export function formatBlogDate(date: string): string {
 	});
 }
 
-export function Fig({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
+export function Fig({
+	src,
+	alt,
+	caption,
+	phone
+}: {
+	src: string;
+	alt: string;
+	caption?: string;
+	phone?: boolean;
+}) {
 	return (
-		<figure className="blog-fig">
+		<figure className={phone ? 'blog-fig blog-fig--phone' : 'blog-fig'}>
 			<img src={src} alt={alt} loading="lazy" decoding="async" />
 			{caption ? <figcaption>{caption}</figcaption> : null}
 		</figure>
