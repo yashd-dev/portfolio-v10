@@ -9,7 +9,8 @@
 		{ href: '/', label: 'Home' },
 		{ href: '/work', label: 'Work' },
 		{ href: '/process', label: 'Process' },
-		{ href: '/tools', label: 'Tools' }
+		{ href: '/tools', label: 'Tools' },
+		{ href: '/blog', label: 'Blog' }
 	];
 
 	const LANDING: NavItem[] = [
@@ -24,6 +25,7 @@
 		{ id: 'communication', label: 'Communication' }
 	];
 	const WORK: NavItem[] = [{ id: 'projects', label: 'Projects', icon: 'grid' }];
+	const BLOG: NavItem[] = [{ id: 'posts', label: 'Posts' }];
 	const TOOLS: NavItem[] = [
 		{ id: 'design', label: 'Design' },
 		{ id: 'web', label: 'Web' },
@@ -42,7 +44,9 @@
 				? TOOLS
 				: page.url.pathname === '/work'
 					? WORK
-					: LANDING
+					: page.url.pathname.startsWith('/blog')
+						? BLOG
+						: LANDING
 	);
 
 	let active = $state('intro');

@@ -5370,10 +5370,20 @@ html:has(.mn-case) body {
 	font-weight: 600;
 }
 
-/* Annotate with a wide (desktop) screenshot: image gets the large column */
+/* Annotate with a wide (desktop) screenshot: full-width image, notes in a row below */
+.case-annotate--wide .case-media img {
+	max-width: 100%;
+	width: 100%;
+}
 @media (min-width: 900px) {
 	.case-annotate--wide {
-		grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.case-annotate--wide .case-annotate__notes {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		align-items: start;
 	}
 }
 
@@ -5381,4 +5391,27 @@ html:has(.mn-case) body {
 	display: flex;
 	flex-direction: column;
 	gap: 0.15rem;
+}
+
+/* Typefaces used inside token swatches, matching the live sites */
+@font-face {
+	font-family: 'Playfair Display';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url(/case/fonts/playfair-display-latin-var.woff2) format('woff2');
+}
+@font-face {
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url(/case/fonts/montserrat-latin-var.woff2) format('woff2');
+}
+@font-face {
+	font-family: 'Manrope';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 200 800;
+	src: url(/case/fonts/manrope-latin-var.woff2) format('woff2');
 }

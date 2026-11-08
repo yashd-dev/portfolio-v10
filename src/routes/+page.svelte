@@ -5,7 +5,7 @@
 	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
 	import FlightPlan from '#lib/components/flightPlan.svelte';
-	import { projects, socials, email, freelance, education } from '#lib/data/content.js';
+	import { projects, socials, email, freelance, education, shenanigans } from '#lib/data/content.js';
 	import { toolGroups, toolIcons } from '#lib/data/icons.js';
 
 	const dailyNames = ['Figma', 'TypeScript', 'Next.js', 'Svelte', 'Tailwind CSS', 'GitHub'];
@@ -14,6 +14,16 @@
 		.map((n) => allTools.find((t) => t.name === n))
 		.filter((t) => t !== undefined);
 	import { REVEAL } from '#lib/reveal.js';
+	import { formatBlogDate, type BlogMeta } from '#lib/blog/BlogPost.js';
+
+	const blogMods = import.meta.glob('/src/lib/blog/content/*.mdx', { eager: true }) as Record<
+		string,
+		{ meta: BlogMeta }
+	>;
+	const blogPosts = Object.entries(blogMods)
+		.map(([path, m]) => ({ slug: path.split('/').pop()!.replace(/\.mdx$/, ''), ...m.meta }))
+		.filter((p) => !p.draft)
+		.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 	let copied = $state(false);
 	let activeWork = $state(0);
@@ -371,8 +381,6 @@
 		</div>
 	</section>
 
-	<CtaSection guides={false} />
-
 	<section aria-label="Tools I use daily" class="mt-24 max-sm:mt-[72px]">
 		<div class="{REVEAL} flex items-baseline justify-between gap-4">
 			<p class="text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
@@ -448,6 +456,77 @@
 			</div>
 		</div>
 	</section>
+
+	<section aria-label="Side shenanigans" class="mt-24 max-sm:mt-[72px]">
+		<p class="{REVEAL} mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
+			Side shenanigans
+		</p>
+		<div class="{REVEAL} border-t border-rule" style="--d: 60ms">
+			{#each shenanigans as s}
+				<div
+					class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
+				>
+					<div>
+						<span class="font-medium">{s.title}</span>
+						<p class="mt-0.5 text-soft">{s.note}</p>
+					</div>
+					{#if s.repo}
+						<a
+							href={s.repo}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group/gh inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
+							data-cursor="GitHub"
+						>
+							GitHub
+							<svg
+								class="transition-transform duration-300 ease-(--ease-mn) group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5"
+								width="12"
+								height="12"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+							>
+						</a>
+					{/if}
+				</div>
+			{/each}
+		</div>
+	</section>
+
+	{#if blogPosts.length > 0}
+		<section aria-label="Writing" class="mt-24 max-sm:mt-[72px]">
+			<div class="{REVEAL} flex items-baseline justify-between gap-4">
+				<p class="text-[11px] font-medium tracking-[0.08em] text-muted uppercase">Writing</p>
+				<a
+					href="/blog"
+					class="text-[13px] text-soft underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em] transition-colors hover:text-ink"
+					data-cursor="All writing">All writing</a
+				>
+			</div>
+			<div class="{REVEAL} mt-[22px] border-t border-rule" style="--d: 60ms">
+				{#each blogPosts.slice(0, 3) as p}
+					<a
+						href="/blog/{p.slug}"
+						class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
+						data-cursor="Read"
+					>
+						<div>
+							<span class="font-medium">{p.title}</span>
+							<p class="mt-0.5 text-soft">{p.summary}</p>
+						</div>
+						<span class="shrink-0 text-[11px] text-muted">{formatBlogDate(p.date)}</span>
+					</a>
+				{/each}
+			</div>
+		</section>
+	{/if}
+
+	<CtaSection guides={false} />
 
 	<footer class="{REVEAL} mt-28 pb-[220px] text-[14px] max-sm:pb-[170px]">
 		<p class="font-medium">Thanks for stopping by.</p>

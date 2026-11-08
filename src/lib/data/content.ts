@@ -109,6 +109,19 @@ export const education = {
 	span: '2022 - 2028'
 };
 
+export const shenanigans = [
+	{
+		title: 'A RAG-as-a-service platform',
+		note: 'Tenant-scoped document ingestion and retrieval over a Neo4j evidence graph, with API keys and an embeddable chat widget.',
+		repo: 'https://github.com/yashd-dev/rag-as-a-service'
+	},
+	{
+		title: 'An agentic research-paper workspace',
+		note: 'Chat-first workspace that pulls open-access papers into pgvector and drafts a cited LaTeX paper through an agent loop.',
+		repo: 'https://github.com/yashd-dev/coursera-rag'
+	}
+];
+
 export const socials = [
 	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/yashd-dev/' },
 	{ label: 'GitHub', href: 'https://github.com/yashd-dev' },
