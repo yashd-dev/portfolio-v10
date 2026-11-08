@@ -7,6 +7,7 @@
 
 	const PAGES = [
 		{ href: '/', label: 'Home' },
+		{ href: '/work', label: 'Work' },
 		{ href: '/process', label: 'Process' },
 		{ href: '/tools', label: 'Tools' }
 	];
@@ -22,6 +23,7 @@
 		{ id: 'microinteractions', label: 'Microinteractions' },
 		{ id: 'communication', label: 'Communication' }
 	];
+	const WORK: NavItem[] = [{ id: 'projects', label: 'Projects', icon: 'grid' }];
 	const TOOLS: NavItem[] = [
 		{ id: 'design', label: 'Design' },
 		{ id: 'web', label: 'Web' },
@@ -34,7 +36,13 @@
 
 	let pathname = $derived(page.url.pathname);
 	let sections = $derived(
-		page.url.pathname === '/process' ? PROCESS : page.url.pathname === '/tools' ? TOOLS : LANDING
+		page.url.pathname === '/process'
+			? PROCESS
+			: page.url.pathname === '/tools'
+				? TOOLS
+				: page.url.pathname === '/work'
+					? WORK
+					: LANDING
 	);
 
 	let active = $state('intro');

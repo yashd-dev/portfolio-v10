@@ -16,11 +16,16 @@ export const meta = {
 		{ id: 'intro', label: 'Intro' },
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'problem', label: 'The problem' },
+		{ id: 'visitors', label: 'The visitors' },
+		{ id: 'journey', label: 'A reconstructed journey' },
+		{ id: 'landscape', label: 'The landscape' },
 		{ id: 'role', label: 'Role and constraints' },
 		{ id: 'decisions', label: 'Key decisions' },
 		{ id: 'voice', label: 'A calmer voice' },
 		{ id: 'structure', label: 'The structure' },
+		{ id: 'touchpoints', label: 'The touchpoints' },
 		{ id: 'booking', label: 'Booking without friction' },
+		{ id: 'tradeoffs', label: 'Tradeoffs and limits' },
 		{ id: 'outcome', label: 'Outcome' },
 		{ id: 'takeaway', label: 'Takeaway' }
 	],
@@ -37,6 +42,11 @@ export const meta = {
 		approaches, for children, teenagers and adults in one-on-one sessions. The site covers services,
 		workshops, articles, a community space, FAQs and booking.
 	</P>
+	<Callout title="How to read this study">
+		The personas and the journey map below are reconstructed design artifacts: the visitor I
+		designed for, drawn from the brief and the live site, not from patient interviews. For a
+		therapy practice that distinction matters twice over.
+	</Callout>
 </Section>
 
 <Section id="problem" title="The problem">
@@ -52,6 +62,114 @@ export const meta = {
 		subject where the wrong tone is a wall. A therapy site can easily read like a clinic: sterile,
 		credential-first, and hard to take the first step from. For someone already overwhelmed, that
 		tone costs the practice the exact visitor it exists for.
+	</P>
+	<Tbl
+		head={['Surface', 'Where the practice stood', 'Where it stands now']}
+		rows={[
+			['Domain', 'Expired, with changes going nowhere', 'Restored, and the practice’s own again'],
+			['Google Business', 'In a mess, hurting discovery and trust', 'Sorted out, so patients find the real practice'],
+			['Making changes', 'Every edit waited on someone else', 'Kinnari edits articles, workshops and FAQs herself in Sanity'],
+			['First impression', 'Broken and clinical', 'Calm, clean, and unmistakably hers']
+		]}
+	/>
+</Section>
+
+<Section id="visitors" title="The visitors">
+	<P>
+		The design brief I worked to was a person, not a market: someone arriving sad, confused or
+		unsure, on one of their harder days. From that starting point, three arrivals the site has to
+		hold at once.
+	</P>
+	<Personas
+		items={[
+			{
+				name: 'The overwhelmed first-timer',
+				tag: 'One of their harder days',
+				quote: 'Maybe talking to someone would help. I think.',
+				rows: [
+					{ label: 'Arrives with', text: 'Low energy, less certainty, and a vague sense that talking to someone might help. Has never booked therapy.' },
+					{ label: 'The site owes', text: 'A page that meets the feeling first, explains without jargon, and keeps a way to reach out visible at every scroll depth.' }
+				]
+			},
+			{
+				name: 'The parent looking for a child',
+				tag: 'Worry, with a checklist',
+				quote: 'Is this safe? What does a session even look like?',
+				rows: [
+					{ label: 'Arrives with', text: 'Worry, and a practical checklist: is this safe, is it evidence-based, what does a session look like?' },
+					{ label: 'The site owes', text: 'Plain answers about approach, format, cost and confidentiality, stated before they have to ask.' }
+				]
+			},
+			{
+				name: 'The not-ready-yet reader',
+				tag: 'Curious, not committed',
+				quote: 'I am not booking today. Maybe not this month.',
+				rows: [
+					{ label: 'Arrives with', text: 'Curiosity without commitment. They will not book today, and maybe not this month.' },
+					{ label: 'The site owes', text: 'Somewhere to be: articles, resources and community that help without asking for anything back.' }
+				]
+			}
+		]}
+	/>
+</Section>
+
+<Section id="journey" title="A reconstructed journey">
+	<P>
+		Mapped from the live site's structure after launch: the distance between landing on the page
+		and reaching out, measured in moments of doubt.
+	</P>
+	<JourneyMap
+		roles={[
+			{
+				id: 'visitor',
+				label: 'The first-time visitor',
+				headline: 'Between landing and reaching out sits a series of small doubts the design has to answer.',
+				stages: ['Arrives', 'Orients', 'Trusts', 'Reaches out'],
+				emotion: [0.22, 0.42, 0.58, 0.72],
+				rows: [
+					{ label: 'Actions', cells: ['Lands on the homepage, mid-scroll within seconds', 'Reads what sessions look like and what they cost', 'Looks for proof this is safe: approach, FAQs, kind words', 'Picks a door: WhatsApp, a call, email, or Schedule A Session'] },
+					{ label: 'Thoughts', cells: ['Is this for someone like me?', 'Can I understand this without a psychology degree?', 'Will this be private? Can I trust her?', 'Which of these can I actually bring myself to do?'] },
+					{ label: 'Emotions', cells: ['Heavy, tentative', 'Cautiously curious', 'Testing for safety', 'Exposed, hopeful'] },
+					{ label: 'Touchpoints', cells: ['The opening line, the calm layout', 'Services, workshops, session formats', 'Approaches named plainly, FAQs, flower-name testimonials', "Let's Talk, floating WhatsApp, contact details, booking"] },
+					{ label: 'Pain', cells: ['Clinical tone and credential walls', 'Dense pages that make a tired visitor work', 'Testimonials that expose real identities', 'A single high-pressure contact form as the only door'] },
+					{ label: 'Opportunity', cells: ["Lead with the visitor's feeling, not the resume", 'One idea per screen, one next step', 'Anonymized kind words and unasked questions answered', 'Several low-pressure doors, none locked behind a long form'] }
+				]
+			}
+		]}
+		caption="Tap a stage to isolate it, zoom to read the whole map."
+	/>
+</Section>
+
+<Section id="landscape" title="The landscape">
+	<P>
+		Someone deciding to seek help does not compare this site to other therapists' sites. They
+		compare it to every easier thing they could do instead, and to the cold versions of care they
+		have already seen.
+	</P>
+	<Tbl
+		head={['Alternative', 'Real strength', 'Where it leaves this visitor']}
+		rows={[
+			[
+				'Hospital and clinic portals',
+				'Institutional credibility, departments, insurance desks',
+				'Sterile and credential-first. The first step feels like registering for a procedure.'
+			],
+			[
+				'Therapist directories',
+				'Choice, filters, reviews, price comparison',
+				'A wall of nearly identical profiles. The visitor does the matching work alone, on a hard day.'
+			],
+			[
+				'An Instagram-only presence',
+				'Warm, personal, familiar to scroll',
+				'No structure: no services, no answers on cost or confidentiality, and reaching out means a public-ish DM.'
+			]
+		]}
+	/>
+	<P>
+		Where this site sits: personal like the Instagram page, structured like the clinic portal, and
+		judged entirely by one metric, how quickly an overwhelmed visitor can reach out from any point
+		on any page.
 	</P>
 </Section>
 
@@ -81,20 +199,16 @@ export const meta = {
 <Section id="decisions" title="Key decisions">
 	<Subhead>Design for the overwhelmed visitor</Subhead>
 	<P>
-		The design brief I worked to was a person, not a market: someone having a hard day, arriving
-		with low energy and less certainty. Every page is judged by one question: how quickly can this
-		person reach out from here? That ruled out clever navigation, dense pages and anything that
-		makes a tired visitor work. It is also why the site is clean rather than busy: clutter asks for
-		attention this visitor does not have, so each screen carries one idea and one next step.
+		Every page is judged by one question: how quickly can this person reach out from here? That
+		ruled out clever navigation, dense pages and anything that makes a tired visitor work. It is
+		also why the site is clean rather than busy: clutter asks for attention this visitor does not
+		have, so each screen carries one idea and one next step.
 	</P>
 	<Subhead>Many touchpoints, each one low-pressure</Subhead>
 	<P>
 		People reach out in different ways, especially when reaching out is hard. So the site keeps
-		several doors open at all times: the Let's Talk invitation on every page, a WhatsApp button that
-		follows the scroll for the visitor who would rather type than talk, plain contact details for
-		those who want a phone number or an email address, and a Schedule A Session path for the person
-		who is ready. No door is locked behind a long form, and no scroll depth leaves the visitor
-		without a way forward.
+		several doors open at all times, and no scroll depth leaves the visitor without a way forward.
+		The full map is in the touchpoints section below.
 	</P>
 	<Subhead>Structure by state of mind, not org chart</Subhead>
 	<P>
@@ -122,11 +236,30 @@ export const meta = {
 		fixing you", with talk and art as two doors into the same room. Approaches like CBT, DBT,
 		mindfulness and person-centered therapy are named plainly, as reassurance rather than jargon.
 	</P>
-	<Fig
+	<Annotate
 		src="/case/therapy-with-kinnari/mobile.png"
 		alt="Therapy With Kinnari homepage on a phone, opening with an empathetic headline"
-		caption="The site opens on a feeling, not a credential list. Help is one tap away throughout."
 		phone
+		notes={[
+			{ title: 'Leads with the feeling', body: 'The first line meets the visitor’s day, not the therapist’s credential list. Qualifications are easy to find, but they are not the welcome.' },
+			{ title: 'Help within one tap', body: 'A way to reach out stays visible at every scroll depth, so no moment of reading strands someone without a way forward.' },
+			{ title: 'One idea per screen', body: 'The spacing is the feature. Nothing competes for attention a tired visitor does not have.' }
+		]}
+	/>
+	<Subhead>The tokens behind the calm</Subhead>
+	<P>
+		A serif for warmth, a sans for clarity, and a palette that stays quiet. The actual values the
+		site ships with:
+	</P>
+	<Tokens
+		items={[
+			{ name: 'Terracotta', value: '#8F3E2E', role: 'The one accent: borders, highlights, quiet emphasis' },
+			{ name: 'Cream', value: '#EDE9DF', role: 'Warm section backgrounds instead of clinical white' },
+			{ name: 'Ink', value: '#171717', role: 'Text, soft black' },
+			{ name: 'WhatsApp', value: '#25D366', role: 'The floating reach-out button' },
+			{ name: 'Playfair Display', value: 'Playfair', role: 'Headings: the warm, editorial voice', font: true },
+			{ name: 'Montserrat', value: 'Montserrat', role: 'Body: plain and easy to read on a hard day', font: true }
+		]}
 	/>
 </Section>
 
@@ -154,12 +287,99 @@ export const meta = {
 	/>
 </Section>
 
+<Section id="touchpoints" title="The touchpoints">
+	<P>
+		Reaching out is the conversion this site exists for, and it is also the hardest thing it asks.
+		So there is never one door, and none of them is locked behind a long form.
+	</P>
+	<Tbl
+		head={['Touchpoint', 'Who it is for', 'Design intent']}
+		rows={[
+			[
+				'Let’s Talk, on every page',
+				'The visitor who needs the invitation phrased gently',
+				'A standing, low-pressure invitation rather than a "contact us" command.'
+			],
+			[
+				'Floating WhatsApp button',
+				'The visitor who would rather type than talk',
+				'Follows the scroll, so no depth of reading ever strands someone without a way forward.'
+			],
+			[
+				'Plain contact details',
+				'The visitor who wants a phone number or an email address, plainly',
+				'No form between them and a direct line. Some people trust what they can save.'
+			],
+			[
+				'Schedule A Session',
+				'The visitor who is ready now',
+				'One calm step, in person in Mulund West or from home, phrased as "choose what feels right for you."'
+			]
+		]}
+	/>
+</Section>
+
 <Section id="booking" title="Booking without friction">
 	<P>
 		Booking a session is one calm step, not a form gauntlet. Sessions work in person in Mulund West,
 		Mumbai, or from the comfort of home, and the site says so in the visitor's own terms: "choose
 		what feels right for you." The moment someone decides to reach out is the moment the site should
 		get out of the way.
+	</P>
+	<FlowDiagram
+		title="The moment someone reaches out"
+		view={{ width: 1200, height: 400 }}
+		nodes={[
+			{ id: 'land', label: 'Lands on any page', kind: 'terminal', x: 40, y: 60, w: 160, h: 56, note: 'Every page is a landing page for this visitor, so every page carries the same calm and the same open doors.' },
+			{ id: 'read', label: 'Reads at her own pace', kind: 'screen', x: 260, y: 60, w: 180, h: 56, note: 'One idea per screen. Services, workshops, FAQs and articles answer the questions people rarely ask out loud.' },
+			{ id: 'ready', label: 'Ready to reach out?', kind: 'decision', x: 510, y: 30, w: 190, h: 116, note: 'The only decision the site asks for. Nothing else pushes; the reading itself is allowed to be the visit.' },
+			{ id: 'door', label: 'Picks a low-pressure door', kind: 'action', x: 770, y: 60, w: 190, h: 56, note: "Let's Talk, the floating WhatsApp button, plain contact details or Schedule A Session. None locked behind a long form." },
+			{ id: 'talk', label: 'Conversation starts', kind: 'success', x: 1020, y: 60, w: 160, h: 56, note: 'The site gets out of the way. What happens after belongs to the practice.' },
+			{ id: 'notyet', label: 'Keeps reading', kind: 'action', x: 630, y: 240, w: 170, h: 56, note: 'Not ready is a valid outcome: articles, resources and community help without asking for anything back.' },
+			{ id: 'sanity', label: 'Sanity CMS', kind: 'data', x: 260, y: 270, w: 160, h: 64, note: 'Kinnari edits articles, workshops and FAQs herself, so the answers stay current without a developer.' }
+		]}
+		edges={[
+			{ from: 'land', to: 'read' },
+			{ from: 'read', to: 'ready' },
+			{ from: 'ready', to: 'door', label: 'Yes', tone: 'yes' },
+			{ from: 'ready', to: 'notyet', label: 'Not yet', tone: 'no', route: 'drop', lane: 190 },
+			{ from: 'notyet', to: 'read', route: 'loop', lane: 350 },
+			{ from: 'door', to: 'talk' },
+			{ from: 'read', to: 'sanity', tone: 'data', route: 'drop', lane: 200 }
+		]}
+		caption="Several doors, none of them locked behind a form. Tap any step to read what it does."
+	/>
+</Section>
+
+<Section id="tradeoffs" title="Tradeoffs and limits">
+	<Tbl
+		head={['Decision', 'Why', 'What it costs']}
+		rows={[
+			[
+				'Feeling first, credentials later',
+				'The overwhelmed visitor bounces off resume-style openings',
+				'A skeptical visitor has to scroll further to verify qualifications.'
+			],
+			[
+				'Many light doors over one strong funnel',
+				'People reach out in different ways when reaching out is hard',
+				'No single measurable funnel; enquiries arrive scattered across channels.'
+			],
+			[
+				'Anonymized testimonials',
+				'Privacy is the brand for a therapy practice',
+				'Flower names carry less conventional social proof than full names and photos.'
+			],
+			[
+				'A CMS for a non-technical owner',
+				'Changing the site could not mean calling a developer',
+				'The editing surface is simpler than a developer’s toolchain by design.'
+			]
+		]}
+	/>
+	<P>
+		The limit worth naming: a website can shrink the first step, but it cannot take it. The design
+		gets a visitor to the door; the practice earns what happens after.
 	</P>
 </Section>
 
@@ -173,6 +393,10 @@ export const meta = {
 	<P>
 		The result is warm where the practice's old presence was broken and clinical, and structured
 		around the visitor's first step.
+	</P>
+	<P>
+		No visitor interviews or conversion numbers are claimed here; the outcome stated is the one
+		that visibly shipped.
 	</P>
 </Section>
 

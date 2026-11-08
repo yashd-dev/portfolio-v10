@@ -16,6 +16,9 @@ export const meta = {
 		{ id: 'intro', label: 'Intro' },
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'problem', label: 'The problem' },
+		{ id: 'shoppers', label: 'The shoppers' },
+		{ id: 'journey', label: 'A reconstructed journey' },
+		{ id: 'landscape', label: 'The landscape' },
 		{ id: 'role', label: 'Role and constraints' },
 		{ id: 'decisions', label: 'Key decisions' },
 		{ id: 'storefront', label: 'The storefront' },
@@ -23,6 +26,7 @@ export const meta = {
 		{ id: 'checkout', label: 'Cart and checkout' },
 		{ id: 'iteration', label: 'Testing and iteration' },
 		{ id: 'under-the-hood', label: 'Under the hood' },
+		{ id: 'tradeoffs', label: 'Tradeoffs and limits' },
 		{ id: 'outcome', label: 'Outcome' },
 		{ id: 'takeaway', label: 'Takeaway' }
 	],
@@ -38,6 +42,19 @@ export const meta = {
 		and skincare and grooming. It runs as a live, self-hosted storefront with real payments, real
 		inventory and cash on delivery, and it is selling today.
 	</P>
+	<Metrics
+		items={[
+			{ value: '210%', label: 'Monthly revenue growth in this period, with a significant Meta ads push alongside' },
+			{ value: '~8', label: 'Self-hosted services in the stack behind the storefront' },
+			{ value: '6', label: 'Product categories on one calm catalog' }
+		]}
+	/>
+	<Callout title="How to read this study">
+		The personas and the journey map below are reconstructed design artifacts: the thinking I
+		designed against, drawn from the brief, the catalog and the live store, not from shopper
+		interviews. The numbers in the outcome are real, and the Meta ads push that ran alongside the
+		site is credited there too.
+	</Callout>
 </Section>
 
 <Section id="problem" title="The problem">
@@ -58,6 +75,103 @@ export const meta = {
 		"Fair" only works if every surface shows the same math: the category grid, the product page, the
 		cart and the checkout. One vague price anywhere and the whole brand reads as marketing.
 	</Callout>
+</Section>
+
+<Section id="shoppers" title="The shoppers">
+	<P>
+		These are the three people I designed for, reconstructed from the catalog and how the store
+		sells. Every layout decision was checked against one of them.
+	</P>
+	<Personas
+		items={[
+			{
+				name: 'The deal skeptic',
+				tag: 'Burned by staged sales',
+				quote: 'Every discount is staged until the math says otherwise.',
+				rows: [
+					{ label: 'Arrives with', text: 'Years of inflated MRPs and permanent sales on Indian ecommerce.' },
+					{ label: 'The store owes', text: 'The math on the card, before any product page: selling price, reference price and percentage off in one glance.' }
+				]
+			},
+			{
+				name: 'The mobile impulse buyer',
+				tag: 'One thumb, two minutes',
+				quote: 'If the price needs a second tap, I am gone.',
+				rows: [
+					{ label: 'Arrives with', text: 'A link from an ad, two minutes of attention, one thumb.' },
+					{ label: 'The store owes', text: 'A fast page, a legible price, and cash on delivery with no account gymnastics.' }
+				]
+			},
+			{
+				name: 'The returning member',
+				tag: 'Account, orders, a wish list',
+				quote: 'Let me ask for what you do not stock yet.',
+				rows: [
+					{ label: 'Arrives with', text: 'An account, past orders, and a wish list of things the catalog does not carry yet.' },
+					{ label: 'The store owes', text: 'A members area that remembers them, and a way to ask for products instead of silently leaving.' }
+				]
+			}
+		]}
+	/>
+</Section>
+
+<Section id="journey" title="A reconstructed journey">
+	<P>
+		The path the design optimizes for, mapped from the live store's flows. Its job is to keep
+		every screen honest about what the shopper is feeling at that step.
+	</P>
+	<JourneyMap
+		roles={[
+			{
+				id: 'shopper',
+				label: 'The shopper',
+				headline: 'Every step is a chance for the pricing promise to break.',
+				stages: ['Discovers', 'Evaluates', 'Buys', 'After the order'],
+				emotion: [0.3, 0.52, 0.44, 0.78],
+				rows: [
+					{ label: 'Actions', cells: ['Lands from an ad or search on a category or product', 'Compares selling price, reference price and photos', 'Adds to cart, picks COD or online payment', 'Tracks the order, browses what is new'] },
+					{ label: 'Thoughts', cells: ['Is this another fake-sale store?', 'What should this actually cost?', 'Will checkout waste my time?', 'Did I get what the page promised?'] },
+					{ label: 'Emotions', cells: ['Guarded', 'Comparing', 'Impatient', 'Judging the promise'] },
+					{ label: 'Touchpoints', cells: ['Category grid, price badges', 'Product page, reviews, pricing block', 'Cart, members area, COD checkout', 'Order updates, Make A Wish, new arrivals'] },
+					{ label: 'Pain', cells: ['Grids that hide the real price until the click', 'Reference prices that cannot be believed', 'Forced accounts and surprise charges', 'No way to ask for what is missing'] },
+					{ label: 'Opportunity', cells: ['Discount math on every card, before any click', 'Same math repeated in the same shape', 'Familiar Indian checkout patterns, COD first', 'Wish requests turn dead ends into a conversation'] }
+				]
+			}
+		]}
+		caption="Tap a stage to isolate it, zoom to read the whole map."
+	/>
+</Section>
+
+<Section id="landscape" title="The landscape">
+	<P>
+		The shopper's alternatives are not other boutique stores. They are the default ways India buys
+		online, and each one trains a habit the store has to answer.
+	</P>
+	<Tbl
+		head={['Alternative', 'Real strength', 'Where it leaves this shopper']}
+		rows={[
+			[
+				'Large marketplaces',
+				'Infinite selection, fast delivery, prices everyone checks first',
+				'Opaque reference pricing and a scroll of near-identical listings. Nobody is accountable for what a thing should cost.'
+			],
+			[
+				'Typical D2C theme stores',
+				'Cheap to launch, familiar Shopify patterns',
+				'A stock theme with a sale banner. The brand promise stops at the homepage hero.'
+			],
+			[
+				'Social commerce and resellers',
+				'Personal, conversational, low friction to ask questions',
+				'No catalog, no price list, no record. Trust lives entirely in the chat.'
+			]
+		]}
+	/>
+	<P>
+		Where Actually Fair sits: the catalog discipline of a marketplace, the accountability of a
+		store that puts its own name on the pricing, and none of the noise. The brand wins only if the
+		math survives every screen, which is a harder design brief than looking premium.
+	</P>
 </Section>
 
 <Section id="role" title="Role and constraints">
@@ -127,6 +241,20 @@ export const meta = {
 		Best sellers carry the discount math on the card itself, so the deal is legible before a single
 		product page opens. The grid does the selling; the product page only has to confirm it.
 	</P>
+	<Subhead>The tokens behind it</Subhead>
+	<P>
+		The visual system is deliberately quiet: one warm paper, real blacks, one navy, and a single
+		typeface doing all the work. These are the actual values the store ships with.
+	</P>
+	<Tokens
+		items={[
+			{ name: 'Paper', value: '#F0ECE6', role: 'The warm hero background the catalog sits on' },
+			{ name: 'Ink', value: 'oklch(14.5% 0 0)', role: 'Text: near-black, never a tinted gray' },
+			{ name: 'Brand navy', value: '#243F78', role: 'Accents and trust elements' },
+			{ name: 'WhatsApp', value: '#25D366', role: 'The order conversation, one tap away' },
+			{ name: 'Inter', value: 'InterVariable', role: 'One variable font for everything; weight and size do the hierarchy', font: true }
+		]}
+	/>
 </Section>
 
 <Section id="pricing" title="Pricing in the open">
@@ -136,11 +264,15 @@ export const meta = {
 		slogan. The percentage off sits on the card as a badge, the reference price sits next to the
 		selling price, and the shopper never has to take the deal on faith.
 	</P>
-	<Fig
+	<Annotate
 		src="/case/actually-fair/section-2.png"
 		alt="Actually Fair handbags category with discount percentage badges on product cards"
-		caption="The discount is never a mystery: selling price, reference price and percentage off, side by side."
 		wide
+		notes={[
+			{ title: 'The math on the card', body: 'Selling price, reference price and percentage off are visible before a single product page opens. The deal is never a mystery.' },
+			{ title: 'The same shape everywhere', body: 'The grid, the product page and the cart repeat the pricing block in the same shape, so the promise cannot drift between screens.' },
+			{ title: 'Calm grid, no noise', body: 'No countdown timers, no fake urgency. The discount stands on its own, which is what makes it believable.' }
+		]}
 	/>
 	<P>
 		The same rule holds in the cart. The shopper never has to wonder whether the price changed
@@ -155,6 +287,16 @@ export const meta = {
 		area, and cash on delivery at checkout. Nothing about paying asks the shopper to learn a new
 		pattern, which matters for a young brand that has no trust surplus to spend.
 	</P>
+	<StepRow
+		steps={[
+			'Browse a category',
+			'Read the math on the card',
+			'Open the product',
+			'Add to cart',
+			'COD or online payment',
+			'Order confirmed'
+		]}
+	/>
 	<Fig
 		src="/case/actually-fair/mobile.png"
 		alt="Actually Fair storefront on a phone"
@@ -170,17 +312,103 @@ export const meta = {
 		experience. The loop is simple: change one surface, watch what shoppers do, keep what earns
 		itself.
 	</P>
+	<P>
+		Mobile gets the attention because that is where the shoppers are. Layout, tap targets, load
+		order and the placement of the pricing math were all tuned through these passes until the small
+		screen stopped being the compromised version of the store.
+	</P>
 </Section>
 
 <Section id="under-the-hood" title="Under the hood">
-	<StepRow
-		steps={['Shopper', 'Next.js storefront', 'Headless Shopify', 'Custom services', 'Railway']}
+	<P>
+		The operational moment this stack lives for is the minute an order lands: nobody exports
+		anything, nobody copies anything, and the store's own tooling already knows.
+	</P>
+	<FlowDiagram
+		title="The minute an order lands"
+		view={{ width: 1160, height: 380 }}
+		nodes={[
+			{ id: 'order', label: 'Order placed', kind: 'terminal', x: 40, y: 60, w: 150, h: 56, note: 'A shopper checks out on the storefront, COD or online payment. From here on, nobody exports or copies anything by hand.' },
+			{ id: 'webhook', label: 'Shopify fires a webhook', kind: 'system', x: 250, y: 60, w: 180, h: 56, note: 'Headless Shopify owns products, cart and checkout, and announces every order event the moment it happens.' },
+			{ id: 'ingest', label: 'Ingestion service catches it', kind: 'action', x: 490, y: 60, w: 190, h: 56, note: 'The order-ingestion service, one of the custom services I built, catches every event as it lands.' },
+			{ id: 'sync', label: 'Internal tooling in sync', kind: 'action', x: 740, y: 60, w: 190, h: 56, note: 'The tooling the team works in reflects the order immediately. No CSV exports at night.' },
+			{ id: 'team', label: 'Team acts on live data', kind: 'success', x: 990, y: 60, w: 170, h: 56, note: 'Fulfillment and merchandising decisions run on what the store is doing right now.' },
+			{ id: 'storefront', label: 'Next.js storefront', kind: 'data', x: 250, y: 270, w: 180, h: 64, note: 'Everything the shopper sees is ours to design; Shopify stays the engine underneath.' },
+			{ id: 'shopify', label: 'Headless Shopify', kind: 'data', x: 490, y: 270, w: 180, h: 64, note: 'Products, cart and checkout. The one rented piece, kept where it is strongest.' },
+			{ id: 'services', label: 'Custom services on Railway', kind: 'data', x: 740, y: 270, w: 210, h: 64, note: 'Reviews, order ingestion, the custom CMS and Make A Wish: small services the store owns, self-hosted on Railway.' }
+		]}
+		edges={[
+			{ from: 'order', to: 'webhook' },
+			{ from: 'webhook', to: 'ingest' },
+			{ from: 'ingest', to: 'sync' },
+			{ from: 'sync', to: 'team' },
+			{ from: 'storefront', to: 'shopify', tone: 'data' },
+			{ from: 'ingest', to: 'services', tone: 'data', route: 'drop', lane: 200 }
+		]}
+		caption="The storefront, the one rented engine, and the services the store owns. Tap any step to read what it does."
 	/>
 	<P>
 		The storefront is Next.js and Tailwind talking to headless Shopify for products, cart and
-		checkout. Around that core sit about eight custom microservices, self-hosted on Railway,
-		covering reviews, order ingestion, the custom CMS and the rest of what the store needs beyond
-		Shopify.
+		checkout. Around that core, the stack runs about eight services, self-hosted on Railway. The
+		custom ones I built cover reviews, order ingestion, the custom CMS and the rest of what the
+		store needs beyond Shopify.
+	</P>
+	<Tbl
+		head={['Service', 'Job', 'Why it is ours']}
+		rows={[
+			[
+				'Reviews service',
+				'Stores and serves product reviews',
+				'Social proof lives in the store’s own database, not rented from a review platform that can change terms or hold the data.'
+			],
+			[
+				'Order-ingestion webhooks',
+				'Catches every order event as it lands',
+				'Internal tooling stays in sync with the store in real time, without anyone exporting CSVs at night.'
+			],
+			[
+				'Custom CMS',
+				'Content and merchandising for the team',
+				'Built for this team’s workload: Sanity was too slow at the order volume they process, so the CMS is shaped around their day, not a generic editor.'
+			],
+			[
+				'Make A Wish',
+				'Shoppers request products the catalog lacks',
+				'A small build inside our own stack, where a plugin would have meant bending the storefront around someone else’s data model.'
+			]
+		]}
+	/>
+</Section>
+
+<Section id="tradeoffs" title="Tradeoffs and limits">
+	<Tbl
+		head={['Decision', 'Why', 'What it costs']}
+		rows={[
+			[
+				'Headless over a stock theme',
+				'Full design control over how pricing and products are presented',
+				'A theme is free; headless is ongoing engineering. Every Shopify update is ours to absorb.'
+			],
+			[
+				'Own microservices over apps',
+				'Features like reviews and wish requests fit the store exactly',
+				'We run and watch about eight services. The operational bill is ours.'
+			],
+			[
+				'Custom CMS over Sanity',
+				'Sanity was too slow for this team’s order volume and workflow',
+				'We maintain the editing surface ourselves instead of renting a mature one.'
+			],
+			[
+				'COD and familiar patterns',
+				'A young brand has no trust surplus to spend on novel checkout',
+				'Cash on delivery carries its own logistics and return realities for the business.'
+			]
+		]}
+	/>
+	<P>
+		The limit worth naming: the storefront can make pricing legible, but it cannot make pricing
+		fair. That part is the business keeping the promise the components repeat.
 	</P>
 </Section>
 
@@ -194,6 +422,9 @@ export const meta = {
 		Over the period this work was shipping, the store's monthly revenue grew by 210%, with a
 		significant Meta ads push driving much of that growth alongside the site itself. The storefront
 		and the services behind it carried their share.
+	</P>
+	<P>
+		Exact revenue figures stay private at the store's request.
 	</P>
 </Section>
 

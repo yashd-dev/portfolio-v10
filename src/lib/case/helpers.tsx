@@ -1,5 +1,10 @@
 import type { ReactNode } from 'react';
 
+export { default as JourneyMap } from './JourneyMap';
+export { default as FlowDiagram } from './FlowDiagram';
+export { default as Personas } from './Personas';
+export { default as Annotate } from './Annotate';
+
 export function Section({
 	id,
 	title,
@@ -222,15 +227,31 @@ export function StepRow({ steps }: { steps: string[] }) {
 	);
 }
 
-export function Tokens({ items }: { items: { name: string; value: string; role: string }[] }) {
+export function Tokens({
+	items
+}: {
+	items: { name: string; value: string; role: string; font?: boolean }[];
+}) {
 	return (
 		<div className="case-token-grid">
 			{items.map((t) => (
 				<div className="case-token" key={t.name}>
-					<span className="case-token__swatch" style={{ background: t.value }} aria-hidden="true" />
-					<span className="case-token__name">{t.name}</span>
-					<span className="case-token__value">{t.value}</span>
-					<span className="case-token__role">{t.role}</span>
+					{t.font ? (
+						<span
+							className="case-token__swatch case-token__swatch--font"
+							style={{ fontFamily: t.value }}
+							aria-hidden="true"
+						>
+							Aa
+						</span>
+					) : (
+						<span className="case-token__swatch" style={{ background: t.value }} aria-hidden="true" />
+					)}
+					<span className="case-token__text">
+						<span className="case-token__name">{t.name}</span>
+						<span className="case-token__value">{t.value}</span>
+						<span className="case-token__role">{t.role}</span>
+					</span>
 				</div>
 			))}
 		</div>

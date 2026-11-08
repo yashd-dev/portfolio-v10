@@ -16,11 +16,16 @@ export const meta = {
 		{ id: 'intro', label: 'Intro' },
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'problem', label: 'The problem' },
+		{ id: 'buyers', label: 'The buyers' },
+		{ id: 'journey', label: 'A reconstructed journey' },
+		{ id: 'landscape', label: 'The landscape' },
 		{ id: 'role', label: 'Role and constraints' },
 		{ id: 'decisions', label: 'Key decisions' },
 		{ id: 'catalog', label: 'Organizing the catalog' },
 		{ id: 'trust', label: 'Trust as a feature' },
 		{ id: 'teaching', label: 'Content that teaches' },
+		{ id: 'enquiry', label: 'The enquiry' },
+		{ id: 'tradeoffs', label: 'Tradeoffs and limits' },
 		{ id: 'outcome', label: 'Outcome' },
 		{ id: 'takeaway', label: 'Takeaway' }
 	],
@@ -37,6 +42,11 @@ export const meta = {
 		nutraceuticals, alongside training programs for the practitioners who use them. The buyers are
 		clinics, doctors and distributors: people who purchase for a practice, not for themselves.
 	</P>
+	<Callout title="How to read this study">
+		The personas and the journey map below are reconstructed design artifacts: the buyers I
+		designed for, drawn from the R&D pass and the live catalog, not from customer interviews. The
+		specifications quoted are the real ones from the live site.
+	</Callout>
 </Section>
 
 <Section id="problem" title="The problem">
@@ -54,6 +64,112 @@ export const meta = {
 	<P>
 		So the site has two jobs at once: read as professional as the products, and answer clinical
 		questions in clinical language without making the visitor dig.
+	</P>
+	<Tbl
+		head={['Surface', 'The old WordPress site', 'The rebuild']}
+		rows={[
+			['Platform', 'Unmaintained WordPress, out of date', 'Next.js with Sanity the team edits weekly'],
+			['Positioning', 'A generic site with products on it', 'A B2B catalog organized by clinical purpose'],
+			['Product copy', 'Thin descriptions', 'Spec-level detail: variants, dosages, use cases'],
+			['Buyer’s path', 'Dig for answers, then a generic form', 'Specs and training on the page, enquiry routed by interest']
+		]}
+	/>
+</Section>
+
+<Section id="buyers" title="The buyers">
+	<P>
+		The R&D pass surfaced three readers the site has to satisfy at once, drawn from how this
+		industry buys.
+	</P>
+	<Personas
+		items={[
+			{
+				name: 'The dermatologist',
+				tag: 'A procedure in mind',
+				quote: 'Show me the specs, not the adjectives.',
+				rows: [
+					{ label: 'Arrives with', text: "A procedure in mind and a clinician's skepticism. Evaluating a thread or filler range on evidence." },
+					{ label: 'The site owes', text: 'Specifications on the page, variants mapped to treatment areas, and procedure videos that show the product in use.' }
+				]
+			},
+			{
+				name: 'The clinic purchase lead',
+				tag: 'A reorder list and a budget',
+				quote: 'I need a supplier I do not have to chase.',
+				rows: [
+					{ label: 'Arrives with', text: 'A reorder list and a budget. Buying for the practice, judged on reliability.' },
+					{ label: 'The site owes', text: 'A catalog that is current, credentials that are visible, and an enquiry path that reaches a human fast.' }
+				]
+			},
+			{
+				name: 'The distributor',
+				tag: 'A territory and a margin',
+				quote: 'Can I see the whole range in one pass?',
+				rows: [
+					{ label: 'Arrives with', text: 'A territory and a margin. Comparing product lines across suppliers.' },
+					{ label: 'The site owes', text: 'The full range legible in one pass, with training and marketing support presented as part of the offer.' }
+				]
+			}
+		]}
+	/>
+</Section>
+
+<Section id="journey" title="A reconstructed journey">
+	<P>
+		Mapped from the live site after launch: the route a practitioner takes from a search result
+		to an enquiry, and the moments where a weaker site loses them.
+	</P>
+	<JourneyMap
+		roles={[
+			{
+				id: 'practitioner',
+				label: 'The practitioner',
+				headline: 'A practitioner evaluates on evidence. The site either keeps up or loses them.',
+				stages: ['Discovers', 'Evaluates', 'Verifies', 'Enquires'],
+				emotion: [0.5, 0.56, 0.4, 0.72],
+				rows: [
+					{ label: 'Actions', cells: ['Arrives searching a product or procedure', 'Reads variants, specs and use cases', 'Checks credentials, gallery and training', 'Picks enquiry form, WhatsApp or a call'] },
+					{ label: 'Thoughts', cells: ['Do they carry what I need?', 'Which variant fits this procedure?', 'Is this supplier legitimate?', 'How fast will someone come back to me?'] },
+					{ label: 'Emotions', cells: ['Task-focused', 'Comparing', 'Skeptical', 'Ready to talk specifics'] },
+					{ label: 'Touchpoints', cells: ['Product lines on the homepage, search', 'Spec-level copy, Starfill variant table', 'Credentials, before-and-after gallery, procedure videos', 'Enquiry routed by product interest, WhatsApp, phone'] },
+					{ label: 'Pain', cells: ['Outdated pages that signal a neglected business', 'Lifestyle copy where specifications should be', 'Claims with nothing behind them', 'A generic contact form with no product context'] },
+					{ label: 'Opportunity', cells: ['A maintained, premium B2B surface', 'Numbers and variants in clinical language', 'Evidence given room, persuasion left to it', 'Enquiries that arrive with the product attached'] }
+				]
+			}
+		]}
+		caption="Tap a stage to isolate it, zoom to read the whole map."
+	/>
+</Section>
+
+<Section id="landscape" title="The landscape">
+	<P>
+		A clinic sourcing threads or fillers has default channels already. The site wins only by being
+		more useful than the supplier relationship the buyer already has.
+	</P>
+	<Tbl
+		head={['Alternative', 'Real strength', 'Where it leaves this buyer']}
+		rows={[
+			[
+				'Manufacturer-direct sites',
+				'Authoritative product data straight from the source',
+				'One brand per site. A clinic comparing ranges across manufacturers does the stitching itself.'
+			],
+			[
+				'Distributor catalogs and marketplaces',
+				'Breadth, familiar procurement patterns',
+				'Thin product pages: a SKU, a price, a stock count. No clinical context, no training.'
+			],
+			[
+				'WhatsApp-and-phone suppliers',
+				'Fast, personal, negotiable',
+				'No catalog to evaluate, no documentation to verify, nothing to show the clinic’s decision-makers.'
+			]
+		]}
+	/>
+	<P>
+		Where Medizone sits: the clinical depth of a manufacturer site across several product families,
+		with the training and support presented as part of the product, and a person one tap away when
+		the reading is done.
 	</P>
 </Section>
 
@@ -107,11 +223,29 @@ export const meta = {
 		collagen stimulation, the Starfill filler range mapped to use cases from lips to jawline, and
 		nutraceuticals like collagen shots and mouth-dissolving glutathione.
 	</P>
-	<Fig
+	<Annotate
 		src="/case/medizone-aesthetics/section-1.png"
 		alt="Medizone Aesthetics product section"
-		caption="Product lines are separated by clinical purpose, not by SKU."
 		wide
+		notes={[
+			{ title: 'Grouped by clinical purpose', body: 'Threads, fillers and nutraceuticals each get their own space, because practitioners think in procedures and use cases, not SKUs.' },
+			{ title: 'Spec-level copy', body: 'Variants are named with their use cases and figures. For this reader, the detail is the persuasion.' },
+			{ title: 'Restraint as trust', body: 'No lifestyle gloss, no urgency tricks. The reader’s expertise is treated as a given.' }
+		]}
+	/>
+	<Subhead>The tokens behind it</Subhead>
+	<P>
+		A clinical register, carried by one typeface and a slate scale. The actual values the site
+		ships with:
+	</P>
+	<Tokens
+		items={[
+			{ name: 'Slate 900', value: '#0F172B', role: 'Headings: dark enough to feel serious, not black' },
+			{ name: 'Slate 700', value: '#314158', role: 'Body copy, a step softer than the headings' },
+			{ name: 'Panel', value: '#F4F4F0', role: 'Warm neutral panels behind product groups' },
+			{ name: 'Border', value: '#E2E8F0', role: 'Hairlines that keep the catalog tidy' },
+			{ name: 'Manrope', value: 'Manrope', role: 'One geometric sans for everything; weight carries the hierarchy', font: true }
+		]}
 	/>
 	<P>
 		The Starfill range shows the level the copy works at. The variants are not interchangeable, so
@@ -158,6 +292,74 @@ export const meta = {
 	</P>
 </Section>
 
+<Section id="enquiry" title="The enquiry">
+	<P>
+		The operational moment this site lives for is specific: a practitioner, mid-evaluation, decides
+		the range is worth a conversation. Everything about that moment is designed to keep the context
+		intact.
+	</P>
+	<FlowDiagram
+		title="A practitioner, mid-evaluation"
+		view={{ width: 1250, height: 400 }}
+		nodes={[
+			{ id: 'land', label: 'Arrives from a search', kind: 'terminal', x: 40, y: 60, w: 160, h: 56, note: 'Usually a product or procedure query. The page it lands on has to read as maintained in the first seconds.' },
+			{ id: 'read', label: 'Reads specs and variants', kind: 'screen', x: 270, y: 60, w: 180, h: 56, note: 'Variant tables, dosages and use cases in clinical language. This is where the evaluation is won or lost.' },
+			{ id: 'verify', label: 'Evidence holds up?', kind: 'decision', x: 520, y: 30, w: 190, h: 116, note: 'Credentials, the before-and-after gallery, procedure videos. The skepticism checkpoint every B2B buyer runs.' },
+			{ id: 'enquire', label: 'Enquiry routed by interest', kind: 'action', x: 780, y: 60, w: 190, h: 56, note: 'The form asks which product line, so the team reads a message that already says what it is about.' },
+			{ id: 'convo', label: 'Conversation starts with context', kind: 'success', x: 1040, y: 60, w: 190, h: 56, note: 'WhatsApp and a call stay one tap away for buyers who would rather talk than type.' },
+			{ id: 'research', label: 'Watches videos, reads blogs', kind: 'action', x: 640, y: 240, w: 200, h: 56, note: 'Not ready means keep teaching: procedure videos and explainers let a doctor research on their own schedule.' },
+			{ id: 'sanity', label: 'Sanity catalog', kind: 'data', x: 270, y: 270, w: 170, h: 64, note: 'New products, training batches and posts are the team’s own edits, published without a developer.' }
+		]}
+		edges={[
+			{ from: 'land', to: 'read' },
+			{ from: 'read', to: 'verify' },
+			{ from: 'verify', to: 'enquire', label: 'Yes', tone: 'yes' },
+			{ from: 'verify', to: 'research', label: 'Not yet', tone: 'no', route: 'drop', lane: 190 },
+			{ from: 'research', to: 'read', route: 'loop', lane: 350 },
+			{ from: 'enquire', to: 'convo' },
+			{ from: 'read', to: 'sanity', tone: 'data', route: 'drop', lane: 200 }
+		]}
+		caption="The evaluation loop and the enquiry that keeps its context. Tap any step to read what it does."
+	/>
+	<P>
+		Enquiries route by product interest, so the team reads a message that already says what it is
+		about. WhatsApp and a call stay one tap away for buyers who would rather talk than type.
+	</P>
+</Section>
+
+<Section id="tradeoffs" title="Tradeoffs and limits">
+	<Tbl
+		head={['Decision', 'Why', 'What it costs']}
+		rows={[
+			[
+				'Catalog over storefront',
+				'These buyers purchase through conversation, not a cart',
+				'No online ordering; every sale still passes through a human.'
+			],
+			[
+				'Spec-level copy',
+				'Experts are persuaded by numbers, not adjectives',
+				'Copy is harder to write and to maintain; every figure must stay accurate.'
+			],
+			[
+				'Restraint over urgency tactics',
+				'The reader’s expertise is treated as a given',
+				'The site asks for patience: it convinces slowly instead of pushing.'
+			],
+			[
+				'A CMS the team owns',
+				'A catalog business changes weekly',
+				'The team edits content themselves, which means the design system has to survive their edits.'
+			]
+		]}
+	/>
+	<P>
+		The limit worth naming: the site can win the evaluation, but fulfillment, pricing and the
+		relationship close the deal. The site’s job is to make that conversation start from a position
+		of confidence.
+	</P>
+</Section>
+
 <Section id="outcome" title="Outcome">
 	<P>
 		A live site for PDO threads, training programs and medical product discovery, running on Next.js
@@ -174,6 +376,10 @@ export const meta = {
 		caption="On a phone, the product lines lead and a conversation is always one tap away."
 		phone
 	/>
+	<P>
+		No buyer interviews or sales figures are claimed here; the outcome stated is the one that
+		visibly shipped.
+	</P>
 </Section>
 
 <Section id="takeaway" title="Takeaway">
