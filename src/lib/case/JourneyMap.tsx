@@ -119,7 +119,7 @@ export default function JourneyMap({
 	return (
 		<figure className="case-interactive case-journey">
 			<div className="case-interactive__bar">
-				<span className="case-interactive__eyebrow">User journey map</span>
+				<span />
 				<div className="case-interactive__controls">
 					{roles.length > 1 ? (
 						<div className="case-segmented" role="tablist" aria-label="Persona">

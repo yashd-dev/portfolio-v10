@@ -5361,3 +5361,12 @@ html:has(.mn-case) body {
 	font-weight: 200 800;
 	src: url(/case/fonts/manrope-latin-var.woff2) format('woff2');
 }
+
+.case-callout__title,
+.devatri-case--domis.mn-case .case-callout__title,
+.case-stage__kicker {
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 14px;
+	font-weight: 500;
+}

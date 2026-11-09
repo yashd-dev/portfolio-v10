@@ -9,12 +9,11 @@
 	import CtaSection from '#lib/components/ctaSection.svelte';
 	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
-	import { projects } from '#lib/data/content.js';
 
 	const stats = [
-		{ value: String(projects.length), label: 'selected projects' },
-		{ value: '2', label: 'teams worked with' },
-		{ value: '2026', label: 'freelancing since' }
+		{ value: '10+', label: 'projects' },
+		{ value: '₹2Cr+', label: 'revenue gained by the teams' },
+		{ value: '2024', label: 'freelancing since' }
 	];
 
 	const services = [
@@ -81,9 +80,7 @@
 	class="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[560px] bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_55%,transparent_100%)] bg-cover bg-[center_71%] opacity-85 [filter:saturate(0.85)_brightness(1.02)]"
 ></div>
 
-<div
-	class="relative mx-auto w-full max-w-6xl before:pointer-events-none before:absolute before:top-24 before:bottom-0 before:left-0 before:-z-10 before:w-px before:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] before:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] before:[background-size:1px_8px] after:pointer-events-none after:absolute after:top-24 after:right-0 after:bottom-0 after:-z-10 after:w-px after:[background-image:linear-gradient(to_bottom,var(--color-guide)_50%,transparent_50%)] after:[mask-image:linear-gradient(to_bottom,transparent,#000_72px)] after:[background-size:1px_8px]"
->
+<div class="relative mx-auto w-full max-w-6xl">
 	<div class="relative px-6 pt-[320px] pb-16 max-sm:pt-[280px] sm:px-10">
 		<h1 class="relative max-w-[16ch] text-2xl font-medium tracking-tight text-ink">
 			How I <Mark definition={highlightCalm} fillColor="#8ab6f2">work</Mark>
@@ -104,15 +101,10 @@
 	</div>
 
 	<div class="px-6 sm:px-10">
-		<p class="mt-16 mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-			What I can help with
-		</p>
-		<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+		<p class="mt-16 mb-[22px] text-sm font-medium text-muted">What I can help with</p>
+		<div class="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
 			{#each services as s}
-				<div
-					class="group flex aspect-square cursor-default flex-col rounded-2xl border border-neutral-200 p-4 transition-[transform,box-shadow] duration-300 ease-(--ease-mn) hover:-translate-y-1 hover:shadow-[0_16px_32px_-16px_rgba(38,38,43,0.25)] md:p-5"
-				>
-					<p class="text-[15px] font-medium text-ink">{s.name}</p>
+				<div class="flex flex-col">
 					<svg
 						viewBox="0 0 24 24"
 						fill="none"
@@ -120,17 +112,16 @@
 						stroke-width="1.6"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="mx-auto my-auto size-9 text-neutral-300 transition-colors duration-300 group-hover:text-(--c) md:size-11"
-						style="--c: {s.color}">{@html s.icon}</svg
+						class="size-[18px] text-[#2e74ff]"
+						aria-hidden="true">{@html s.icon}</svg
 					>
-					<p class="text-[13px] leading-snug text-soft">{s.note}</p>
+					<p class="mt-5 text-[15px] font-medium text-ink">{s.name}</p>
+					<p class="mt-2 text-sm leading-relaxed text-soft">{s.note}</p>
 				</div>
 			{/each}
 		</div>
 
-		<p class="mt-16 mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-			The process
-		</p>
+		<p class="mt-16 mb-[22px] text-sm font-medium text-muted">The process</p>
 		<div
 			class="grid grid-cols-1 border-y border-dashed border-neutral-200 md:grid-cols-2 [&>*]:border-dashed [&>*]:border-neutral-200 [&>*:not(:last-child)]:border-b md:[&>*:nth-child(n+3)]:border-b-0 md:[&>*:nth-child(odd)]:border-r"
 		>
@@ -158,7 +149,7 @@
 
 	<EnquiryForm />
 
-	<CtaSection />
+	<CtaSection guides={false} />
 </div>
 <div
 	aria-hidden="true"

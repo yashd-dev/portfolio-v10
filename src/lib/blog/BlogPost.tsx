@@ -56,7 +56,6 @@ export default function BlogPost({
 	return (
 		<article className="blog-article">
 			<header className="blog-article__header">
-				<p className="blog-article__eyebrow">Blog</p>
 				<h1 className="blog-article__title">{meta.title}</h1>
 				<p className="blog-article__date">{formatBlogDate(meta.date)}</p>
 				<p className="blog-article__summary">{meta.summary}</p>

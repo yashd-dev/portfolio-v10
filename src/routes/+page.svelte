@@ -5,7 +5,14 @@
 	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
 	import FlightPlan from '#lib/components/flightPlan.svelte';
-	import { projects, socials, email, freelance, education, shenanigans } from '#lib/data/content.js';
+	import {
+		projects,
+		socials,
+		email,
+		freelance,
+		education,
+		shenanigans
+	} from '#lib/data/content.js';
 	import { toolGroups, toolIcons } from '#lib/data/icons.js';
 
 	const dailyNames = ['Figma', 'TypeScript', 'Next.js', 'Svelte', 'Tailwind CSS', 'GitHub'];
@@ -21,7 +28,13 @@
 		{ meta: BlogMeta }
 	>;
 	const blogPosts = Object.entries(blogMods)
-		.map(([path, m]) => ({ slug: path.split('/').pop()!.replace(/\.mdx$/, ''), ...m.meta }))
+		.map(([path, m]) => ({
+			slug: path
+				.split('/')
+				.pop()!
+				.replace(/\.mdx$/, ''),
+			...m.meta
+		}))
 		.filter((p) => !p.draft)
 		.sort((a, b) => (a.date < b.date ? 1 : -1));
 
@@ -97,13 +110,14 @@
 						I design and build websites that feel considered and work smoothly, and I stick around
 						after launch. Right now I'm taking on
 						<Mark definition={highlightCalm} fillColor="#8ab6f2">freelance projects</Mark>
-						and I'm open to job opportunities.
+						and I'm open to
+						<Mark definition={highlightCalm} fillColor="#8ab6f2">job opportunities</Mark>.
 					</p>
 				</div>
 				<div class="{REVEAL} mt-6" style="--d: 220ms">
 					<p class="text-pretty text-soft">
-						I've worked across storefronts, therapy and healthcare sites, and consultancy pages,
-						from Figma to production
+						I design and build B2B, agency, portfolio, SaaS and ecommerce sites, from Figma to
+						production
 						<Mark definition={highlightCalm} fillColor="#ffb26b">TypeScript</Mark>
 						across SvelteKit, headless
 						<Mark definition={highlightCalm} fillColor="#8ed3a4">Shopify</Mark>
@@ -323,10 +337,7 @@
 			<div
 				class="max-lg:mb-[22px] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-center"
 			>
-				<p class="{REVEAL} text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-					Selected work
-				</p>
-				<div class="mt-8 hidden lg:block">
+				<div class="hidden lg:block">
 					<h3 class="text-[24px] leading-[1.25] font-medium">{projects[activeWork].name}</h3>
 					<p class="mt-2 text-[12px] tracking-[0.02em] text-faint">{projects[activeWork].meta}</p>
 					<p class="mt-1 text-[11px] text-faint">
@@ -383,9 +394,7 @@
 
 	<section aria-label="Tools I use daily" class="mt-24 max-sm:mt-[72px]">
 		<div class="{REVEAL} flex items-baseline justify-between gap-4">
-			<p class="text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-				Tools I use daily
-			</p>
+			<p class="text-sm font-medium text-muted">Tools I use daily</p>
 			<a
 				href="/tools"
 				class="text-[13px] text-soft underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em] transition-colors hover:text-ink"
@@ -415,16 +424,12 @@
 		class="mt-24 grid scroll-mt-[88px] gap-16 max-sm:mt-[72px] md:grid-cols-2"
 	>
 		<div>
-			<p class="{REVEAL} mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-				Experience
-			</p>
+			<p class="{REVEAL} mb-[22px] text-sm font-medium text-muted">Experience</p>
 			<FlightPlan />
 		</div>
 		<div>
 			<div class={REVEAL}>
-				<p class="mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-					Freelance
-				</p>
+				<p class="mb-[22px] text-sm font-medium text-muted">Freelance</p>
 				<div class="border-t border-rule">
 					<div
 						class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
@@ -439,9 +444,7 @@
 				</div>
 			</div>
 			<div class="{REVEAL} mt-12">
-				<p class="mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-					Education
-				</p>
+				<p class="mb-[22px] text-sm font-medium text-muted">Education</p>
 				<div class="border-t border-rule">
 					<div
 						class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
@@ -458,9 +461,7 @@
 	</section>
 
 	<section aria-label="Side shenanigans" class="mt-24 max-sm:mt-[72px]">
-		<p class="{REVEAL} mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-			Side shenanigans
-		</p>
+		<p class="{REVEAL} mb-[22px] text-sm font-medium text-muted">Side shenanigans</p>
 		<div class="{REVEAL} border-t border-rule" style="--d: 60ms">
 			{#each shenanigans as s}
 				<div
@@ -501,7 +502,7 @@
 	{#if blogPosts.length > 0}
 		<section aria-label="Writing" class="mt-24 max-sm:mt-[72px]">
 			<div class="{REVEAL} flex items-baseline justify-between gap-4">
-				<p class="text-[11px] font-medium tracking-[0.08em] text-muted uppercase">Writing</p>
+				<p class="text-sm font-medium text-muted">Writing</p>
 				<a
 					href="/blog"
 					class="text-[13px] text-soft underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em] transition-colors hover:text-ink"

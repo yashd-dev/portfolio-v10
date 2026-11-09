@@ -136,7 +136,7 @@ export default function FlowDiagram({
 	return (
 		<figure className="case-interactive case-flow">
 			<div className="case-interactive__bar">
-				<span className="case-interactive__eyebrow">User flow</span>
+				<span />
 				<div className="case-interactive__controls">
 					<ZoomControl zoom={zoom} />
 				</div>

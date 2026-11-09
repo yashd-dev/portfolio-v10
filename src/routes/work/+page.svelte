@@ -22,10 +22,7 @@
 
 <main class="relative mx-auto w-full max-w-6xl px-5 pt-[320px] pb-10 max-sm:pt-[236px]">
 	<header class="max-w-[600px]">
-		<p class="{REVEAL} text-[11px] font-medium tracking-[0.08em] text-muted uppercase">
-			Selected work
-		</p>
-		<h1 class="{REVEAL} mt-5 text-[30px] leading-[1.2] font-medium tracking-tight text-ink">
+		<h1 class="{REVEAL} text-[30px] leading-[1.2] font-medium tracking-tight text-ink">
 			Every project here is live, and still looked after.
 		</h1>
 		<p class="{REVEAL} mt-4 text-[15px] leading-[1.7] text-soft" style="--d: 80ms">

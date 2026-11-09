@@ -49,7 +49,29 @@
 				b.vx = -Math.min(Math.abs(b.vx) * 1.07, 12);
 				b.vy += (b.y - state.ai) * 0.09;
 			}
-			state.ai += Math.max(-3.4, Math.min(3.4, b.y - state.ai));
+			// Predict where the ball crosses the AI side (with wall bounces) and give the
+			// AI exactly the speed it needs to get there in time: as the rally speeds up,
+			// so does the AI. It never deliberately misses.
+			let target = H / 2;
+			let v = 3.4;
+			if (b.vx > 0) {
+				let px = b.x;
+				let py = b.y;
+				let pvy = b.vy;
+				let guard = 0;
+				while (px < W - 30 && guard++ < 2000) {
+					px += b.vx;
+					py += pvy;
+					if (py < 6 || py > H - 6) {
+						pvy *= -1;
+						py = Math.max(6, Math.min(H - 6, py));
+					}
+				}
+				target = py;
+				const frames = Math.max(1, (W - 30 - b.x) / b.vx);
+				v = Math.max(3.4, Math.abs(target - state.ai) / frames);
+			}
+			state.ai += Math.max(-v, Math.min(v, target - state.ai));
 			if (b.x < 0 || b.x > W) {
 				const youScored = b.x > W;
 				score = { you: score.you + (youScored ? 1 : 0), ai: score.ai + (youScored ? 0 : 1) };

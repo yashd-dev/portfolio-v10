@@ -19,8 +19,7 @@
 </svelte:head>
 
 <main id="posts" class="mx-auto max-w-[960px] px-5 pt-36 pb-40 sm:px-8 max-sm:pt-28">
-	<p class="{REVEAL} text-[11px] font-medium tracking-[0.08em] text-muted uppercase">Blog</p>
-	<h1 class="{REVEAL} mt-4 text-[32px] font-medium tracking-tight text-ink max-sm:text-[26px]">
+	<h1 class="{REVEAL} text-[32px] font-medium tracking-tight text-ink max-sm:text-[26px]">
 		Writing about things I build.
 	</h1>
 

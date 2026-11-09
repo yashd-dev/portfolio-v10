@@ -3,8 +3,72 @@
 	import { highlightCalm } from '#lib/marks.js';
 	import { projects, email } from '#lib/data/content.js';
 	import { REVEAL } from '#lib/reveal.js';
+	import { fade, fly } from 'svelte/transition';
 
 	let { guides = true }: { guides?: boolean } = $props();
+
+	const paths = [
+		{
+			id: 'project',
+			title: 'Start a project',
+			intro: 'For founders and teams who need a site designed and built.',
+			points: [
+				'Designed in Figma first, revised until you approve it',
+				'SvelteKit, React and Tailwind, production ready',
+				'A CMS you can edit yourself',
+				'Progress and feedback along the way, not just at the end'
+			],
+			cta: 'See how I work',
+			href: '/process',
+			external: false
+		},
+		{
+			id: 'hire',
+			title: 'Hire me',
+			intro: "I'm open to job opportunities alongside freelance work.",
+			points: [
+				'Technical lead at Actually Fair',
+				'Full-stack developer at KonectU',
+				'Production TypeScript across SvelteKit and headless Shopify',
+				'BTech Computer Engineering, MPSTME NMIMS',
+				'Based in Mumbai'
+			],
+			cta: 'Book a call',
+			href: 'https://cal.com/yashd-dev/discussion',
+			external: true
+		}
+	] as const;
+
+	let choice = $state<'project' | 'hire' | null>(null);
+	const reduced =
+		typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const dur = reduced ? 0 : 220;
+
+	// Animate the message area's height when a reply opens or the path switches,
+	// so the card (and the section around it) glides instead of jumping.
+	function smoothResize(node: HTMLElement) {
+		let prev: number | null = null;
+		const ro = new ResizeObserver(() => {
+			const next = node.offsetHeight;
+			if (prev === null || next === prev) {
+				prev = next;
+				return;
+			}
+			if (!reduced) {
+				node.animate([{ height: `${prev}px` }, { height: `${next}px` }], {
+					duration: 300,
+					easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
+				});
+			}
+			prev = next;
+		});
+		ro.observe(node);
+		return {
+			destroy() {
+				ro.disconnect();
+			}
+		};
+	}
 </script>
 
 <section
@@ -13,7 +77,7 @@
 >
 	<div aria-hidden="true" class="pointer-events-none absolute inset-0 hidden xl:block">
 		<div
-			class="absolute top-1/2 right-[calc(50%+448px)] flex -translate-y-1/2 flex-col gap-4 [mask-image:linear-gradient(to_right,transparent_0%,black_55%)]"
+			class="absolute top-1/2 right-[calc(50%+348px)] flex -translate-y-1/2 flex-col gap-4 [mask-image:linear-gradient(to_right,transparent_0%,black_55%)]"
 		>
 			{#each projects.slice(0, 2) as p}
 				<div
@@ -30,7 +94,7 @@
 			{/each}
 		</div>
 		<div
-			class="absolute top-1/2 left-[calc(50%+448px)] flex -translate-y-1/2 flex-col gap-4 [mask-image:linear-gradient(to_left,transparent_0%,black_55%)]"
+			class="absolute top-1/2 left-[calc(50%+348px)] flex -translate-y-1/2 flex-col gap-4 [mask-image:linear-gradient(to_left,transparent_0%,black_55%)]"
 		>
 			{#each projects.slice(2, 4) as p}
 				<div
@@ -78,210 +142,94 @@
 			Have a <Mark definition={highlightCalm} fillColor="#2e74ff">project or a role</Mark> in mind?
 		</h2>
 		<div
-			class="{REVEAL} mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl bg-black/10 shadow-[0_0_0_1px_var(--color-rule),0_10px_30px_rgba(0,0,0,0.05)] sm:grid-cols-2"
+			class="{REVEAL} mx-auto mt-8 max-w-[560px] overflow-hidden rounded-2xl bg-white shadow-[0_0_0_1px_var(--color-rule),0_10px_30px_rgba(0,0,0,0.06)]"
 			style="--d: 90ms"
 		>
-			<div
-				class="flex h-full min-h-0 flex-col justify-between bg-white ring-1 ring-black/10 ring-inset"
-			>
-				<div class="relative flex-1">
-					<div class="mx-auto w-full max-w-sm px-4 py-4 md:px-8 md:py-12">
-						<h3 class="text-xl font-medium text-ink">Start a project</h3>
-						<p class="mt-2 max-w-sm text-sm text-soft">
-							For founders and teams who need a site designed and built.
-						</p>
-						<span class="mt-4 block min-h-5 text-sm leading-5 text-soft/70">Freelance projects</span
-						>
-						<p class="text-3xl font-bold text-ink">Talk to me</p>
-						<ul class="mt-6 flex flex-col gap-2 text-sm text-ink/80">
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-[#2e74ff]"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>Designed in Figma first, revised until you approve it</span>
-							</li>
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-[#2e74ff]"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>SvelteKit, React and Tailwind, production ready</span>
-							</li>
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-[#2e74ff]"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>A CMS you can edit yourself</span>
-							</li>
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-[#2e74ff]"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>Progress and feedback along the way, not just at the end</span>
-							</li>
-						</ul>
-					</div>
+			<div class="flex items-center gap-3 border-b border-black/[0.06] px-5 py-3.5">
+				<div class="relative size-9 shrink-0">
+					<img src="/avatar.jpg" alt="" class="size-9 rounded-full object-cover" />
+					<span
+						class="absolute -right-px -bottom-px size-2.5 rounded-full bg-[#2e74ff] ring-2 ring-white"
+					></span>
 				</div>
-				<a
-					href="/process"
-					class="block w-full cursor-pointer bg-linear-to-b from-[#3578ff] to-[#4d8dff] px-6 py-4 text-center text-[15px] font-semibold text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.25)_inset] ring ring-white/40 ring-offset-2 ring-offset-[#4d8dff] transition-all duration-200 ring-inset hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.45)_inset] hover:ring-white/60 active:scale-98"
-					data-cursor="See how I work">See how I work</a
-				>
+				<div class="leading-tight">
+					<p class="text-[15px] font-medium text-ink">Yash Deshpande</p>
+					<p class="text-xs text-[#2e74ff]">Open to work</p>
+				</div>
 			</div>
 			<div
-				class="flex h-full min-h-0 flex-col justify-between bg-linear-to-b from-[#3578ff] to-[#4d8dff] text-white ring-1 ring-white/20 ring-inset"
+				class="flex flex-col gap-3 overflow-hidden px-5 py-5"
+				aria-live="polite"
+				use:smoothResize
 			>
-				<div class="relative flex-1">
-					<div class="mx-auto w-full max-w-sm px-4 py-4 md:px-8 md:py-12">
-						<div class="flex items-center justify-between gap-2">
-							<h3 class="text-xl font-medium">Hire me</h3>
-							<span
-								class="shrink-0 rounded-full bg-white/15 px-2.5 py-1 text-xs font-medium text-white ring-1 ring-white/25 ring-inset"
-								>Open to work</span
+				<p
+					class="max-w-[88%] self-start rounded-[18px] rounded-bl bg-neutral-100 px-4 py-2.5 text-[15px] text-ink"
+				>
+					Do you have a project, or do you want to hire me?
+				</p>
+				{#if choice === null}
+					<div class="flex flex-wrap justify-end gap-2.5" in:fade={{ duration: dur }}>
+						{#each paths as p}
+							<button
+								type="button"
+								class="cursor-pointer rounded-full border-[1.5px] border-[#2e74ff] bg-white px-[18px] py-2 text-[15px] font-medium text-[#2e74ff] transition-colors hover:bg-[#2e74ff] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff]"
+								data-cursor={p.title}
+								onclick={() => (choice = p.id)}>{p.title}</button
 							>
-						</div>
-						<p class="mt-2 max-w-sm text-sm text-white/80">
-							I'm open to job opportunities alongside freelance work.
+						{/each}
+					</div>
+				{:else}
+					{@const p = paths.find((x) => x.id === choice)!}
+					{@const other = paths.find((x) => x.id !== choice)!}
+					<div class="flex flex-col gap-3" in:fly={{ y: 8, duration: dur }}>
+						<p
+							class="self-end rounded-[18px] rounded-br bg-[#2e74ff] px-4 py-2.5 text-[15px] font-medium text-white"
+						>
+							{p.title}
 						</p>
-						<span class="mt-4 block min-h-5 text-sm leading-5 text-white/70">Class of 2028</span>
-						<p class="text-3xl font-bold">Talk to me</p>
-						<ul class="mt-6 flex flex-col gap-2 text-sm text-white/90">
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
+						<div
+							class="max-w-[92%] self-start rounded-[18px] rounded-bl bg-neutral-100 px-4 py-3.5"
+						>
+							<p class="text-sm text-soft">{p.intro}</p>
+							<ul class="mt-3 mb-4 text-sm text-ink">
+								{#each p.points as pt}
+									<li
+										class="relative border-t border-dashed border-black/15 py-1.5 pl-4 first:border-t-0"
+									>
+										<span
+											class="absolute top-[14px] left-0 size-1.5 rounded-full border-[1.5px] border-[#2e74ff]"
+										></span>
+										{pt}
+									</li>
+								{/each}
+							</ul>
+							<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+								<a
+									href={p.href}
+									target={p.external ? '_blank' : undefined}
+									rel={p.external ? 'noopener noreferrer' : undefined}
+									class="rounded-full bg-[#2e74ff] px-[18px] py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#1f63ee]"
+									data-cursor={p.cta}>{p.cta}</a
 								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>Technical lead at Actually Fair</span>
-							</li>
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>Full-stack developer at KonectU</span>
-							</li>
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>Production TypeScript across SvelteKit and headless Shopify</span>
-							</li>
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>BTech Computer Engineering, MPSTME NMIMS</span>
-							</li>
-							<li class="flex items-center gap-2">
-								<svg
-									class="size-5 shrink-0 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.5"
-									aria-hidden="true"
-								>
-									<path
-										d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-									/>
-									<path d="M8 12.5L10.5 15L16 9" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-								<span>Based in Mumbai</span>
-							</li>
-						</ul>
-						<a
-							href="/yash-deshpande-resume.pdf"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="mt-4 inline-block text-sm text-white/70 underline decoration-white/40 decoration-dotted underline-offset-[0.2em] transition-colors hover:text-white"
-							data-cursor="Resume">Read my resume</a
+								{#if p.id === 'hire'}
+									<a
+										href="/yash-deshpande-resume.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-sm text-soft underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em] transition-colors hover:text-ink"
+										data-cursor="Resume">Read my resume</a
+									>
+								{/if}
+							</div>
+						</div>
+						<button
+							type="button"
+							class="cursor-pointer self-end rounded-full border-[1.5px] border-[#2e74ff] bg-white px-[18px] py-2 text-[15px] font-medium text-[#2e74ff] transition-colors hover:bg-[#2e74ff] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff]"
+							data-cursor={other.title}
+							onclick={() => (choice = other.id)}>{other.title} instead</button
 						>
 					</div>
-				</div>
-				<a
-					href="https://cal.com/yashd-dev/discussion"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="block w-full cursor-pointer bg-linear-to-b from-[#3578ff] to-[#4d8dff] px-6 py-4 text-center text-[15px] font-semibold text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.25)_inset] ring ring-white/40 ring-offset-2 ring-offset-[#4d8dff] transition-all duration-200 ring-inset hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.45)_inset] hover:ring-white/60 active:scale-98"
-					data-cursor="Book a call">Book a call</a
-				>
+				{/if}
 			</div>
 		</div>
 		<p class="{REVEAL} mt-6 text-center text-sm text-soft" style="--d: 140ms">

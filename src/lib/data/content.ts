@@ -98,7 +98,7 @@ export const freelance = {
 	org: 'Freelance',
 	role: 'Designer & developer',
 	place: 'Mumbai',
-	span: '2026 - Now',
+	span: '2024 - Now',
 	note: 'Storefronts, sites and the services behind them, for clients.'
 };
 

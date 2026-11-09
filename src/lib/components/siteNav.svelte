@@ -27,13 +27,8 @@
 	const WORK: NavItem[] = [{ id: 'projects', label: 'Projects', icon: 'grid' }];
 	const BLOG: NavItem[] = [{ id: 'posts', label: 'Posts' }];
 	const TOOLS: NavItem[] = [
-		{ id: 'design', label: 'Design' },
-		{ id: 'web', label: 'Web' },
-		{ id: 'mobile', label: 'Mobile' },
-		{ id: 'backend-data', label: 'Backend & data' },
-		{ id: 'ai', label: 'AI' },
-		{ id: 'cms-commerce', label: 'CMS & commerce' },
-		{ id: 'ship-host', label: 'Ship & host' }
+		{ id: 'daily-drivers', label: 'Daily drivers' },
+		{ id: 'currently-experimenting', label: 'Experimenting' }
 	];
 
 	let pathname = $derived(page.url.pathname);

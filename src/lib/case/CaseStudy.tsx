@@ -35,9 +35,6 @@ export default function CaseStudy({
 
 			<main className="case-domis-main">
 				<section id="intro" className="case-domis-intro scroll-mt-28">
-					<p className="mn-case__eyebrow case-reveal">
-						<span className="case-rise">{meta.eyebrow}</span>
-					</p>
 					<h1 className="case-domis-intro__title case-reveal">
 						<span className="case-rise">{meta.title}</span>
 					</h1>
@@ -89,8 +86,7 @@ export default function CaseStudy({
 				<footer className="mn-case__next">
 					{meta.next ? (
 						<a className="mn-case__next-link" href={meta.next.href} data-cursor="Next case">
-							<span className="mn-case__next-label">Next case study</span>
-							<span className="mn-case__next-title">
+														<span className="mn-case__next-title">
 								{meta.next.title}
 								<span aria-hidden="true">→</span>
 							</span>

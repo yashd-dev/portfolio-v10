@@ -69,12 +69,7 @@
 </script>
 
 <div class="px-6 sm:px-10">
-	<p
-		class="{REVEAL} mt-24 mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase"
-	>
-		Start a project
-	</p>
-	<div class="{REVEAL} grid gap-10 md:grid-cols-[minmax(0,280px)_minmax(0,1fr)] md:gap-16">
+	<div class="{REVEAL} mt-24 grid gap-10 md:grid-cols-[minmax(0,280px)_minmax(0,1fr)] md:gap-16">
 		<h3 class="text-2xl font-medium tracking-tight text-ink">Tell me what you need built.</h3>
 		<form
 			action="https://formspree.io/f/xljgggoo"

@@ -5,7 +5,7 @@
 
 <div class="px-6 sm:px-10">
 	<p
-		class="{REVEAL} mt-24 mb-[22px] text-[11px] font-medium tracking-[0.08em] text-muted uppercase"
+		class="{REVEAL} mt-24 mb-[22px] text-sm font-medium text-muted"
 	>
 		Questions, answered
 	</p>

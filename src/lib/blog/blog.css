@@ -179,3 +179,10 @@
 	max-width: 300px;
 	margin-inline: auto;
 }
+
+.blog-callout__title {
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 14px;
+	font-weight: 500;
+}
