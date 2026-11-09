@@ -183,7 +183,7 @@
 						{#each paths as p}
 							<button
 								type="button"
-								class="cursor-pointer rounded-full border-[1.5px] border-[#2e74ff] bg-white px-[18px] py-2 text-[15px] font-medium text-[#2e74ff] transition-colors hover:bg-[#2e74ff] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff]"
+								class="cursor-pointer rounded-full border-[1.5px] border-[#2e74ff] bg-white px-[18px] py-2 text-[15px] font-medium text-[#2e74ff] ring ring-[#2e74ff]/30 ring-inset ring-offset-2 ring-offset-white transition-all duration-200 hover:bg-[#2e74ff] hover:text-white hover:ring-white/40 hover:ring-offset-[#2e74ff] active:scale-98 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff]"
 								data-cursor={p.title}
 								onclick={() => (choice = p.id)}>{p.title}</button
 							>
@@ -219,7 +219,7 @@
 									href={p.href}
 									target={p.external ? '_blank' : undefined}
 									rel={p.external ? 'noopener noreferrer' : undefined}
-									class="rounded-full bg-[#2e74ff] px-[18px] py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#1f63ee]"
+									class="rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-[18px] py-2.5 text-sm font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
 									data-cursor={p.cta}>{p.cta}</a
 								>
 								{#if p.id === 'hire'}
@@ -235,7 +235,7 @@
 						</div>
 						<button
 							type="button"
-							class="cursor-pointer self-end rounded-full border-[1.5px] border-[#2e74ff] bg-white px-[18px] py-2 text-[15px] font-medium text-[#2e74ff] transition-colors hover:bg-[#2e74ff] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff]"
+							class="cursor-pointer self-end rounded-full border-[1.5px] border-[#2e74ff] bg-white px-[18px] py-2 text-[15px] font-medium text-[#2e74ff] ring ring-[#2e74ff]/30 ring-inset ring-offset-2 ring-offset-white transition-all duration-200 hover:bg-[#2e74ff] hover:text-white hover:ring-white/40 hover:ring-offset-[#2e74ff] active:scale-98 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff]"
 							data-cursor={other.title}
 							onclick={() => (choice = other.id)}>{other.title} instead</button
 						>

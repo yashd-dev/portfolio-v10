@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-import SiteFooter from '#lib/components/siteFooter.svelte';
+	import SiteFooter from '#lib/components/siteFooter.svelte';
 
 	let canvas: HTMLCanvasElement;
 	let score = $state({ you: 0, ai: 0 });
@@ -134,8 +134,8 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 <div
 	class="relative mx-auto w-full max-w-6xl px-6 pt-[320px] pb-[220px] max-sm:pt-[280px] max-sm:pb-[170px] sm:px-10"
 >
-	<h1 class="text-2xl font-medium tracking-tight text-ink">Pong</h1>
-	<p class="mt-2 text-soft">Move your pointer over the board. First to 7.</p>
+	<h1 class="text-[16px] leading-normal font-medium">Pong</h1>
+	<p class="text-soft">Move your pointer over the board. First to 7.</p>
 	<div class="mt-8 flex items-center justify-between text-sm text-muted">
 		<span>You · {score.you}</span>
 		<span>{score.ai} · Pixel AI</span>
@@ -148,7 +148,7 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 	></canvas>
 	<button
 		onclick={() => startGame()}
-		class="mt-4 rounded-full bg-[#2e74ff] px-4 py-1.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#2667ff]"
+		class="mt-4 rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-4 py-1.5 text-sm font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
 	>
 		{winner
 			? winner === 'you'

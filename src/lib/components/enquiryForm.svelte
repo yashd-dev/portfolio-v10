@@ -123,10 +123,10 @@
 							<button
 								type="button"
 								onclick={() => (currencyCode = currency.code)}
-								class="rounded-full border px-4 py-2.5 text-sm leading-none transition-colors {currencyCode ===
+								class="rounded-full border px-4 py-2.5 text-sm leading-none ring ring-inset ring-offset-2 transition-all duration-200 active:scale-98 {currencyCode ===
 								currency.code
-									? 'border-[#2e74ff] bg-[#2e74ff] text-white'
-									: 'border-neutral-300 text-ink hover:border-ink'}"
+									? 'border-[#2e74ff] bg-linear-to-b from-[#3578ff] to-[#2e74ff] text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring-white/20 ring-offset-[#2e74ff] hover:ring-white/40'
+									: 'border-neutral-300 bg-white text-ink ring-black/10 ring-offset-white hover:border-ink hover:ring-black/20'}"
 							>
 								{currency.code}
 							</button>
@@ -171,7 +171,7 @@
 			<button
 				type="submit"
 				disabled={formState === 'submitting'}
-				class="mt-2 inline-flex h-11 w-fit items-center rounded-full bg-[#2e74ff] px-6 text-[14px] font-medium text-white transition-[transform,background-color] duration-300 ease-(--ease-mn) hover:-translate-y-0.5 hover:bg-[#2667ff] disabled:opacity-60 max-sm:w-full max-sm:justify-center"
+				class="mt-2 inline-flex h-11 w-fit items-center rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-6 text-[14px] font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98 disabled:opacity-60 max-sm:w-full max-sm:justify-center"
 				data-cursor="Send"
 			>
 				{formState === 'submitting' ? 'Sending...' : 'Send project details'}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { toolSections } from '#lib/data/icons.js';
 	import CtaSection from '#lib/components/ctaSection.svelte';
-import SiteFooter from '#lib/components/siteFooter.svelte';
+	import SiteFooter from '#lib/components/siteFooter.svelte';
 
 	const slug = (c: string) =>
 		c
@@ -18,15 +18,19 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 
 <div class="relative mx-auto w-full max-w-6xl pb-[220px] max-sm:pb-[170px]">
 	<header class="px-6 pt-[320px] max-sm:pt-[280px] sm:px-10">
-		<h1 class="{REVEAL} text-2xl font-medium tracking-tight text-ink">Tools I reach for</h1>
-		<p class="{REVEAL} mt-2 text-neutral-500" style="--d: 60ms">
+		<h1 class="{REVEAL} text-[16px] leading-normal font-medium">Tools I reach for</h1>
+		<p class="{REVEAL} text-soft" style="--d: 60ms">
 			The daily stack, plus the things I'm currently trying out.
 		</p>
 	</header>
 
 	{#each toolSections as sec, si}
-		<section id={slug(sec.title)} class="mt-16 scroll-mt-[88px] px-6 first:mt-14 sm:px-10" aria-label={sec.title}>
-			<h2 class="{REVEAL} text-lg font-medium tracking-tight text-ink">{sec.title}</h2>
+		<section
+			id={slug(sec.title)}
+			class="mt-16 scroll-mt-[88px] px-6 first:mt-14 sm:px-10"
+			aria-label={sec.title}
+		>
+			<h2 class="{REVEAL} text-sm font-medium text-muted">{sec.title}</h2>
 			{#each sec.groups as group, gi}
 				<div id={slug(group.category)} class="mt-10 scroll-mt-[88px] first:mt-8">
 					<h3 class="{REVEAL} mb-[22px] text-sm font-medium text-muted">
@@ -41,7 +45,7 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 								class="group flex items-start gap-4 border-b border-dashed border-neutral-200 py-5"
 							>
 								<span
-									class="grid size-11 flex-none place-items-center rounded-lg border border-neutral-200 bg-neutral-50 transition-transform duration-300 ease-(--ease-spring) group-hover:scale-105"
+									class="relative grid size-11 flex-none place-items-center rounded-lg border border-neutral-200 bg-neutral-100 transition-[transform] duration-300 ease-(--ease-spring) after:pointer-events-none after:absolute after:inset-[4px] after:rounded-[4px] after:border-[1.5px] after:border-white/90 after:content-[''] after:transition-[border-color] after:duration-200 group-hover:scale-105 group-hover:after:border-white"
 								>
 									<svg
 										viewBox={t.viewBox ?? '0 0 24 24'}

@@ -16,7 +16,7 @@ export default function CaseBar({ title }: { title: string }) {
 				<div className="pointer-events-auto inline-flex max-w-[calc(100vw-140px)] items-center gap-1 rounded-full p-[3px] transition-[background-color,box-shadow] duration-[0.35s] [.mn-casebar.is-scrolled_&]:backdrop-blur-[14px] [.mn-casebar.is-scrolled_&]:backdrop-saturate-150">
 					<a
 						href="/#work"
-						className="group inline-flex h-8 items-center gap-1 rounded-full pr-[14px] pl-[9px] text-[13px] font-medium no-underline shadow-[0_1px_2px_#00000014] transition-[background-color] duration-[0.25s]"
+						className="group relative inline-flex h-8 items-center gap-1 rounded-full bg-white pr-[14px] pl-[9px] text-[13px] font-medium no-underline shadow-[0_0_0_1px_var(--color-rule)] transition-[background-color] duration-[0.25s] after:pointer-events-none after:absolute after:inset-[3px] after:rounded-full after:border after:border-black/[0.08] after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-black/[0.16]"
 						data-cursor="All work"
 					>
 						<svg
@@ -40,7 +40,7 @@ export default function CaseBar({ title }: { title: string }) {
 				<div className="pointer-events-auto inline-flex items-center gap-2">
 					<a
 						href="/"
-						className="inline-grid size-[34px] place-items-center rounded-full backdrop-blur-[14px] backdrop-saturate-150 transition-[transform_0.25s_cubic-bezier(0.34,1.56,0.64,1),background-color_0.2s_ease] hover:rotate-90 hover:scale-[1.06]"
+						className="relative inline-grid size-[34px] place-items-center rounded-full backdrop-blur-[14px] backdrop-saturate-150 transition-[transform_0.25s_cubic-bezier(0.34,1.56,0.64,1),background-color_0.2s_ease] after:pointer-events-none after:absolute after:inset-[3px] after:rounded-full after:border after:border-white/50 after:content-[''] after:transition-[border-color] after:duration-200 hover:rotate-90 hover:scale-[1.06] hover:after:border-white/80"
 						aria-label="Close case study"
 						data-cursor="Close"
 					>

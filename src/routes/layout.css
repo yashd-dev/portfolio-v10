@@ -16,6 +16,9 @@
 	--color-inspect: #e83ad8;
 	--font-sans: 'Geist', system-ui, sans-serif;
 	--ease-mn: cubic-bezier(0.22, 1, 0.36, 1);
+	--shadow-inset-card:
+		0 0 0 1px rgb(0 0 0 / 0.04), inset 0 0 0 8px transparent,
+		inset 0 0 0 9.5px rgb(255 255 255 / 0.22);
 	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 	--animate-tools: tools-scroll 34s linear infinite;
 	--animate-gd-rise: gd-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;

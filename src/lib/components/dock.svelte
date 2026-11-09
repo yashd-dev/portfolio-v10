@@ -19,7 +19,7 @@
 	}
 
 	const icon =
-		'inline-flex h-[38px] w-[38px] cursor-pointer items-center justify-center rounded-full bg-black/[0.035] text-ink transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-black/[0.08]';
+		'relative inline-flex h-[38px] w-[38px] cursor-pointer items-center justify-center rounded-full bg-black/[0.035] text-ink transition-[background-color,transform] duration-200 after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/60 after:content-[""] after:transition-[border-color] after:duration-200 hover:-translate-y-0.5 hover:bg-black/[0.08] hover:after:border-white/85';
 </script>
 
 <div
@@ -28,7 +28,7 @@
 	aria-label="Quick links"
 >
 	<div
-		class="flex animate-gd-rise items-center gap-1 rounded-full bg-white/78 px-1.5 py-[5px] shadow-[0_0_0_1px_var(--color-rule),0_12px_36px_#0000001f] backdrop-blur-[16px] backdrop-saturate-150"
+		class="flex animate-gd-rise items-center gap-1 rounded-full bg-white/78 px-1.5 py-[5px] shadow-[0_0_0_1px_var(--color-rule),0_8px_24px_#00000014,inset_0_0_0_1.5px_rgb(255_255_255/0.6)] backdrop-blur-[16px] backdrop-saturate-150"
 	>
 		<a class={icon} href="/play" aria-label="Play" data-cursor="Play">
 			<svg
@@ -105,7 +105,7 @@
 		<span class="mx-1 h-[22px] w-px bg-rule" aria-hidden="true"></span>
 		<button
 			type="button"
-			class="inline-flex h-[38px] min-w-[38px] cursor-pointer items-center justify-center gap-1.5 rounded-full bg-black/[0.035] px-2.5 text-[13px] font-medium text-ink transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-black/[0.08]"
+			class="relative inline-flex h-[38px] min-w-[38px] cursor-pointer items-center justify-center gap-1.5 rounded-full bg-black/[0.035] px-2.5 text-[13px] font-medium text-ink transition-[background-color,transform] duration-200 after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/60 after:content-[''] after:transition-[border-color] after:duration-200 hover:-translate-y-0.5 hover:bg-black/[0.08] hover:after:border-white/85"
 			onclick={toTop}
 			data-cursor="Back to top"
 		>

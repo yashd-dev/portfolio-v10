@@ -167,7 +167,7 @@
 >
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow,max-width] duration-[450ms] ease-(--ease-mn) max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
 			'sections'
 				? 'max-sm:max-w-[calc(100vw-128px)]'
 				: openNav === 'pages'
@@ -181,7 +181,7 @@
 		>
 			{#if pill}
 				<span
-					class="absolute top-[3px] bottom-[3px] left-0 rounded-full bg-white shadow-[0_1px_2px_#00000014,0_0_0_0.5px_#0000000a] transition-[transform,width] duration-[550ms] ease-(--ease-mn) motion-reduce:transition-none"
+					class="absolute top-[3px] bottom-[3px] left-0 rounded-full bg-white shadow-[0_1px_2px_#00000014,0_0_0_0.5px_#0000000a] transition-[transform,width] duration-[550ms] ease-(--ease-mn) motion-reduce:transition-none after:pointer-events-none after:absolute after:inset-[3px] after:rounded-full after:border after:border-black/[0.08] after:content-['']"
 					style:transform="translateX({pill.x}px)"
 					style:width="{pill.w}px"
 					aria-hidden="true"
@@ -292,7 +292,7 @@
 		<div class="inline-flex items-center gap-2">
 			<nav
 				bind:this={pagesNav}
-				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow,max-width] duration-[450ms] ease-(--ease-mn) max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
+				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
 				'pages'
 					? 'max-sm:max-w-[calc(100vw-118px)]'
 					: anyPageCurrent

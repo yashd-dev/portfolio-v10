@@ -1,7 +1,7 @@
 <script lang="ts">
 	import HeroBirds from '#lib/components/heroBirds.svelte';
 	import CtaSection from '#lib/components/ctaSection.svelte';
-import SiteFooter from '#lib/components/siteFooter.svelte';
+	import SiteFooter from '#lib/components/siteFooter.svelte';
 	import { projects } from '#lib/data/content.js';
 	import { REVEAL } from '#lib/reveal.js';
 </script>
@@ -23,10 +23,10 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 
 <main class="relative mx-auto w-full max-w-6xl px-5 pt-[320px] pb-10 max-sm:pt-[236px]">
 	<header class="max-w-[600px]">
-		<h1 class="{REVEAL} text-[30px] leading-[1.2] font-medium tracking-tight text-ink">
+		<h1 class="{REVEAL} text-[16px] leading-normal font-medium">
 			Every project here is live, and still looked after.
 		</h1>
-		<p class="{REVEAL} mt-4 text-[15px] leading-[1.7] text-soft" style="--d: 80ms">
+		<p class="{REVEAL} text-soft" style="--d: 80ms">
 			Storefronts, therapy and healthcare sites, and consultancy pages - designed, built and
 			maintained by me, end to end.
 		</p>
@@ -37,10 +37,10 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 
 	<section
 		id="projects"
-		class="mt-16 grid scroll-mt-[88px] grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 max-sm:mt-12 max-sm:gap-y-14"
+		class="mt-16 grid scroll-mt-[88px] grid-cols-1 gap-x-12 gap-y-16 max-sm:mt-12 max-sm:gap-y-14 sm:grid-cols-2"
 	>
 		{#each projects as p, i}
-			<article class="{REVEAL}" style="--d: {(i % 2) * 80}ms">
+			<article class={REVEAL} style="--d: {(i % 2) * 80}ms">
 				<a
 					class="group block"
 					href={p.caseStudy ?? p.link}
@@ -52,7 +52,7 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 						src={p.image}
 						alt="{p.name} homepage"
 						loading="lazy"
-						class="block aspect-[16/10] w-full rounded-xl bg-card object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.04)] transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
+						class="block aspect-[16/10] w-full rounded-xl bg-card object-cover shadow-inset-card transition-[transform,box-shadow] duration-700 ease-(--ease-mn) group-hover:scale-[1.012] group-hover:[box-shadow:0_0_0_1px_rgb(0_0_0/0.04),inset_0_0_0_8px_transparent,inset_0_0_0_9.5px_var(--il-card-line-hover,rgb(255_255_255/0.4)),0_16px_40px_-16px_rgb(0_0_0/0.18)]"
 					/>
 				</a>
 				<div class="mt-5">

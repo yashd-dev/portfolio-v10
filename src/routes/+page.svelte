@@ -280,7 +280,7 @@
 				<div class="mt-4 flex flex-wrap gap-1.5">
 					{#each p.meta.split(', ') as tag}
 						<span
-							class="rounded-full px-2.5 py-0.5 text-[11px] text-muted shadow-[0_0_0_1px_var(--color-rule)]"
+							class="rounded-full bg-neutral-100 px-2.5 py-0.5 text-[10px] text-ink/70 ring-1 ring-white ring-inset ring-offset-2 ring-offset-neutral-100"
 							>{tag}</span
 						>
 					{/each}
@@ -432,7 +432,7 @@
 		<div class="{REVEAL} mt-[22px] flex flex-wrap gap-2" style="--d: 60ms">
 			{#each dailyTools as t}
 				<span
-					class="inline-flex items-center gap-2 rounded-full border border-rule bg-white px-3.5 py-2 text-[13px] font-medium text-ink"
+					class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3.5 py-2 text-[13px] font-medium text-ink ring-1 ring-white ring-inset ring-offset-2 ring-offset-neutral-100"
 				>
 					<svg
 						viewBox="0 0 24 24"

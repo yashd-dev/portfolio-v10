@@ -107,10 +107,10 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 
 <div class="relative mx-auto w-full max-w-6xl">
 	<div class="relative px-6 pt-[320px] pb-16 max-sm:pt-[280px] sm:px-10">
-		<h1 class="relative max-w-[16ch] text-2xl font-medium tracking-tight text-ink">
+		<h1 class="relative text-[16px] leading-normal font-medium">
 			How I <Mark definition={highlightCalm} fillColor="#8ab6f2">work</Mark>
 		</h1>
-		<p class="relative mt-4 max-w-[46ch] text-soft">
+		<p class="relative max-w-[46ch] text-soft">
 			We start with a conversation, agree scope and sign a contract. Then I design in Figma and
 			build, and you see the design before it becomes a finished website.
 		</p>
@@ -165,9 +165,9 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 					<div class="mt-6 flex items-start gap-3">
 						<StepCircle n={s.n} />
 						<h2
-							class="mt-1 max-w-[30ch] text-lg font-semibold tracking-tight text-balance text-neutral-700 md:text-xl"
+							class="mt-1 max-w-[30ch] text-sm font-medium text-muted"
 						>
-							{s.title} <span class="text-neutral-700/50">{s.note}</span>
+							{s.title} <span class="text-faint">{s.note}</span>
 						</h2>
 					</div>
 				</section>
