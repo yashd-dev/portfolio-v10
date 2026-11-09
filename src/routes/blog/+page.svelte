@@ -29,7 +29,7 @@
 	aria-hidden="true"
 	class="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[520px] bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_35%,transparent_68%)] bg-cover bg-[center_71%] opacity-85 [filter:saturate(0.85)_brightness(1.02)]"
 ></div>
-<main id="posts" class="mx-auto max-w-[880px] px-5 pt-36 pb-40 max-sm:pt-28 sm:px-8">
+<main id="posts" class="mx-auto max-w-[880px] px-5 pt-[320px] pb-40 max-sm:pt-[236px] sm:px-8">
 	<h1 class="{REVEAL} text-[16px] leading-normal font-medium">
 		Writing about things I build.
 	</h1>

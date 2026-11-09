@@ -56,7 +56,7 @@ function ZoomControl({ zoom }: { zoom: ReturnType<typeof useZoom> }) {
 			<button type="button" onClick={zoom.out} disabled={!zoom.canOut} aria-label="Zoom out" className="size-9 cursor-pointer rounded-[999px] border-none text-[16px] leading-none text-[#444] hover:not-disabled:bg-white hover:not-disabled:text-[#111] disabled:cursor-default disabled:opacity-30">
 				−
 			</button>
-			<span className="min-w-12 text-center text-[12px] font-semibold tabular-nums text-[#555]">{zoom.percent}%</span>
+			<span className="min-w-12 text-center text-[12px] font-medium tabular-nums text-soft">{zoom.percent}%</span>
 			<button type="button" onClick={zoom.in} disabled={!zoom.canIn} aria-label="Zoom in" className="size-9 cursor-pointer rounded-[999px] border-none text-[16px] leading-none text-[#444] hover:not-disabled:bg-white hover:not-disabled:text-[#111] disabled:cursor-default disabled:opacity-30">
 				+
 			</button>
@@ -134,14 +134,14 @@ export default function FlowDiagram({
 			: !edges.some((e) => (e.from === selected && e.to === id) || (e.to === selected && e.from === id));
 
 	return (
-		<figure className="case-interactive case-flow mx-auto my-10 w-full max-w-[52rem] rounded-2xl border border-current p-5 text-left min-[1200px]:p-6 max-[640px]:mb-4 max-[640px]:p-4">
+		<figure className="case-interactive case-flow mx-auto my-10 w-full max-w-[52rem] text-left max-[640px]:mb-4">
 			<div className="case-interactive__bar flex flex-wrap items-center justify-between gap-3">
 				<span />
 				<div className="case-interactive__controls flex flex-wrap items-center gap-2">
 					<ZoomControl zoom={zoom} />
 				</div>
 			</div>
-			<p className="case-flow__title mt-4 text-[16px] font-bold">{title}</p>
+			<p className="case-flow__title mt-4 text-[16px] font-medium">{title}</p>
 			<div className="case-interactive__scroll case-flow__scroll mt-5 flex justify-center overflow-x-hidden overscroll-x-contain">
 				<svg
 					className="case-flow__canvas mx-auto block"

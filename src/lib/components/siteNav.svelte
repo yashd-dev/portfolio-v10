@@ -169,11 +169,9 @@
 		<div
 			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
 			'sections'
-				? 'max-sm:max-w-[calc(100vw-128px)]'
+				? 'max-sm:max-w-[calc(100vw-140px)]'
 				: openNav === 'pages'
-					? sections[0]?.icon
-						? 'max-sm:max-w-[46px]'
-						: 'max-sm:max-w-[110px]'
+					? 'max-sm:max-w-[46px]'
 					: 'max-sm:max-w-[160px]'} {scrolled ? scrolledCls : ''}"
 			role="navigation"
 			aria-label="Sections"
@@ -193,7 +191,8 @@
 					href="#{s.id}"
 					data-id={s.id}
 					data-cursor={s.label}
-					class="pg-nav-item relative z-[1] inline-flex h-8 shrink-0 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-[color,width,padding,opacity] duration-200 max-sm:px-2.5 max-sm:duration-[450ms] max-sm:ease-(--ease-mn) {isActive ||
+					class="pg-nav-item relative z-[1] inline-flex h-8 shrink-0 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-[color,width,padding,opacity] duration-200 max-sm:px-2.5 max-sm:duration-[450ms] max-sm:ease-(--ease-mn) {(isActive &&
+						openNav !== 'pages') ||
 					openNav === 'sections'
 						? ''
 						: 'max-sm:w-0 max-sm:overflow-hidden max-sm:px-0! max-sm:opacity-0'} {isActive
@@ -294,7 +293,7 @@
 				bind:this={pagesNav}
 				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
 				'pages'
-					? 'max-sm:max-w-[calc(100vw-118px)]'
+					? 'max-sm:max-w-[calc(100vw-82px)]'
 					: anyPageCurrent
 						? 'max-sm:max-w-[104px]'
 						: 'max-sm:max-w-[46px]'} {scrolled ? scrolledCls : ''}"

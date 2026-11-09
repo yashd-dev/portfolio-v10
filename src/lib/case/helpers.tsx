@@ -16,24 +16,24 @@ export function Section({
 }) {
 	return (
 		<section id={id} className="case-section case-reveal scroll-mt-28 [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] delay-[50ms] max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 [.case-domis-sections_&]:py-[52px] [.case-domis-sections_&]:[border-top-style:none] [.case-domis-sections_&]:first:mt-[44px] [.case-domis-sections_&]:last:pb-[72px]">
-			<h2 className="case-section__title mb-0 overflow-hidden text-left font-['Plus_Jakarta_Sans',system-ui,-apple-system,sans-serif] text-[25px] font-medium leading-[1.3] tracking-[-0.015em]">
+			<h2 className="case-section__title mb-0 overflow-hidden text-left text-[18px] font-medium leading-[1.35]">
 				<span className="case-rise block [transform:translateY(110%)] [transition:transform_0.9s_var(--mn-ease)] [.case-reveal.is-visible_&]:[transform:translate(0)] max-lg:[transform:none] max-lg:transition-none motion-reduce:[transform:none] motion-reduce:transition-none">{title}</span>
 			</h2>
-			<div className="case-section__body mt-[22px] flex flex-col gap-6 text-left text-[16.5px] leading-[1.75] [&_strong]:font-medium [&_ul]:pl-5 [&_ol]:pl-5 [&_li]:leading-[1.7] [&_li+li]:mt-3 [&_p]:text-inherit! [&_ul]:text-inherit! [&_ol]:text-inherit! [&_a:not([class])]:underline [&_a:not([class])]:underline-offset-[3px] [&_a:not([class])]:[text-decoration-color:var(--case-accent-line)] [&_a[class]]:text-[var(--case-accent-text)] [&_a[class]]:no-underline [&_a[class]:hover]:underline">{children}</div>
+			<div className="case-section__body mt-[22px] flex flex-col gap-6 text-left text-[15px] leading-[1.6] [&_strong]:font-medium [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5 [&_li]:pl-1 [&_li]:leading-[1.6] [&_li::marker]:text-faint [&_li+li]:mt-3 [&_p]:text-inherit! [&_ul]:text-inherit! [&_ol]:text-inherit! [&_a:not([class])]:underline [&_a:not([class])]:underline-offset-[3px] [&_a:not([class])]:[text-decoration-color:var(--case-accent-line)] [&_a[class]]:text-[var(--case-accent-text)] [&_a[class]]:no-underline [&_a[class]:hover]:underline">{children}</div>
 		</section>
 	);
 }
 
 export function Lead({ children }: { children: ReactNode }) {
 	return (
-		<p className="case-lead overflow-hidden text-[19px] leading-[1.65]">
+		<p className="case-lead overflow-hidden text-[16px] leading-[1.6]">
 			<span className="case-rise block [transform:translateY(110%)] [transition:transform_0.9s_var(--mn-ease)] [.case-reveal.is-visible_&]:[transform:translate(0)] delay-[0.14s] max-lg:delay-0 motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none motion-reduce:[transform:none] motion-reduce:transition-none">{children}</span>
 		</p>
 	);
 }
 
 export function Subhead({ children }: { children: ReactNode }) {
-	return <h3 className="case-subhead mt-2 pt-2 text-left font-['Plus_Jakarta_Sans',system-ui,-apple-system,sans-serif] text-[17.5px] font-medium tracking-[-0.02em] first:mt-0 first:pt-0">{children}</h3>;
+	return <h3 className="case-subhead mt-2 pt-2 text-left text-[16px] font-medium leading-[1.35] first:mt-0 first:pt-0">{children}</h3>;
 }
 
 export function P({ children }: { children: ReactNode }) {
@@ -42,7 +42,7 @@ export function P({ children }: { children: ReactNode }) {
 
 export function Pullquote({ children }: { children: ReactNode }) {
 	return (
-		<blockquote className="case-pullquote my-1 border-l-2 py-1 pl-5 text-left [border-left-color:var(--case-accent)] [&_footer]:mt-2 [&_footer]:text-[13px] [&_footer]:text-[#888] [&_p]:text-[18px] [&_p]:font-medium [&_p]:leading-[1.55]">
+		<blockquote className="case-pullquote my-1 border-l-2 py-1 pl-5 text-left [border-left-color:var(--case-accent)] [&_footer]:mt-2 [&_footer]:text-[13px] [&_footer]:text-muted [&_p]:text-[16px] [&_p]:font-medium [&_p]:leading-[1.55]">
 			<p>{children}</p>
 		</blockquote>
 	);
@@ -51,8 +51,8 @@ export function Pullquote({ children }: { children: ReactNode }) {
 export function Callout({ title, children }: { title: string; children: ReactNode }) {
 	return (
 		<aside className="case-callout rounded-[14px] border-none border-transparent p-[2rem_2.25rem] text-left">
-			<p className="case-callout__title mb-1 [font-family:var(--mn-sans)]! text-[14px] font-medium">{title}</p>
-			<div className="case-callout__body mt-4 flex flex-col gap-4 text-left text-[15px] leading-[1.65] text-[#555] [&_ul]:pl-5">{children}</div>
+			<p className="case-callout__title mb-1 text-[14px] font-medium">{title}</p>
+			<div className="case-callout__body mt-4 flex flex-col gap-4 text-left text-[15px] leading-[1.6] text-soft [&_ul]:list-disc [&_ul]:pl-5 [&_li::marker]:text-faint">{children}</div>
 		</aside>
 	);
 }
@@ -64,7 +64,7 @@ export function Tbl({ head, rows }: { head: string[]; rows: string[][] }) {
 				<thead>
 					<tr>
 						{head.map((h) => (
-							<th key={h} className="border-b border-[#00000014] bg-[#fafafa] px-4 py-3 font-semibold whitespace-nowrap text-[#111]">{h}</th>
+							<th key={h} className="border-b border-[#00000014] bg-[#fafafa] px-4 py-3 font-medium whitespace-nowrap text-ink">{h}</th>
 						))}
 					</tr>
 				</thead>
@@ -72,7 +72,7 @@ export function Tbl({ head, rows }: { head: string[]; rows: string[][] }) {
 					{rows.map((r, i) => (
 						<tr key={i}>
 							{r.map((c, j) => (
-								<td key={j} className="px-4 py-3 align-top text-[#555]">{c}</td>
+								<td key={j} className="px-4 py-3 align-top text-soft">{c}</td>
 							))}
 						</tr>
 					))}
@@ -87,8 +87,8 @@ export function Metrics({ items }: { items: { value: string; label: string }[] }
 		<div className="case-metric-grid grid gap-3 sm:grid-cols-2">
 			{items.map((m) => (
 				<div className="case-metric rounded-[14px] border-none p-5" key={m.label}>
-					<p className="case-metric__value font-['Plus_Jakarta_Sans',system-ui,sans-serif] text-[28px] font-medium tracking-[-0.02em]">{m.value}</p>
-					<p className="case-metric__label mt-1 text-[13px]">{m.label}</p>
+					<p className="case-metric__value text-[28px] font-medium">{m.value}</p>
+					<p className="case-metric__label mt-1 text-[13px] text-muted">{m.label}</p>
 				</div>
 			))}
 		</div>
@@ -216,9 +216,9 @@ export function StepRow({ steps }: { steps: string[] }) {
 			<div className="case-step-row__track flex flex-wrap items-center gap-2">
 				{steps.map((s, i) => (
 					<span className="case-step-row__item flex items-center gap-2" key={s}>
-						<span className="case-step-row__pill rounded-lg border border-[#00000014] bg-[#fafafa] px-3 py-2 text-center text-[12px] font-medium text-[#333]">{s}</span>
+						<span className="case-step-row__pill rounded-lg border border-[#00000014] bg-[#fafafa] px-3 py-2 text-center text-[12px] font-medium text-soft">{s}</span>
 						{i < steps.length - 1 && (
-							<span className="case-step-row__arrow text-[14px] font-bold text-[#bbb]" aria-hidden="true">
+							<span className="case-step-row__arrow text-[14px] font-medium text-faint" aria-hidden="true">
 								→
 							</span>
 						)}
@@ -250,9 +250,9 @@ export function Tokens({
 						<span className="case-token__swatch mt-0.5 h-10 w-10 shrink-0 rounded-lg border border-[#0000000f]" style={{ background: t.value }} aria-hidden="true" />
 					)}
 					<span className="case-token__text flex flex-col gap-[0.15rem]">
-						<span className="case-token__name text-[13px] font-semibold text-[#111]">{t.name}</span>
-						<span className="case-token__value text-[12px] text-[#666] [font-family:var(--mn-sans,'Inter',system-ui,sans-serif)]">{t.value}</span>
-						<span className="case-token__role mt-2 text-[12px] leading-[1.55] text-[#666]">{t.role}</span>
+						<span className="case-token__name text-[13px] font-medium text-ink">{t.name}</span>
+						<span className="case-token__value text-[12px] text-muted">{t.value}</span>
+						<span className="case-token__role mt-2 text-[12px] leading-[1.55] text-muted">{t.role}</span>
 					</span>
 				</div>
 			))}

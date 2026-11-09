@@ -22,7 +22,7 @@
 					{#each group.items as item}
 						<details class="group py-4 first:pt-0 last:pb-0">
 							<summary
-								class="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-medium text-neutral-700 [&::-webkit-details-marker]:hidden"
+								class="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-normal text-ink [&::-webkit-details-marker]:hidden"
 							>
 								<span>{item.question}</span>
 								<span
@@ -30,7 +30,7 @@
 									>+</span
 								>
 							</summary>
-							<p class="mt-3 max-w-[68ch] text-[14px] leading-relaxed text-soft">{item.answer}</p>
+							<p class="mt-3 max-w-[68ch] text-[14px] leading-[1.6] text-soft">{item.answer}</p>
 						</details>
 					{/each}
 				</div>

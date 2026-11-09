@@ -183,7 +183,10 @@
 						{#each paths as p}
 							<button
 								type="button"
-								class="cursor-pointer rounded-full border-[1.5px] border-[#2e74ff] bg-white px-[18px] py-2 text-[15px] font-medium text-[#2e74ff] ring ring-[#2e74ff]/30 ring-inset ring-offset-2 ring-offset-white transition-all duration-200 hover:bg-[#2e74ff] hover:text-white hover:ring-white/40 hover:ring-offset-[#2e74ff] active:scale-98 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff]"
+								class="cursor-pointer rounded-full border-[1.5px] border-[#2e74ff] px-[18px] py-2 text-[15px] font-medium ring ring-inset ring-offset-2 transition-all duration-200 active:scale-98 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2e74ff] {p.id ===
+								'project'
+									? 'peer bg-[#2e74ff] text-white ring-white/40 ring-offset-[#2e74ff] hover:bg-white hover:text-[#2e74ff] hover:ring-[#2e74ff]/30 hover:ring-offset-white'
+									: 'bg-white text-[#2e74ff] ring-[#2e74ff]/30 ring-offset-white peer-hover:bg-[#2e74ff] peer-hover:text-white peer-hover:ring-white/40 peer-hover:ring-offset-[#2e74ff]'}"
 								data-cursor={p.title}
 								onclick={() => (choice = p.id)}>{p.title}</button
 							>

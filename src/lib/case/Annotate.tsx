@@ -37,14 +37,14 @@ export default function Annotate({
 							className="case-annotate__note grid grid-cols-[auto_1fr] gap-[0.85rem] rounded-[14px] border-none p-[1rem_1.1rem] text-left"
 							key={n.title}
 						>
-							<span className="case-annotate__index pt-[0.15rem] text-[12px] font-bold tracking-[0.06em] [color:var(--case-accent-text,#16a34a)]">
+							<span className="case-annotate__index pt-[0.15rem] text-[12px] font-medium [color:var(--case-accent-text,#16a34a)]">
 								{String(i + 1).padStart(2, '0')}
 							</span>
 							<div>
-								<h3 className="case-annotate__title m-0 text-[15px] font-[650] text-[#111]">
+								<h3 className="case-annotate__title m-0 text-[15px] font-medium text-ink">
 									{n.title}
 								</h3>
-								<p className="case-annotate__body m-0 mt-[0.25rem] text-[14px] leading-[1.55] text-[#555]">
+								<p className="case-annotate__body m-0 mt-[0.25rem] text-[14px] leading-[1.55] text-soft">
 									{n.body}
 								</p>
 							</div>

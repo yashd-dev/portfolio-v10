@@ -117,7 +117,7 @@ export default function JourneyMap({
 	}, [role]);
 
 	return (
-		<figure className="case-interactive case-journey mx-auto my-10 w-full max-w-[52rem] rounded-2xl border border-current p-5 text-left min-[1200px]:p-6 max-[640px]:mb-4 max-[640px]:p-4">
+		<figure className="case-interactive case-journey mx-auto my-10 w-full max-w-[52rem] text-left max-[640px]:mb-4">
 			<div className="case-interactive__bar flex flex-wrap items-center justify-between gap-3 max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:gap-[0.85rem]">
 				<span />
 				<div className="case-interactive__controls flex flex-wrap items-center gap-2 max-[640px]:w-full max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:gap-[0.65rem]">
@@ -129,14 +129,14 @@ export default function JourneyMap({
 									type="button"
 									role="tab"
 									aria-selected={roleId === r.id}
-									className={`case-segmented__item${roleId === r.id ? ' is-active' : ''} inline-flex cursor-pointer items-center gap-[0.4rem] rounded-[999px] border-none px-[0.85rem] py-[0.4rem] text-[12.5px] font-semibold text-[#666] transition-[background_0.18s,color_0.18s] hover:text-[#111] [&.is-active]:bg-[#111] [&.is-active]:text-white max-[640px]:min-h-[2.75rem] max-[640px]:w-full max-[640px]:flex-auto max-[640px]:flex-wrap max-[640px]:items-center max-[640px]:justify-start max-[640px]:rounded-[10px] max-[640px]:px-[0.85rem] max-[640px]:py-[0.6rem] max-[640px]:text-left max-[640px]:leading-[1.25]`}
+									className={`case-segmented__item${roleId === r.id ? ' is-active' : ''} inline-flex cursor-pointer items-center gap-[0.4rem] rounded-[999px] border-none px-[0.85rem] py-[0.4rem] text-[12.5px] font-medium text-muted transition-[background_0.18s,color_0.18s] hover:text-[#111] [&.is-active]:bg-[#111] [&.is-active]:text-white max-[640px]:min-h-[2.75rem] max-[640px]:w-full max-[640px]:flex-auto max-[640px]:flex-wrap max-[640px]:items-center max-[640px]:justify-start max-[640px]:rounded-[10px] max-[640px]:px-[0.85rem] max-[640px]:py-[0.6rem] max-[640px]:text-left max-[640px]:leading-[1.25]`}
 									onClick={() => {
 										setRoleId(r.id);
 										setStage(null);
 									}}
 								>
 									{r.label}
-									{r.badge ? <em className="text-[9.5px] font-bold tracking-[0.08em] uppercase not-italic opacity-[0.55] max-[640px]:ml-auto max-[640px]:text-[9px] max-[640px]:whitespace-nowrap">{r.badge}</em> : null}
+									{r.badge ? <em className="text-[10px] font-normal not-italic opacity-[0.6] max-[640px]:ml-auto max-[640px]:whitespace-nowrap">{r.badge}</em> : null}
 								</button>
 							))}
 						</div>
@@ -145,15 +145,15 @@ export default function JourneyMap({
 						<button type="button" onClick={zoom.out} disabled={!zoom.canOut} aria-label="Zoom out" className="size-9 cursor-pointer rounded-[999px] border-none text-[16px] leading-none text-[#444] hover:not-disabled:bg-white hover:not-disabled:text-[#111] disabled:cursor-default disabled:opacity-30">
 							−
 						</button>
-						<span className="min-w-12 text-center text-[12px] font-semibold tabular-nums text-[#555]">{zoom.percent}%</span>
+						<span className="min-w-12 text-center text-[12px] font-medium tabular-nums text-soft">{zoom.percent}%</span>
 						<button type="button" onClick={zoom.in} disabled={!zoom.canIn} aria-label="Zoom in" className="size-9 cursor-pointer rounded-[999px] border-none text-[16px] leading-none text-[#444] hover:not-disabled:bg-white hover:not-disabled:text-[#111] disabled:cursor-default disabled:opacity-30">
 							+
 						</button>
 					</div>
 				</div>
 			</div>
-			<p className="case-journey__headline mt-4 text-[16px] font-bold leading-[1.4]">{role.headline}</p>
-			<div className="case-interactive__scroll case-journey__desktop mt-5 flex justify-center overflow-x-auto overscroll-x-contain">
+			<p className="case-journey__headline mt-4 text-[16px] font-medium leading-[1.4]">{role.headline}</p>
+			<div className="case-interactive__scroll case-journey__desktop mt-5 flex justify-center overflow-x-auto overscroll-x-contain max-[640px]:hidden">
 				<div className="case-journey__inner mx-auto max-w-full min-w-[34em]" style={{ fontSize: `${11.5 * zoom.value}px` }}>
 					<Curve
 						points={curve.points}
@@ -165,11 +165,11 @@ export default function JourneyMap({
 					<table className="case-journey__table w-full table-fixed border-collapse text-[1em]">
 						<thead>
 							<tr>
-								<th scope="col" className="case-journey__corner w-[7.5em] border border-[#00000012] border-transparent! bg-[#f5f5f7] bg-transparent! p-0 text-left align-top text-[0.95em] font-bold leading-[1.45] text-[#111]">
+								<th scope="col" className="case-journey__corner w-[7.5em] border border-[#00000012] border-transparent! bg-[#f5f5f7] bg-transparent! p-0 text-left align-top text-[0.95em] font-medium leading-[1.45] text-ink">
 									<span className="sr-only">Layer</span>
 								</th>
 								{role.stages.map((sName, i) => (
-									<th key={sName} scope="col" className={`border border-[#00000012] bg-[#f5f5f7] p-0 text-left align-top text-[0.95em] font-bold leading-[1.45] text-[#111] [&.is-active]:bg-[#111] [&.is-active]:text-white${stage === i ? ' is-active' : ''}`}>
+									<th key={sName} scope="col" className={`border border-[#00000012] bg-[#f5f5f7] p-0 text-left align-top text-[0.95em] font-medium leading-[1.45] text-ink [&.is-active]:bg-[#111] [&.is-active]:text-white${stage === i ? ' is-active' : ''}`}>
 										<button type="button" onClick={() => setStage(stage === i ? null : i)} className="w-full cursor-pointer border-none px-[0.8em] py-[0.7em] text-left [color:inherit]">
 											{sName}
 										</button>
@@ -180,9 +180,9 @@ export default function JourneyMap({
 						<tbody>
 							{role.rows.map((row, ri) => (
 								<tr key={row.label}>
-									<th scope="row" className="w-[7.5em] border border-[#00000012] bg-[#fafafa] px-[0.8em] py-[0.7em] text-left align-top text-[0.8em] font-bold uppercase leading-[1.45] tracking-[0.08em] text-[#999]">{row.label}</th>
+									<th scope="row" className="w-[7.5em] border border-[#00000012] bg-[#fafafa] px-[0.8em] py-[0.7em] text-left align-top text-[0.8em] font-medium leading-[1.45] text-muted">{row.label}</th>
 									{row.cells.map((cell, i) => (
-										<td key={i} className={`border border-[#00000012] px-[0.8em] py-[0.7em] text-left align-top leading-[1.45] transition-[background_0.18s] [&.is-active]:text-[#111] [&.is-active]:[background:var(--case-accent-wash)] [&.is-active]:shadow-[inset_0_0_0_1px_var(--case-accent-line)] ${ri === role.rows.length - 1 ? ' font-semibold text-[#111]' : ' text-[#444]'}${stage === i ? ' is-active' : ''}`}>
+										<td key={i} className={`border border-[#00000012] px-[0.8em] py-[0.7em] text-left align-top leading-[1.45] transition-[background_0.18s] [&.is-active]:text-[#111] [&.is-active]:[background:var(--case-accent-wash)] [&.is-active]:shadow-[inset_0_0_0_1px_var(--case-accent-line)] ${ri === role.rows.length - 1 ? ' font-medium text-ink' : ' text-soft'}${stage === i ? ' is-active' : ''}`}>
 											{cell}
 										</td>
 									))}
@@ -201,16 +201,16 @@ export default function JourneyMap({
 					gradId="journeyFillMobile"
 					mobile
 				/>
-				<ol className="case-journey__stages m-0 grid list-none gap-[0.85rem]">
+				<ol className="case-journey__stages m-0 grid list-none! gap-[0.85rem] pl-0!">
 					{role.stages.map((sName, i) => (
 						<li key={sName} className="case-journey__stage-card rounded-[14px] border border-[#00000014] bg-[#fafafa] px-4 py-[0.95rem]">
-							<p className="case-journey__stage-index m-0 text-[11px] font-bold uppercase tracking-[0.1em]">Stage {i + 1}</p>
-							<h4 className="case-journey__stage-title mt-[0.35rem] text-[16px] font-bold leading-[1.3] text-[#111]">{sName}</h4>
+							<p className="case-journey__stage-index m-0 text-[12px] font-normal text-muted">Stage {i + 1}</p>
+							<h4 className="case-journey__stage-title mt-[0.35rem] text-[15px] font-medium leading-[1.3] text-ink">{sName}</h4>
 							<dl className="case-journey__stage-rows mt-[0.85rem] grid gap-[0.7rem]">
 								{role.rows.map((row, ri) => (
 									<div key={row.label} className="case-journey__stage-row">
-										<dt className="m-0 text-[11px] font-bold uppercase tracking-[0.08em] text-[#999]">{row.label}</dt>
-										<dd className="mt-1 text-[14px] leading-[1.5] text-[#333] [overflow-wrap:anywhere]">{row.cells[i]}</dd>
+										<dt className="m-0 text-[12px] font-normal text-muted">{row.label}</dt>
+										<dd className="mt-1 text-[14px] leading-[1.5] text-soft [overflow-wrap:anywhere]">{row.cells[i]}</dd>
 									</div>
 								))}
 							</dl>

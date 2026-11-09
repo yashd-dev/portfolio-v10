@@ -111,12 +111,8 @@
 <div
 	class="relative isolate min-h-dvh overflow-x-clip bg-white font-sans text-[15px] leading-[1.6] text-ink antialiased selection:bg-hlblue selection:text-ink"
 >
-	{#if !page.url.pathname.startsWith('/work/')}
-		<SiteNav />
-	{/if}
+	<SiteNav />
 	{@render children()}
-	{#if !page.url.pathname.startsWith('/work/')}
-		<Dock />
-	{/if}
+	<Dock />
 	<Cursor />
 </div>

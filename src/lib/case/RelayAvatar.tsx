@@ -113,7 +113,7 @@ export default function RelayAvatar({ name }: { name: string }) {
 					y="70"
 					textAnchor="middle"
 					dominantBaseline="middle"
-					fontFamily="Inter, system-ui, sans-serif"
+					fontFamily="Geist, system-ui, sans-serif"
 					fontSize="26"
 					fontWeight="700"
 				>
