@@ -1,5 +1,4 @@
 <script lang="ts">
-	import './case.css';
 	import { onMount } from 'svelte';
 	import type { ComponentType } from 'react';
 	import type { CaseMeta } from './CaseStudy.js';

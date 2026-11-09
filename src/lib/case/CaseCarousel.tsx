@@ -76,10 +76,12 @@ export default function CaseCarousel({
 	const slides = loop ? [...SLIDES, ...SLIDES] : SLIDES;
 
 	return (
-		<figure className="mn-carousel" aria-roledescription="carousel">
+		<figure className="mn-carousel mx-0 my-2 rounded-[32px] px-2 pt-[10px] pb-[18px]" aria-roledescription="carousel">
 			<div
 				ref={trackRef}
-				className={`mn-carousel__track${loop ? ' is-loop' : ''}`}
+				className={`mn-carousel__track flex gap-9 overflow-x-auto overscroll-x-contain scroll-px-0 rounded-3xl px-7 py-[18px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${loop
+				? ' is-loop cursor-grab snap-none active:cursor-grabbing [-webkit-mask-image:linear-gradient(to_right,transparent,#000_9%,#000_91%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_9%,#000_91%,transparent)]'
+				: ' snap-x snap-mandatory [-webkit-mask-image:linear-gradient(to_right,#000_85%,transparent)] [mask-image:linear-gradient(to_right,#000_85%,transparent)]'}`}
 				data-lenis-prevent-wheel="true"
 				data-cursor="Drag"
 				tabIndex={0}
@@ -104,7 +106,7 @@ export default function CaseCarousel({
 			>
 				{slides.map(([src, alt, cap], i) => (
 					<div
-						className="mn-carousel__slide"
+						className="mn-carousel__slide basis-[208px] flex-none snap-start select-none max-[560px]:basis-[70%]"
 						key={src + i}
 						aria-hidden={i >= SLIDES.length ? true : undefined}
 						role={i < SLIDES.length ? 'group' : undefined}
@@ -118,12 +120,13 @@ export default function CaseCarousel({
 							loading="lazy"
 							decoding="async"
 							draggable={false}
+							className="pointer-events-none block h-auto w-full select-none rounded-2xl"
 						/>
-						{cap ? <p className="mn-carousel__caption">{cap}</p> : null}
+						{cap ? <p className="mn-carousel__caption mx-[2px] mb-0 max-w-[26ch] !mt-[14px] !text-[12.5px]/[1.5]">{cap}</p> : null}
 					</div>
 				))}
 			</div>
-			{caption ? <figcaption className="case-media__caption">{caption}</figcaption> : null}
+			{caption ? <figcaption className="case-media__caption mx-1.5 mt-3.5 mb-0.5 text-left text-[13px]/[1.55] text-[#777]">{caption}</figcaption> : null}
 		</figure>
 	);
 }

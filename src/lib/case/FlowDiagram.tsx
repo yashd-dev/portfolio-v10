@@ -52,12 +52,12 @@ function useZoom(initial = 1) {
 
 function ZoomControl({ zoom }: { zoom: ReturnType<typeof useZoom> }) {
 	return (
-		<div className="case-zoom">
-			<button type="button" onClick={zoom.out} disabled={!zoom.canOut} aria-label="Zoom out">
+		<div className="case-zoom inline-flex items-center gap-1 rounded-[999px] border border-[#00000014] bg-[#f5f5f7] py-[0.2rem] px-[0.35rem]">
+			<button type="button" onClick={zoom.out} disabled={!zoom.canOut} aria-label="Zoom out" className="size-9 cursor-pointer rounded-[999px] border-none text-[16px] leading-none text-[#444] hover:not-disabled:bg-white hover:not-disabled:text-[#111] disabled:cursor-default disabled:opacity-30">
 				−
 			</button>
-			<span>{zoom.percent}%</span>
-			<button type="button" onClick={zoom.in} disabled={!zoom.canIn} aria-label="Zoom in">
+			<span className="min-w-12 text-center text-[12px] font-semibold tabular-nums text-[#555]">{zoom.percent}%</span>
+			<button type="button" onClick={zoom.in} disabled={!zoom.canIn} aria-label="Zoom in" className="size-9 cursor-pointer rounded-[999px] border-none text-[16px] leading-none text-[#444] hover:not-disabled:bg-white hover:not-disabled:text-[#111] disabled:cursor-default disabled:opacity-30">
 				+
 			</button>
 		</div>
@@ -134,17 +134,17 @@ export default function FlowDiagram({
 			: !edges.some((e) => (e.from === selected && e.to === id) || (e.to === selected && e.from === id));
 
 	return (
-		<figure className="case-interactive case-flow">
-			<div className="case-interactive__bar">
+		<figure className="case-interactive case-flow mx-auto my-10 w-full max-w-[52rem] rounded-2xl border border-current p-5 text-left min-[1200px]:p-6 max-[640px]:mb-4 max-[640px]:p-4">
+			<div className="case-interactive__bar flex flex-wrap items-center justify-between gap-3">
 				<span />
-				<div className="case-interactive__controls">
+				<div className="case-interactive__controls flex flex-wrap items-center gap-2">
 					<ZoomControl zoom={zoom} />
 				</div>
 			</div>
-			<p className="case-flow__title">{title}</p>
-			<div className="case-interactive__scroll case-flow__scroll">
+			<p className="case-flow__title mt-4 text-[16px] font-bold">{title}</p>
+			<div className="case-interactive__scroll case-flow__scroll mt-5 flex justify-center overflow-x-hidden overscroll-x-contain">
 				<svg
-					className="case-flow__canvas"
+					className="case-flow__canvas mx-auto block"
 					viewBox={`0 0 ${view.width} ${view.height}`}
 					role="group"
 					aria-label={title}
@@ -218,7 +218,7 @@ export default function FlowDiagram({
 						return (
 							<g
 								key={n.id}
-								className={`case-flow__node${selected === n.id ? ' is-selected' : ''}`}
+								className={`case-flow__node cursor-pointer outline-none transition-[opacity_0.2s]${selected === n.id ? ' is-selected' : ''}`}
 								opacity={dimNode(n.id) ? 0.28 : 1}
 								onClick={() => setSelected(selected === n.id ? null : n.id)}
 								tabIndex={0}
@@ -233,6 +233,7 @@ export default function FlowDiagram({
 							>
 								{n.kind === 'decision' ? (
 									<polygon
+										className="[.case-flow__node:focus-visible_&]:[stroke-width:3px]"
 										points={diamondPoints(n)}
 										fill={style.fill}
 										stroke={style.stroke}
@@ -241,12 +242,14 @@ export default function FlowDiagram({
 								) : n.kind === 'data' ? (
 									<g>
 										<path
+											className="[.case-flow__node:focus-visible_&]:[stroke-width:3px]"
 											d={`M ${n.x} ${n.y + 10} v ${n.h - 20} a ${n.w / 2} 10 0 0 0 ${n.w} 0 v ${-(n.h - 20)} a ${n.w / 2} 10 0 0 0 ${-n.w} 0 z`}
 											fill={style.fill}
 											stroke={style.stroke}
 											strokeWidth={selected === n.id ? 2.5 : 1.4}
 										/>
 										<path
+											className="[.case-flow__node:focus-visible_&]:[stroke-width:3px]"
 											d={`M ${n.x} ${n.y + 10} a ${n.w / 2} 10 0 0 0 ${n.w} 0`}
 											fill="none"
 											stroke={style.stroke}
@@ -255,6 +258,7 @@ export default function FlowDiagram({
 									</g>
 								) : (
 									<rect
+										className="[.case-flow__node:focus-visible_&]:[stroke-width:3px]"
 										x={n.x}
 										y={n.y}
 										width={n.w}
@@ -277,16 +281,16 @@ export default function FlowDiagram({
 					})}
 				</svg>
 			</div>
-			<p className="case-flow__note">
+			<p className="case-flow__note mt-4 text-[13.5px] leading-[1.6]">
 				{activeNode ? (
 					<>
-						<strong>{activeNode.label}.</strong> {activeNode.note}
+						<strong className="font-medium">{activeNode.label}.</strong> {activeNode.note}
 					</>
 				) : (
 					'Tap any step to isolate it and read what it does.'
 				)}
 			</p>
-			{caption ? <figcaption className="case-media__caption">{caption}</figcaption> : null}
+			{caption ? <figcaption className="case-media__caption mt-4 pb-1 text-center text-[13px]/[1.55]">{caption}</figcaption> : null}
 		</figure>
 	);
 }
