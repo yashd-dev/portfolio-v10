@@ -113,7 +113,7 @@
 	</div>
 
 	<div class="px-6 sm:px-10">
-		<p class="mt-16 mb-[22px] text-sm font-medium text-muted">What I can help with</p>
+		<p class="mt-16 mb-10 text-sm font-medium text-muted">What I can help with</p>
 		<div class="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
 			{#each services as s}
 				<div class="flex flex-col">
@@ -133,12 +133,17 @@
 			{/each}
 		</div>
 
-		<p class="mt-16 mb-[22px] text-sm font-medium text-muted">The process</p>
+		<p class="mt-16 mb-10 text-sm font-medium text-muted">The process</p>
 		<div
-			class="grid grid-cols-1 border-y border-dashed border-neutral-200 md:grid-cols-2 [&>*]:border-dashed [&>*]:border-neutral-200 [&>*:not(:last-child)]:border-b md:[&>*:nth-child(n+3)]:border-b-0 md:[&>*:nth-child(odd)]:border-r"
+			class="grid grid-cols-1 border-b border-dashed border-neutral-200 md:grid-cols-2 [&>*]:border-dashed [&>*]:border-neutral-200 [&>*:not(:last-child)]:border-b md:[&>*:nth-child(n+3)]:border-b-0 md:[&>*:nth-child(odd)]:border-r"
 		>
-			{#each steps as s}
-				<section id={s.id} class="flex min-w-0 scroll-mt-[88px] flex-col px-4 py-6 md:px-8 md:py-8">
+			{#each steps as s, i}
+				<section
+					id={s.id}
+					class="flex min-w-0 scroll-mt-[88px] flex-col px-4 py-6 md:py-8 {i % 2 === 0
+						? 'md:pr-8 md:pl-0'
+						: 'md:pr-0 md:pl-8'}"
+				>
 					<div
 						class="h-[440px] overflow-hidden rounded-2xl border border-neutral-200 shadow-[0_20px_40px_-24px_rgba(38,38,43,0.25)] md:h-[500px]"
 					>

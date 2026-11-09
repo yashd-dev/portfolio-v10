@@ -343,27 +343,54 @@
 					<p class="mt-1 text-[11px] text-faint">
 						{String(activeWork + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
 					</p>
-					<a
-						class="group mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent"
-						href={projects[activeWork].link}
-						target="_blank"
-						rel="noopener noreferrer"
-						data-cursor={projects[activeWork].cta}
-					>
-						{projects[activeWork].cta}
-						<svg
-							class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-							width="13"
-							height="13"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+					<div class="mt-5 flex flex-wrap items-center gap-4">
+						{#if projects[activeWork].caseStudy}
+							<a
+								class="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors duration-200 hover:text-accent"
+								href={projects[activeWork].caseStudy}
+								data-cursor="Case study"
+							>
+								Read the case study
+								<svg
+									class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5"
+									width="13"
+									height="13"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg
+								>
+							</a>
+						{/if}
+						<a
+							class="group inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent {projects[
+								activeWork
+							].caseStudy
+								? 'text-muted'
+								: ''}"
+							href={projects[activeWork].link}
+							target="_blank"
+							rel="noopener noreferrer"
+							data-cursor={projects[activeWork].cta}
 						>
-					</a>
+							{projects[activeWork].cta}
+							<svg
+								class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+								width="13"
+								height="13"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+							>
+						</a>
+					</div>
 				</div>
 			</div>
 

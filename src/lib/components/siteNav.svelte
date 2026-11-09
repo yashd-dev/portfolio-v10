@@ -28,7 +28,7 @@
 	const BLOG: NavItem[] = [{ id: 'posts', label: 'Posts' }];
 	const TOOLS: NavItem[] = [
 		{ id: 'daily-drivers', label: 'Daily drivers' },
-		{ id: 'currently-experimenting', label: 'Experimenting' }
+		{ id: 'experimenting', label: 'Experimenting' }
 	];
 
 	let pathname = $derived(page.url.pathname);
