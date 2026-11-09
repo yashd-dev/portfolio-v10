@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+import SiteFooter from '#lib/components/siteFooter.svelte';
 
 	let canvas: HTMLCanvasElement;
 	let score = $state({ you: 0, ai: 0 });
@@ -157,6 +158,7 @@
 				? 'Restart'
 				: 'Start'}
 	</button>
+	<SiteFooter />
 </div>
 
 <div

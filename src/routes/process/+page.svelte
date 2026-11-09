@@ -7,6 +7,7 @@
 	import FaqSection from '#lib/components/faqSection.svelte';
 	import EnquiryForm from '#lib/components/enquiryForm.svelte';
 	import CtaSection from '#lib/components/ctaSection.svelte';
+import SiteFooter from '#lib/components/siteFooter.svelte';
 	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
 
@@ -179,6 +180,7 @@
 	<EnquiryForm />
 
 	<CtaSection guides={false} />
+	<SiteFooter />
 </div>
 <div
 	aria-hidden="true"

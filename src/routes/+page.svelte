@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HeroBirds from '#lib/components/heroBirds.svelte';
 	import CtaSection from '#lib/components/ctaSection.svelte';
+	import SiteFooter from '#lib/components/siteFooter.svelte';
 	import Polaroid from '#lib/components/polaroid.svelte';
 	import Mark from '#lib/components/mark.svelte';
 	import { highlightCalm } from '#lib/marks.js';
@@ -556,31 +557,7 @@
 
 	<CtaSection guides={false} />
 
-	<footer class="{REVEAL} mt-28 pb-[220px] text-[14px] max-sm:pb-[170px]">
-		<p class="font-medium">Thanks for stopping by.</p>
-		<p class="mt-3 text-soft">
-			Bored of the site?
-			<a
-				href="/play"
-				class="font-medium text-ink underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em]"
-				data-cursor="Play">Play a round</a
-			>.
-		</p>
-		<p class="mt-1 text-muted">
-			<a
-				href="/process"
-				class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current"
-				>How I work</a
-			>
-			·
-			<a
-				href="/tools"
-				class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current"
-				>Tools</a
-			>
-			· © 2026
-		</p>
-	</footer>
+	<SiteFooter />
 </main>
 
 <div

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { toolSections } from '#lib/data/icons.js';
 	import CtaSection from '#lib/components/ctaSection.svelte';
+import SiteFooter from '#lib/components/siteFooter.svelte';
 
 	const slug = (c: string) =>
 		c
@@ -65,6 +66,7 @@
 	{/each}
 
 	<CtaSection guides={false} />
+	<SiteFooter />
 </div>
 <div
 	aria-hidden="true"

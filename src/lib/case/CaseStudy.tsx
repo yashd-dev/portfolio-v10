@@ -86,7 +86,7 @@ export default function CaseStudy({
 				<footer className="mn-case__next">
 					{meta.next ? (
 						<a className="mn-case__next-link" href={meta.next.href} data-cursor="Next case">
-														<span className="mn-case__next-title">
+							<span className="mn-case__next-title">
 								{meta.next.title}
 								<span aria-hidden="true">→</span>
 							</span>
@@ -99,6 +99,36 @@ export default function CaseStudy({
 							All work
 						</a>
 					</div>
+				</footer>
+
+				<footer className="mt-24 pb-24 text-[14px]">
+					<p className="font-medium">Thanks for stopping by.</p>
+					<p className="mt-3 text-soft">
+						Bored of the site?{' '}
+						<a
+							href="/play"
+							className="font-medium text-ink underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em]"
+						>
+							Play a round
+						</a>
+						.
+					</p>
+					<p className="mt-1 text-muted">
+						<a
+							href="/process"
+							className="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current"
+						>
+							How I work
+						</a>{' '}
+						·{' '}
+						<a
+							href="/tools"
+							className="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current"
+						>
+							Tools
+						</a>{' '}
+						· © 2026
+					</p>
 				</footer>
 			</main>
 

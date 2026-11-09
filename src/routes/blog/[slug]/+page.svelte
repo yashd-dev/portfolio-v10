@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import BlogIsland from '#lib/blog/blogIsland.svelte';
+	import SiteFooter from '#lib/components/siteFooter.svelte';
 	import type { BlogMeta } from '#lib/blog/BlogPost.js';
 	import type { ComponentType } from 'react';
 
@@ -28,6 +29,9 @@
 {#if mod}
 	<div id="posts">
 		<BlogIsland content={mod.default} meta={mod.meta} html={data.html} />
+		<div class="mx-auto max-w-[680px] px-5">
+			<SiteFooter />
+		</div>
 	</div>
 {:else}
 	<main class="mx-auto max-w-3xl px-6 pt-[320px]">
@@ -37,3 +41,12 @@
 		</p>
 	</main>
 {/if}
+<div
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[520px] bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_35%,transparent_68%)] bg-cover bg-[center_71%] opacity-85 [filter:saturate(0.85)_brightness(1.02)]"
+></div>
+
+<div
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 bottom-0 -z-20 h-[420px] bg-[url(/reef.webp)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] transition-opacity duration-500 max-sm:h-[300px]"
+></div>

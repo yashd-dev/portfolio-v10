@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HeroBirds from '#lib/components/heroBirds.svelte';
 	import CtaSection from '#lib/components/ctaSection.svelte';
+import SiteFooter from '#lib/components/siteFooter.svelte';
 	import { projects } from '#lib/data/content.js';
 	import { REVEAL } from '#lib/reveal.js';
 </script>
@@ -110,6 +111,7 @@
 	</section>
 
 	<CtaSection guides={false} />
+	<SiteFooter />
 </main>
 
 <div
