@@ -125,10 +125,15 @@
 </script>
 
 <div
-	class="relative z-10 mx-auto max-w-6xl border-x border-neutral-200 bg-white px-6 pt-28 pb-32 sm:px-10"
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[560px] bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_55%,transparent_100%)] bg-cover bg-[center_71%] opacity-85 [filter:saturate(0.85)_brightness(1.02)]"
+></div>
+
+<div
+	class="relative mx-auto w-full max-w-6xl px-6 pt-[320px] pb-[220px] max-sm:pt-[280px] max-sm:pb-[170px] sm:px-10"
 >
-	<h1 class="text-2xl font-normal tracking-tight text-neutral-700">Pong</h1>
-	<p class="mt-2 text-neutral-500">Move your pointer over the board. First to 7.</p>
+	<h1 class="text-2xl font-medium tracking-tight text-ink">Pong</h1>
+	<p class="mt-2 text-soft">Move your pointer over the board. First to 7.</p>
 	<div class="mt-8 flex items-center justify-between text-sm text-muted">
 		<span>You · {score.you}</span>
 		<span>{score.ai} · Pixel AI</span>
@@ -152,3 +157,8 @@
 				: 'Start'}
 	</button>
 </div>
+
+<div
+	aria-hidden="true"
+	class="pointer-events-none absolute inset-x-0 bottom-0 -z-20 h-[420px] bg-[url(/reef.webp)] [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_45%,#000_100%)] bg-cover bg-[center_88%] opacity-50 [filter:saturate(0.6)_brightness(1.06)_contrast(0.92)] transition-opacity duration-500 max-sm:h-[300px]"
+></div>

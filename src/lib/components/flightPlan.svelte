@@ -42,7 +42,7 @@
 			aria-hidden="true"
 		></span>
 		<span
-			class="absolute top-0 left-[5px] -ml-[0.25px] w-[1.5px] bg-sea shadow-[0_0_6px_#6ba3c64d]"
+			class="absolute top-0 left-[5px] -ml-[0.25px] w-[1.5px] bg-sea shadow-[0_0_6px_#2e74ff4d]"
 			style="height: calc(var(--fp-p) * 100%)"
 			aria-hidden="true"
 		></span>

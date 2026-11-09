@@ -1,5 +1,4 @@
 <script lang="ts">
-	import './blog.css';
 	import { onMount } from 'svelte';
 	import type { ComponentType } from 'react';
 	import type { BlogMeta } from './BlogPost.js';

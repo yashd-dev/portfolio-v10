@@ -48,17 +48,28 @@
 	// so the card (and the section around it) glides instead of jumping.
 	function smoothResize(node: HTMLElement) {
 		let prev: number | null = null;
+		let anim: Animation | null = null;
 		const ro = new ResizeObserver(() => {
+			// Ignore size changes caused by our own height animation, otherwise each
+			// animated frame re-triggers the observer and animations stack forever.
+			if (anim) return;
 			const next = node.offsetHeight;
 			if (prev === null || next === prev) {
 				prev = next;
 				return;
 			}
 			if (!reduced) {
-				node.animate([{ height: `${prev}px` }, { height: `${next}px` }], {
+				anim = node.animate([{ height: `${prev}px` }, { height: `${next}px` }], {
 					duration: 300,
 					easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
 				});
+				const done = () => {
+					anim = null;
+					// If content changed mid-animation, force a fresh measure so the
+					// next observer fire animates to the real height.
+					if (node.offsetHeight !== prev) prev = null;
+				};
+				anim.finished.then(done, done);
 			}
 			prev = next;
 		});

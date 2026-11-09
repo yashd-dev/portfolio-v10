@@ -9,9 +9,10 @@ Soo a while back me and my friends (Kshitij, Ria and Akshat) got stuck on one qu
 
 Relay does two independent things: nearby messaging over BLE mesh (the fun part), and internet messaging over Nostr relays (the practical part). You pick one per chat. Let's start with BLE.
 
+<FigRow>
 <Fig phone src="/blog/how-relay-works/splash.jpg" alt="Relay splash screen" caption="The Relay splash screen." />
-
 <Fig phone src="/blog/how-relay-works/new-chat.jpg" alt="Relay new chat sheet: chat nearby over Bluetooth, or new internet chat with an Internet ID" caption="Starting a chat: nearby over Bluetooth, or internet with an Internet ID." />
+</FigRow>
 
 ## Why BLE, and why every phone is both sides
 
@@ -84,15 +85,16 @@ Yes, actual files. There's a second protocol for it: 36-byte chunk headers, 1kb 
 
 BLE covers nearby. For everything else we plugged in Nostr, which is basically a set of independent relays that store and forward signed events, with no single server owning the network. Your internet identity is a secp256k1 keypair and your public id is an npub you can share as a QR code.
 
-<Fig phone src="/blog/how-relay-works/chat-list.jpg" alt="Relay chat list with Nostr npub contacts and nearby contacts showing route status" caption="The chat list: Nostr contacts by npub, nearby contacts with their route status." />
-
 Private internet messages are NIP-17 gift wraps, and the layering is genuinely elegant: the real message (a rumor, kind 14) is signed and encrypted into a seal (kind 13) addressed to the recipient, and the seal gets wrapped once more into a gift wrap (kind 1059) signed by a random throwaway key, so the relay storing it can't even tell who sent it. Encryption is NIP-44, chacha20 over an ECDH shared secret. You announce which relays are your inbox with a signed kind-10050 event, and anyone messaging you publishes to those relays.
 
-One honest detail: for internet messages the app says relay accepted, not delivered. A relay accepting your event only means a server stored it, not that your friend got it or read it.
+One detail worth knowing: for internet messages the app says relay accepted, not delivered. A relay accepting your event only means a server stored it, not that your friend got it or read it.
 
+<FigRow>
+<Fig phone src="/blog/how-relay-works/chat-list.jpg" alt="Relay chat list with Nostr npub contacts and nearby contacts showing route status" caption="The chat list: Nostr contacts by npub, nearby contacts with their route status." />
 <Fig phone src="/blog/how-relay-works/open-network.jpg" alt="Relay onboarding: Nostr relays form an open network" caption="Onboarding: the Nostr side, an open network." />
+</FigRow>
 
-## What's not done (the honest list)
+## What's not done
 
 - BLE and Nostr don't auto-switch. You pick nearby or internet per chat. Unified sync between them is a whole problem we parked.
 - Background Nostr delivery uses Android's WorkManager, and Android's minimum periodic interval is 15 minutes. Messages arriving while the app is closed can lag. Platform limit, not laziness.

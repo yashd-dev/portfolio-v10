@@ -40,6 +40,18 @@
 			note: 'A Sanity setup you can edit yourself.',
 			icon: '<path d="M4 5h16M4 12h16M4 19h10" />',
 			color: '#f03e2f'
+		},
+		{
+			name: 'Consulting',
+			note: '',
+			icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />',
+			color: '#2e74ff'
+		},
+		{
+			name: 'Copywriting',
+			note: '',
+			icon: '<path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />',
+			color: '#2e74ff'
 		}
 	];
 
@@ -102,7 +114,7 @@
 
 	<div class="px-6 sm:px-10">
 		<p class="mt-16 mb-[22px] text-sm font-medium text-muted">What I can help with</p>
-		<div class="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+		<div class="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
 			{#each services as s}
 				<div class="flex flex-col">
 					<svg
@@ -116,7 +128,7 @@
 						aria-hidden="true">{@html s.icon}</svg
 					>
 					<p class="mt-5 text-[15px] font-medium text-ink">{s.name}</p>
-					<p class="mt-2 text-sm leading-relaxed text-soft">{s.note}</p>
+					{#if s.note}<p class="mt-2 text-sm leading-relaxed text-soft">{s.note}</p>{/if}
 				</div>
 			{/each}
 		</div>
