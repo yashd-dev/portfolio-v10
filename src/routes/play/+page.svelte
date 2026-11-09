@@ -25,10 +25,10 @@
 		}
 
 		function draw() {
-			ctx.fillStyle = '#ffffff';
+			ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
 			ctx.fillRect(0, 0, W, H);
-			ctx.fillStyle = '#e5e5e5';
-			for (let y = 0; y < H; y += 16) ctx.fillRect(W / 2 - 1, y, 2, 8);
+			ctx.fillStyle = '#d4d4d4';
+			for (let y = 0; y < H; y += 16) ctx.fillRect(W / 2 - 0.5, y, 1, 8);
 			ctx.fillStyle = '#151515';
 			ctx.fillRect(14, state.you - PADDLE_H / 2, 8, PADDLE_H);
 			ctx.fillRect(W - 22, state.ai - PADDLE_H / 2, 8, PADDLE_H);
@@ -106,6 +106,7 @@
 
 		canvas.addEventListener('pointermove', point);
 		canvas.addEventListener('pointerdown', (e) => {
+			canvas.setPointerCapture(e.pointerId);
 			point(e);
 			start();
 		});
@@ -142,7 +143,7 @@
 		bind:this={canvas}
 		width={W}
 		height={H}
-		class="mt-3 w-full cursor-none rounded-xl border border-neutral-200 [image-rendering:pixelated]"
+		class="mt-3 w-full cursor-none touch-none rounded-xl border border-white/60 bg-white/55 backdrop-blur-[14px] backdrop-saturate-150 [image-rendering:pixelated]"
 	></canvas>
 	<button
 		onclick={() => startGame()}

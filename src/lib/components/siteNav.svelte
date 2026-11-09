@@ -45,6 +45,11 @@
 	);
 
 	let active = $state('intro');
+	let openNav = $state<'sections' | 'pages' | null>(null);
+	const anyPageCurrent = $derived(
+		PAGES.some((p) => (p.href === '/' ? pathname === '/' : pathname.startsWith(p.href)))
+	);
+	let pagesNav: HTMLElement;
 	let scrolled = $state(false);
 	let track: HTMLDivElement;
 	let pill = $state<{ x: number; w: number } | null>(null);
@@ -91,7 +96,25 @@
 
 	$effect(() => {
 		sections;
+		openNav = null;
 		requestAnimationFrame(measure);
+	});
+
+	$effect(() => {
+		if (!openNav) return;
+		const onDown = (e: PointerEvent) => {
+			const t = e.target as Node;
+			if (!track?.contains(t) && !pagesNav?.contains(t)) openNav = null;
+		};
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') openNav = null;
+		};
+		addEventListener('pointerdown', onDown);
+		addEventListener('keydown', onKey);
+		return () => {
+			removeEventListener('pointerdown', onDown);
+			removeEventListener('keydown', onKey);
+		};
 	});
 
 	$effect(() => {
@@ -116,6 +139,7 @@
 				return;
 			}
 			active = id;
+			openNav = null;
 			suppressUntil = Date.now() + 1400;
 			const offset = id === 'intro' ? 0 : -88;
 			const lenis = (
@@ -143,9 +167,14 @@
 >
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] max-sm:max-w-[calc(100vw-252px)] max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {scrolled
-				? scrolledCls
-				: ''}"
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow,max-width] duration-[450ms] ease-(--ease-mn) max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
+			'sections'
+				? 'max-sm:max-w-[calc(100vw-128px)]'
+				: openNav === 'pages'
+					? sections[0]?.icon
+						? 'max-sm:max-w-[46px]'
+						: 'max-sm:max-w-[110px]'
+					: 'max-sm:max-w-[160px]'} {scrolled ? scrolledCls : ''}"
 			role="navigation"
 			aria-label="Sections"
 			bind:this={track}
@@ -164,7 +193,10 @@
 					href="#{s.id}"
 					data-id={s.id}
 					data-cursor={s.label}
-					class="pg-nav-item relative z-[1] inline-flex h-8 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-colors duration-200 max-sm:px-2.5 {isActive
+					class="pg-nav-item relative z-[1] inline-flex h-8 shrink-0 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-[color,width,padding,opacity] duration-200 max-sm:px-2.5 max-sm:duration-[450ms] max-sm:ease-(--ease-mn) {isActive ||
+					openNav === 'sections'
+						? ''
+						: 'max-sm:w-0 max-sm:overflow-hidden max-sm:px-0! max-sm:opacity-0'} {isActive
 						? 'text-ink'
 						: 'text-muted'} hover:text-ink"
 					aria-current={isActive ? 'true' : undefined}
@@ -221,15 +253,51 @@
 							{/if}
 						</span>
 					{/if}
-					<span class={isActive ? '' : s.icon ? 'max-sm:sr-only' : ''}>{s.label}</span>
+					<span
+						class="{isActive || openNav === 'sections'
+							? ''
+							: s.icon
+								? 'max-sm:sr-only'
+								: ''} {isActive && openNav === 'pages' && s.icon
+							? 'max-sm:sr-only'
+							: ''} max-sm:truncate">{s.label}</span
+					>
 				</a>
 			{/each}
+			<span
+				class="hidden size-[26px] flex-none place-items-center text-muted max-sm:grid"
+				aria-hidden="true"
+			>
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-3 transition-transform duration-300 ease-(--ease-mn) {openNav === 'sections'
+						? 'rotate-180'
+						: ''}"><path d="m6 9 6 6 6-6" /></svg
+				>
+			</span>
+			{#if openNav !== 'sections'}
+				<button
+					type="button"
+					class="absolute inset-0 z-[2] hidden cursor-pointer rounded-full max-sm:block"
+					aria-label="Open section navigation"
+					onclick={() => (openNav = 'sections')}
+				></button>
+			{/if}
 		</div>
 		<div class="inline-flex items-center gap-2">
 			<nav
-				class="pointer-events-auto inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow] duration-[350ms] {scrolled
-					? scrolledCls
-					: ''}"
+				bind:this={pagesNav}
+				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,box-shadow,max-width] duration-[450ms] ease-(--ease-mn) max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
+				'pages'
+					? 'max-sm:max-w-[calc(100vw-118px)]'
+					: anyPageCurrent
+						? 'max-sm:max-w-[104px]'
+						: 'max-sm:max-w-[46px]'} {scrolled ? scrolledCls : ''}"
 				aria-label="Pages"
 			>
 				{#each PAGES as p}
@@ -238,11 +306,58 @@
 						href={p.href}
 						data-cursor={p.label}
 						aria-current={isCurrent ? 'page' : undefined}
-						class="inline-flex h-8 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-colors duration-200 max-sm:px-2.5 {isCurrent
+						class="inline-flex h-8 shrink-0 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-[color,width,padding,opacity] duration-200 max-sm:px-2.5 max-sm:duration-[450ms] max-sm:ease-(--ease-mn) {isCurrent
 							? 'bg-white text-ink shadow-[0_1px_2px_#00000014,0_0_0_0.5px_#0000000a]'
-							: 'text-muted hover:text-ink'}">{p.label}</a
+							: 'text-muted hover:text-ink'} {isCurrent || openNav === 'pages'
+							? ''
+							: 'max-sm:w-0 max-sm:overflow-hidden max-sm:px-0! max-sm:opacity-0'}"
+						onclick={() => (openNav = null)}>{p.label}</a
 					>
 				{/each}
+				{#if !anyPageCurrent}
+					<span
+						class="hidden size-8 flex-none place-items-center text-muted max-sm:grid {openNav ===
+						'pages'
+							? 'max-sm:hidden'
+							: ''}"
+						aria-hidden="true"
+					>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="size-3.5"
+							><circle cx="12" cy="12" r="10" /><path d="m16 8-2.5 5.5L8 16l2.5-5.5z" /></svg
+						>
+					</span>
+				{/if}
+				<span
+					class="hidden size-[26px] flex-none place-items-center text-muted max-sm:grid"
+					aria-hidden="true"
+				>
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="size-3 transition-transform duration-300 ease-(--ease-mn) {openNav === 'pages'
+							? 'rotate-180'
+							: ''}"><path d="m6 9 6 6 6-6" /></svg
+					>
+				</span>
+				{#if openNav !== 'pages'}
+					<button
+						type="button"
+						class="absolute inset-0 z-[2] hidden cursor-pointer rounded-full max-sm:block"
+						aria-label="Open page navigation"
+						onclick={() => (openNav = 'pages')}
+					></button>
+				{/if}
 			</nav>
 		</div>
 	</div>
