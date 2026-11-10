@@ -463,8 +463,8 @@
 						class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
 					>
 						<div>
-							<span class="font-medium">{freelance.org}</span>
-							<span class="text-muted"> · {freelance.role} · {freelance.place}</span>
+							<span class="font-medium">{freelance.role}</span>
+							<span class="text-muted"> · {freelance.place}</span>
 							<p class="mt-0.5 text-soft">{freelance.note}</p>
 						</div>
 						<span class="shrink-0 text-[11px] text-muted">{freelance.span}</span>
@@ -493,13 +493,20 @@
 		<div class="{REVEAL} border-t border-rule" style="--d: 60ms">
 			{#each shenanigans as s}
 				<div
-					class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
+					class="group/row flex items-center justify-between gap-5 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent max-sm:flex-col max-sm:items-start"
 				>
-					<div>
+					<div class="min-w-0">
 						<span class="font-medium">{s.title}</span>
-						<p class="mt-0.5 text-soft">{s.note}</p>
+						<p class="mt-0.5 max-w-[40ch] text-soft">{s.note}</p>
 					</div>
-					{#if s.repo}
+					<div class="flex shrink-0 items-center gap-9 max-sm:w-full max-sm:items-start max-sm:justify-between">
+						<img
+							src={s.thumb}
+							alt="{s.title} preview"
+							class="w-[150px] rounded-lg ring-1 ring-black/10 max-sm:w-[120px]"
+							loading="lazy"
+						/>
+						{#if s.repo}
 						<a
 							href={s.repo}
 							target="_blank"
@@ -521,7 +528,8 @@
 								aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
 							>
 						</a>
-					{/if}
+						{/if}
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -537,18 +545,24 @@
 					data-cursor="All writing">All writing</a
 				>
 			</div>
-			<div class="{REVEAL} mt-[22px] border-t border-rule" style="--d: 60ms">
+			<div class="{REVEAL} mt-[22px] border-t border-rule sm:grid sm:grid-cols-2 sm:gap-x-10" style="--d: 60ms">
 				{#each blogPosts.slice(0, 3) as p}
 					<a
 						href="/blog/{p.slug}"
-						class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
+						class="group/row block border-b border-rule py-[15px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
 						data-cursor="Read"
 					>
-						<div>
-							<span class="font-medium">{p.title}</span>
-							<p class="mt-0.5 text-soft">{p.summary}</p>
-						</div>
-						<span class="shrink-0 text-[11px] text-muted">{formatBlogDate(p.date)}</span>
+						{#if p.thumb}
+							<img
+								src={p.thumb}
+								alt="{p.title} thumbnail"
+								loading="lazy"
+								class="mb-3 aspect-[16/9] w-full rounded-lg object-cover ring-1 ring-black/10"
+							/>
+						{/if}
+						<span class="font-medium">{p.title}</span>
+						<span class="mt-1 block text-[11px] text-muted">{formatBlogDate(p.date)}</span>
+						<p class="mt-1 max-w-[36ch] text-soft">{p.summary}</p>
 					</a>
 				{/each}
 			</div>

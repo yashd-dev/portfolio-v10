@@ -4,6 +4,7 @@ export type BlogMeta = {
 	title: string;
 	date: string; // ISO date, e.g. '2026-11-10'
 	summary: string;
+	thumb?: string; // optional thumbnail shown above the entry on the landing page
 	draft?: boolean;
 };
 
