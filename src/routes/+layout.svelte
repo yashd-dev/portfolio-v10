@@ -101,7 +101,7 @@
 	<link rel="canonical" href="{siteUrl}{page.url.pathname}" />
 	<meta property="og:url" content="{siteUrl}{page.url.pathname}" />
 	{@html '<script type="application/ld+json">' + personLd + '</script>'}
-	{#if !page.url.pathname.startsWith('/work/')}
+	{#if !page.url.pathname.startsWith('/work/') && !page.url.pathname.startsWith('/services')}
 		<title>Yash Deshpande - Designer & Developer, Mumbai</title>
 		<meta
 			name="description"

@@ -25,6 +25,12 @@
 		{ id: 'communication', label: 'Communication' }
 	];
 	const WORK: NavItem[] = [{ icon: 'grid', id: 'projects', label: 'Projects' }];
+	const SERVICES: NavItem[] = [{ id: 'services', label: 'Services' }];
+	const SERVICE: NavItem[] = [
+		{ id: 'offerings', label: 'What you get' },
+		{ id: 'faqs', label: 'FAQs' },
+		{ id: 'related', label: 'Related' }
+	];
 	const BLOG: NavItem[] = [{ id: 'posts', label: 'Posts' }];
 	const TOOLS: NavItem[] = [
 		{ id: 'daily-drivers', label: 'Daily drivers' },
@@ -37,6 +43,8 @@
 		if (path === '/tools') {return TOOLS;}
 		if (path === '/work') {return WORK;}
 		if (path.startsWith('/blog')) {return BLOG;}
+		if (path === '/services') {return SERVICES;}
+		if (path.startsWith('/services/')) {return SERVICE;}
 		return LANDING;
 	};
 	let sections = $derived(sectionMap(page.url.pathname));

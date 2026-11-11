@@ -62,7 +62,7 @@ export const projects = [
     dither: "/work/dither-red.webp",
     image: "/work/mypaithani.png",
     link: "https://www.mypaithani.com/",
-    meta: "SvelteKit, Tailwind, Vercel",
+    meta: "Headless Shopify, SvelteKit, Tailwind, Vercel",
     name: "MyPaithani",
   },
 ];

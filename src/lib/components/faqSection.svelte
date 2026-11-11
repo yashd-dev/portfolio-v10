@@ -1,16 +1,22 @@
 <script lang="ts">
 	import { faqGroups } from '#lib/data/faqs.js';
+import type { FAQGroup } from '#lib/data/faqs.js';
 	import { REVEAL } from '#lib/reveal.js';
+
+	let {
+		groups = faqGroups,
+		padded = true
+	}: { groups?: FAQGroup[]; padded?: boolean } = $props();
 </script>
 
-<div class="px-6 sm:px-10">
+<div class={padded ? 'px-6 sm:px-10' : undefined}>
 	<p
 		class="{REVEAL} mt-24 mb-[22px] text-sm font-medium text-muted"
 	>
 		Questions, answered
 	</p>
 	<div class="{REVEAL} border-t border-dashed border-neutral-200">
-		{#each faqGroups as group, gi}
+		{#each groups as group, gi}
 			<section
 				class="grid gap-6 border-b border-dashed border-neutral-200 py-10 md:grid-cols-[200px_minmax(0,1fr)] md:gap-12"
 			>

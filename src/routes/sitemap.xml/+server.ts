@@ -1,5 +1,6 @@
 import type { BlogMeta } from "#lib/blog/BlogPost.js";
 import type { CaseMeta } from "#lib/case/CaseStudy.js";
+import { services } from "#lib/data/services.js";
 import { siteUrl } from "#lib/data/site.js";
 
 export const prerender = true;
@@ -26,9 +27,11 @@ export const GET = () => {
     "/process",
     "/tools",
     "/work",
+    "/services",
   ];
   const urls = [
     ...staticPaths.map((p) => ({ loc: `${siteUrl}${p}` })),
+    ...services.map((s) => ({ loc: `${siteUrl}/services/${s.slug}` })),
     ...Object.entries(blogMods)
       .filter(([, m]) => !m.meta.draft)
       .map(([p, m]) => ({
