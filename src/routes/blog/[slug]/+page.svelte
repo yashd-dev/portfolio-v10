@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import BlogIsland from '#lib/blog/blogIsland.svelte';
+	import { siteUrl } from '#lib/data/site.js';
 	import SiteFooter from '#lib/components/siteFooter.svelte';
 	import type { BlogMeta } from '#lib/blog/BlogPost.js';
 	import type { ComponentType } from 'react';
@@ -13,6 +14,20 @@
 	>;
 
 	let mod = $derived(mods[`/src/lib/blog/content/${page.params.slug}.mdx`]);
+
+	const articleLd = $derived(
+		mod
+			? JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'Article',
+					author: { '@type': 'Person', name: 'Yash Deshpande', url: siteUrl },
+					datePublished: mod.meta.date,
+					description: mod.meta.summary,
+					headline: mod.meta.title,
+					url: `${siteUrl}/blog/${page.params.slug}`
+				})
+			: ''
+	);
 </script>
 
 <svelte:head>
@@ -21,6 +36,8 @@
 		<meta name="description" content={mod.meta.summary} />
 		<meta property="og:title" content="{mod.meta.title} - Yash Deshpande" />
 		<meta property="og:description" content={mod.meta.summary} />
+		<meta property="og:image" content={mod.meta.thumb ? `${siteUrl}${mod.meta.thumb}` : `${siteUrl}/og.png`} />
+		{@html '<script type="application/ld+json">' + articleLd + '</script>'}
 	{:else}
 		<title>Post not found - Yash Deshpande</title>
 	{/if}

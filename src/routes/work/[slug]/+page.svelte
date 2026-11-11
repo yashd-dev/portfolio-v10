@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import CaseIsland from '#lib/case/caseIsland.svelte';
+	import { siteUrl } from '#lib/data/site.js';
 	import type { CaseMeta } from '#lib/case/CaseStudy.js';
 	import type { ComponentType } from 'react';
 
@@ -20,7 +21,10 @@
 		<meta name="description" content={mod.meta.subtitle} />
 		<meta property="og:title" content="{mod.meta.title} - Yash Deshpande" />
 		<meta property="og:description" content={mod.meta.subtitle} />
-		<meta property="og:image" content={mod.meta.hero} />
+		<meta
+			property="og:image"
+			content={mod.meta.hero.startsWith('/') ? `${siteUrl}${mod.meta.hero}` : mod.meta.hero}
+		/>
 	{:else}
 		<title>Case study not found - Yash Deshpande</title>
 	{/if}

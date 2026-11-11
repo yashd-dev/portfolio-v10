@@ -4,6 +4,8 @@
 	import { page } from '$app/state';
 	import type { LayoutProps } from './$types';
 	import Lenis from 'lenis';
+	import { email, socials } from '#lib/data/content.js';
+	import { siteUrl } from '#lib/data/site.js';
 	import { animate, inView } from 'motion';
 	import SiteNav from '#lib/components/siteNav.svelte';
 	import Dock from '#lib/components/dock.svelte';
@@ -82,10 +84,23 @@
 		void page.url.pathname;
 		tick().then(scanReveals).catch(() => null);
 	});
+
+	const personLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		email: `mailto:${email}`,
+		jobTitle: 'Designer & Developer',
+		name: 'Yash Deshpande',
+		sameAs: socials.map((s) => s.href),
+		url: siteUrl
+	});
 </script>
 
 <svelte:head>
 	<link rel="icon" type="image/png" href="/favicon.png" />
+	<link rel="canonical" href="{siteUrl}{page.url.pathname}" />
+	<meta property="og:url" content="{siteUrl}{page.url.pathname}" />
+	{@html '<script type="application/ld+json">' + personLd + '</script>'}
 	{#if !page.url.pathname.startsWith('/work/')}
 		<title>Yash Deshpande - Designer & Developer, Mumbai</title>
 		<meta
@@ -97,7 +112,7 @@
 			property="og:description"
 			content="Polished websites that feel considered, work smoothly, and can grow into serious products."
 		/>
-		<meta property="og:image" content="/og.png" />
+		<meta property="og:image" content="{siteUrl}/og.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 	{/if}
