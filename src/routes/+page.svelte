@@ -213,6 +213,14 @@
 						class="transition-colors duration-200 hover:text-ink">{s.label}</a
 					>
 				{/each}
+				<span class="mx-2 text-faint">·</span>
+				<a
+					href="/yash-deshpande-resume.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="transition-colors duration-200 hover:text-ink"
+					data-cursor="Resume">Resume</a
+				>
 				<button
 					type="button"
 					class="inline-flex cursor-pointer items-center gap-1.5 transition-colors duration-200 hover:text-ink max-sm:mt-1 max-sm:basis-full"

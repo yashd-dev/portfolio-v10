@@ -121,4 +121,4 @@ export const socials = [
   { href: "https://github.com/yashd-dev", label: "GitHub" },
 ];
 
-export const email = "yashdeshpande714@gmail.com";
+export const email = "hello@yashd.in";

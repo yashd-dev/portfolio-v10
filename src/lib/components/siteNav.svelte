@@ -45,7 +45,8 @@
 		if (path.startsWith('/blog')) {return BLOG;}
 		if (path === '/services') {return SERVICES;}
 		if (path.startsWith('/services/')) {return SERVICE;}
-		return LANDING;
+		if (path === '/') {return LANDING;}
+		return [];
 	};
 	let sections = $derived(sectionMap(page.url.pathname));
 
@@ -174,7 +175,7 @@
 >
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3 max-sm:justify-center">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] max-sm:hidden transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {trackMaxW} {scrolled ? scrolledCls : ''}"
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full {sections.length === 0 ? 'invisible' : ''} bg-black/5 p-[3px] max-sm:hidden transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {trackMaxW} {scrolled ? scrolledCls : ''}"
 			role="navigation"
 			aria-label="Sections"
 			bind:this={track}
