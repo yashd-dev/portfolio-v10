@@ -41,21 +41,46 @@
 
 	let copied = $state(false);
 	let activeWork = $state(0);
-	let workSection = $state<HTMLElement | null>(null);
+	let workGrid = $state<HTMLElement | null>(null);
+	let workText = $state<HTMLElement | null>(null);
+	let workCards = $state<HTMLElement | null>(null);
 
 	import { onMount } from 'svelte';
 
 	onMount(() => {
 		let raf = 0;
+		const textHalf = (workText?.offsetHeight ?? 0) / 2;
 		const onScroll = () => {
 			cancelAnimationFrame(raf);
 			raf = requestAnimationFrame(() => {
-				if (!workSection) return;
-				const r = workSection.getBoundingClientRect();
-				const total = r.height - window.innerHeight;
-				if (total <= 0) return;
-				const progress = Math.min(Math.max(-r.top / total, 0), 0.999);
-				activeWork = Math.floor(progress * projects.length);
+				if (!workGrid || !workText || !workCards) return;
+				const g = workGrid.getBoundingClientRect();
+				const span = (g.height - window.innerHeight) / projects.length;
+				const t = span > 0 ? Math.min(Math.max((88 - g.top) / span, 0), 1) : 0;
+				const pinTop = workText.parentElement!.getBoundingClientRect().top;
+				const room = (window.innerHeight - workText.offsetHeight) / 2 - pinTop;
+				let ty = t * Math.max(room, 0);
+				const last = workCards.lastElementChild;
+				if (last) {
+					const lr = last.getBoundingClientRect();
+					const end = lr.top + lr.height / 2 - workText.offsetHeight / 2 - pinTop;
+					const k = 120;
+					const d = ty - end;
+					ty = Math.min(ty, end) - Math.max(k - Math.abs(d), 0) ** 2 / (4 * k);
+				}
+				workText.style.transform = `translateY(${ty}px)`;
+				const vc = pinTop + ty + textHalf;
+				let best = 0;
+				let bd = Infinity;
+				Array.from(workCards.children).forEach((c, i) => {
+					const r = c.getBoundingClientRect();
+					const d = Math.abs(r.top + r.height / 2 - vc);
+					if (d < bd) {
+						bd = d;
+						best = i;
+					}
+				});
+				activeWork = best;
 			});
 		};
 		window.addEventListener('scroll', onScroll, { passive: true });
@@ -265,7 +290,7 @@
 		</div>
 	</section>
 
-	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]" bind:this={workSection}>
+	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
 		{#snippet workDetail(p: (typeof projects)[number])}
 			<div class="p-2 pb-0">
 				<div
@@ -329,17 +354,20 @@
 				href={p.caseStudy ?? p.link}
 				target={p.caseStudy ? undefined : '_blank'}
 				rel={p.caseStudy ? undefined : 'noopener noreferrer'}
-				aria-label={p.caseStudy ? '{p.name} case study' : p.cta}
+				aria-label={p.caseStudy ? `${p.name} case study` : p.cta}
 				data-cursor={p.caseStudy ? 'Case study' : p.cta}
 			></a>
 		{/snippet}
 
-		<div class="lg:grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16">
+		<div
+			class="lg:grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16"
+			bind:this={workGrid}
+		>
 			<div
-				class="max-lg:mb-[22px] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-center"
+				class="max-lg:mb-[22px] lg:self-start lg:sticky lg:top-[88px]"
 			>
-				<div class="hidden lg:block">
-					<div>
+				<div class="hidden lg:block" bind:this={workText}>
+					<div class={REVEAL}>
 						<div>
 							<p class="text-[11px] text-faint">
 								{String(activeWork + 1).padStart(2, '0')} / {String(projects.length).padStart(
@@ -353,16 +381,6 @@
 							<p class="mt-3 text-[14px] leading-[1.6] text-soft">
 								{projects[activeWork].description}
 							</p>
-							<div class="mt-5 space-y-4 text-[14px] leading-[1.6]">
-								<div>
-									<p class="text-faint">Problem</p>
-									<p class="mt-1 text-soft">{projects[activeWork].problem}</p>
-								</div>
-								<div>
-									<p class="text-faint">Outcome</p>
-									<p class="mt-1">{projects[activeWork].outcome}</p>
-								</div>
-							</div>
 							<div class="mt-5 flex flex-wrap gap-2">
 								{#each stackTools(projects[activeWork].meta) as t}
 									<span
@@ -414,7 +432,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="hidden space-y-24 lg:block">
+			<div class="hidden space-y-24 lg:block" bind:this={workCards}>
 				{#each projects as p, i}
 					<a
 						class="{REVEAL} group block"

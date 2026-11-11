@@ -11,9 +11,7 @@ export const projects = [
 		cta: 'Shop the store',
 		caseStudy: '/work/actually-fair',
 		image: '/work/actuallyfair.png',
-		dither: '/work/dither-blue.webp',
-		problem: 'Ecommerce usually keeps pricing and sourcing opaque.',
-		outcome: 'A live headless Shopify storefront with clear product pages and calm flows.'
+		dither: '/work/dither-blue.webp'
 	},
 	{
 		name: 'Therapy With Kinnari',
@@ -24,9 +22,7 @@ export const projects = [
 		cta: 'Book a session',
 		caseStudy: '/work/therapy-with-kinnari',
 		image: '/work/twk.png',
-		dither: '/work/dither-yellow.webp',
-		problem: 'A therapy practice needed sessions, workshops and resources to feel approachable online.',
-		outcome: 'A calming live site for sessions, workshops and resources, with a softer booking experience.'
+		dither: '/work/dither-yellow.webp'
 	},
 	{
 		name: 'Medizone Aesthetics',
@@ -37,9 +33,7 @@ export const projects = [
 		cta: 'Explore products',
 		caseStudy: '/work/medizone-aesthetics',
 		image: '/work/medizone.png',
-		dither: '/work/dither-pink.webp',
-		problem: 'A premium B2B aesthetics brand needed its products and training programs discoverable online.',
-		outcome: 'A live site for PDO threads, training programs and medical product discovery.'
+		dither: '/work/dither-pink.webp'
 	},
 	{
 		name: 'Strive Consultancy',
@@ -49,9 +43,7 @@ export const projects = [
 		link: 'http://striveconsultancy.yashd.in/',
 		cta: 'Explore services',
 		image: '/work/strive.png',
-		dither: '/work/dither-blue.webp',
-		problem: 'A consultancy needed a sharper, clearer business presence.',
-		outcome: 'A live site with focused services and restrained visuals.'
+		dither: '/work/dither-blue.webp'
 	},
 	{
 		name: 'SS Healthcare',
@@ -60,9 +52,7 @@ export const projects = [
 		link: 'https://healthcare.yashd.in/',
 		cta: 'Book an appointment',
 		image: '/work/sshealthcare.png',
-		dither: '/work/dither-green.webp',
-		problem: 'Veterinary healthcare information needed to reach people in more than one language.',
-		outcome: 'A live multilingual site with appointment flows.'
+		dither: '/work/dither-green.webp'
 	},
 	{
 		name: 'MyPaithani',
@@ -72,9 +62,7 @@ export const projects = [
 		link: 'https://www.mypaithani.com/',
 		cta: 'Shop the collection',
 		image: '/work/mypaithani.png',
-		dither: '/work/dither-red.webp',
-		problem: 'Handcrafted Paithani textiles needed a storefront worthy of the craft.',
-		outcome: 'A live SvelteKit storefront for bags, clutches and accessories.'
+		dither: '/work/dither-red.webp'
 	}
 ];
 
