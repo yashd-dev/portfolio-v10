@@ -41,7 +41,8 @@
 
 	let root = $state<HTMLSpanElement>();
 	let svg = $state<SVGSVGElement>();
-	const maskId = `mk${  Math.random().toString(36).slice(2, 9)}`;
+	const instanceId = $props.id();
+	const maskId = `mk${  instanceId}`;
 
 	const prepare = (el: SVGPathElement, visible: boolean) => {
 		const len = el.getTotalLength();
