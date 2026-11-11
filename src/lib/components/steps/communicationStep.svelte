@@ -2,58 +2,57 @@
 	import { fly } from 'svelte/transition';
 	import { quartOut } from 'svelte/easing';
 
-	type Msg = {
+	interface Msg {
 		id: string;
 		mine: boolean;
 		time: string;
 		body: string;
 		link?: boolean;
-	};
+	}
 
 	const initial: Msg[] = [
 		{
+			body: 'Morning, can we soften the hero animation a bit? Feels fast on mobile.',
 			id: '1',
 			mine: false,
-			time: '9:41 AM',
-			body: 'Morning, can we soften the hero animation a bit? Feels fast on mobile.'
+			time: '9:41 AM'
 		},
 		{
+			body: 'Done, eased the timing and added a small delay on enter so it lands softer. Sharing a preview link in a sec.',
 			id: '2',
 			mine: true,
-			time: '9:42 AM',
-			body: 'Done, eased the timing and added a small delay on enter so it lands softer. Sharing a preview link in a sec.'
+			time: '9:42 AM'
 		},
-		{ id: '3', mine: true, time: '9:43 AM', body: 'yashd.in', link: true },
-		{ id: '4', mine: false, time: '9:46 AM', body: 'Got it, checking on my phone now.' }
+		{ body: 'yashd.in', id: '3', link: true, mine: true, time: '9:43 AM' },
+		{ body: 'Got it, checking on my phone now.', id: '4', mine: false, time: '9:46 AM' }
 	];
 
 	let messages = $state<Msg[]>(initial);
 	let draft = $state('');
 	let scroller: HTMLDivElement;
 
-	function formatTime(d: Date) {
-		return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-	}
+	const formatTime = (d: Date) =>
+		d.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: '2-digit' });
 
-	function send() {
+	const send = () => {
 		const text = draft.trim();
-		if (!text) return;
+		if (!text) {return;}
 		const now = new Date();
 		messages = [
 			...messages,
-			{ id: `u-${now.getTime()}`, mine: true, time: formatTime(now), body: text },
+			{ body: text, id: `u-${now.getTime()}`, mine: true, time: formatTime(now) },
 			{
+				body: 'This is just a preview, not a live chat. On a real project this is how quick the loop feels.',
 				id: `r-${now.getTime()}`,
 				mine: false,
-				time: formatTime(now),
-				body: 'This is just a preview, not a live chat. On a real project this is how quick the loop feels.'
+				time: formatTime(now)
 			}
 		];
 		draft = '';
 		requestAnimationFrame(() =>
-			scroller?.scrollTo({ top: scroller.scrollHeight, behavior: 'smooth' })
+			scroller?.scrollTo({ behavior: 'smooth', top: scroller.scrollHeight })
 		);
-	}
+	};
 </script>
 
 <div class="flex h-full flex-col">

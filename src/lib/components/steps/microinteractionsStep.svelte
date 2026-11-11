@@ -1,38 +1,41 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { springStep } from '#lib/spring.js';
+	import { springStep, wait } from '#lib/spring.js';
 
 	const code =
 		'<div role="slider"\n  class="track"\n  data-cursor-hand="grab"\n  data-cursor="Drag">\n  <div class="fill"\n    style="width: {pct}%" />\n  <div class="thumb"\n    style="left: {pct}%" />\n</div>';
 
-	type Tok = { t: string; c: string };
+	interface Tok { c: string; t: string }
 
-	function tokenize(src: string): Tok[] {
+	const tokenize = (src: string): Tok[] => {
 		const out: Tok[] = [];
-		const re = /(<\/?)([\w-]+)|("[^"]*")|([\w-]+)(?==)|(\/?>)|(\{[^}]*\})|([\s\S])/g;
+		const re =
+			/(?<open><\/?)(?<tag>[\w-]+)|(?<str>"[^"]*")|(?<attr>[\w-]+)(?==)|(?<close>\/?>)|(?<braces>\{[^}]*\})|(?<other>[\s\S])/gu;
 		let m: RegExpExecArray | null;
 		while ((m = re.exec(src))) {
-			if (m[1]) {
-				out.push({ t: m[1], c: 'text-[#57606a]' });
-				out.push({ t: m[2], c: 'text-[#116329]' });
-			} else if (m[3]) {
-				for (const p of m[3].split(/(\{[^}]*\})/g)) {
-					if (!p) continue;
-					out.push({ t: p, c: p.startsWith('{') ? 'text-[#8250df]' : 'text-[#0a3069]' });
+			const g = m.groups ?? {};
+			if (g.open) {
+				out.push({ c: 'text-[#57606a]', t: g.open }, { c: 'text-[#116329]', t: g.tag });
+			} else if (g.str) {
+				for (const p of g.str.split(/(?<braces>\{[^}]*\})/u)) {
+					if (!p) {continue;}
+					out.push({ c: p.startsWith('{') ? 'text-[#8250df]' : 'text-[#0a3069]', t: p });
 				}
-			} else if (m[4]) out.push({ t: m[4], c: 'text-[#0550ae]' });
-			else if (m[5]) out.push({ t: m[5], c: 'text-[#57606a]' });
-			else if (m[6]) out.push({ t: m[6], c: 'text-[#8250df]' });
-			else out.push({ t: m[7], c: 'text-[#24292f]' });
+			} else if (g.attr) {out.push({ c: 'text-[#0550ae]', t: g.attr });}
+			else if (g.close) {out.push({ c: 'text-[#57606a]', t: g.close });}
+			else if (g.braces) {out.push({ c: 'text-[#8250df]', t: g.braces });}
+			else {out.push({ c: 'text-[#24292f]', t: g.other });}
 		}
 		return out;
-	}
+	};
 
 	const tokens = tokenize(code);
-	const offsets = tokens.reduce<number[]>((acc, tok, i) => {
-		acc.push((acc[i - 1] ?? 0) + tok.t.length);
-		return acc;
-	}, []);
+	const offsets: number[] = [];
+	let running = 0;
+	for (const tok of tokens) {
+		running += tok.t.length;
+		offsets.push(running);
+	}
 
 	const images = ['/work/actuallyfair.png', '/work/strive.png', '/work/sshealthcare.png'];
 
@@ -41,7 +44,7 @@
 	let value = $state(0.4);
 	let hovered = $state(false);
 	let dragging = $state(false);
-	let track = $state<HTMLDivElement>()!;
+	let track = $state<HTMLDivElement>();
 	let tilt = $state(0);
 	let shown = $state(0.4);
 
@@ -51,21 +54,24 @@
 			return;
 		}
 		let cancelled = false;
-		const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
-		(async () => {
-			while (!cancelled) {
-				phase = 'typing';
-				charCount = 0;
-				for (let i = 0; i <= code.length && !cancelled; i++) {
-					charCount = i;
-					await wait(5);
-				}
-				if (cancelled) break;
-				await wait(1000);
-				phase = 'ui';
-				await wait(10000);
-			}
-		})();
+		const typeChar = async (i: number): Promise<void> => {
+			if (cancelled || i > code.length) {return;}
+			charCount = i;
+			await wait(5);
+			await typeChar(i + 1);
+		};
+		const cycle = async (): Promise<void> => {
+			if (cancelled) {return;}
+			phase = 'typing';
+			charCount = 0;
+			await typeChar(0);
+			if (cancelled) {return;}
+			await wait(1000);
+			phase = 'ui';
+			await wait(10_000);
+			await cycle();
+		};
+		void cycle();
 		return () => {
 			cancelled = true;
 		};
@@ -74,11 +80,11 @@
 	onMount(() => {
 		let raf = 0;
 		let last = performance.now();
-		let sx = 0.4,
-			sv = 0,
-			tx = 0,
-			tv = 0,
-			prevRot = -10 * 0.4;
+		let prevRot = -10 * 0.4;
+		let sv = 0;
+		let sx = 0.4;
+		let tv = 0;
+		let tx = 0;
 		const loop = (now: number) => {
 			const dt = Math.min(0.032, Math.max(0.001, (now - last) / 1000));
 			last = now;
@@ -95,14 +101,15 @@
 		return () => cancelAnimationFrame(raf);
 	});
 
-	function applyValue(clientX: number) {
-		const rect = track.getBoundingClientRect();
+	const applyValue = (clientX: number) => {
+		const rect = track?.getBoundingClientRect();
+		if (!rect) {return;}
 		const next = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
 		tilt = Math.max(-10, Math.min(10, (next - value) * -100));
 		value = next;
-	}
+	};
 
-	function onDown(e: PointerEvent) {
+	const onDown = (e: PointerEvent) => {
 		dragging = true;
 		applyValue(e.clientX);
 		const up = () => {
@@ -113,7 +120,7 @@
 		};
 		addEventListener('pointerup', up);
 		addEventListener('pointercancel', up);
-	}
+	};
 
 	const imgIndex = $derived(Math.min(images.length - 1, Math.floor(value * images.length)));
 </script>

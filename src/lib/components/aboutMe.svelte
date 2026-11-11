@@ -10,29 +10,31 @@
 
 	onMount(() => {
 		const el = fly;
-		if (!el?.animate || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (!el?.animate || matchMedia('(prefers-reduced-motion: reduce)').matches) {return;}
 		let played = false;
 		try {
 			played = sessionStorage.getItem(INTRO_KEY) === '1';
 			sessionStorage.setItem(INTRO_KEY, '1');
-		} catch {}
+		} catch {
+			played = false;
+		}
 		if (
 			played ||
 			matchMedia('(max-width: 760px), (pointer: coarse)').matches ||
 			scrollY > 40 ||
 			location.hash
 		)
-			return;
+			{return;}
 		document.documentElement.classList.add('pg-intro-playing');
 		const r = el.getBoundingClientRect();
 		const dx = innerWidth / 2 - (r.left + r.width / 2);
 		const dy = innerHeight / 2 - (r.top + r.height / 2);
 		const anim = el.animate(
 			[
-				{ transform: `translate(${dx}px, ${dy}px) scale(0.6)`, opacity: 0, borderRadius: '50%' },
-				{ transform: `translate(${dx}px, ${dy}px) scale(2.1)`, opacity: 1, offset: 0.32 },
-				{ transform: `translate(${dx}px, ${dy}px) scale(2.1)`, opacity: 1, offset: 0.52 },
-				{ transform: 'none', opacity: 1 }
+				{ borderRadius: '50%', opacity: 0, transform: `translate(${dx}px, ${dy}px) scale(0.6)` },
+				{ offset: 0.32, opacity: 1, transform: `translate(${dx}px, ${dy}px) scale(2.1)` },
+				{ offset: 0.52, opacity: 1, transform: `translate(${dx}px, ${dy}px) scale(2.1)` },
+				{ opacity: 1, transform: 'none' }
 			],
 			{ duration: 1700, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'backwards' }
 		);
@@ -46,10 +48,10 @@
 		};
 	});
 
-	function onInspectEnter() {
+	const onInspectEnter = () => {
 		const r = inspectEl.getBoundingClientRect();
 		size = `${Math.round(r.width)} × ${Math.round(r.height)}`;
-	}
+	};
 
 	const handle = 'absolute size-[7px] border-[1.5px] border-inspect bg-white';
 </script>

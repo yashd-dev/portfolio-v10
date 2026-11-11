@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import HeroBirds from '#lib/components/heroBirds.svelte';
 	import CtaSection from '#lib/components/ctaSection.svelte';
 	import SiteFooter from '#lib/components/siteFooter.svelte';
@@ -15,14 +16,15 @@
 		shenanigans
 	} from '#lib/data/content.js';
 	import { stackTools, toolGroups, toolIcons } from '#lib/data/icons.js';
+	import { REVEAL } from '#lib/reveal.js';
+	import { formatBlogDate } from '#lib/blog/BlogPost.js';
+	import type { BlogMeta } from '#lib/blog/BlogPost.js';
 
 	const dailyNames = ['Figma', 'TypeScript', 'Next.js', 'Svelte', 'Tailwind CSS', 'GitHub'];
 	const allTools = toolGroups.flatMap((g) => g.tools);
 	const dailyTools = dailyNames
 		.map((n) => allTools.find((t) => t.name === n))
 		.filter((t) => t !== undefined);
-	import { REVEAL } from '#lib/reveal.js';
-	import { formatBlogDate, type BlogMeta } from '#lib/blog/BlogPost.js';
 
 	const blogMods = import.meta.glob('/src/lib/blog/content/*.mdx', { eager: true }) as Record<
 		string,
@@ -30,14 +32,11 @@
 	>;
 	const blogPosts = Object.entries(blogMods)
 		.map(([path, m]) => ({
-			slug: path
-				.split('/')
-				.pop()!
-				.replace(/\.mdx$/, ''),
+			slug: path.split('/').at(-1)?.replace(/\.mdx$/u, '') ?? '',
 			...m.meta
 		}))
 		.filter((p) => !p.draft)
-		.sort((a, b) => (a.date < b.date ? 1 : -1));
+		.toSorted((a, b) => (a.date < b.date ? 1 : -1));
 
 	let copied = $state(false);
 	let activeWork = $state(0);
@@ -45,19 +44,17 @@
 	let workText = $state<HTMLElement | null>(null);
 	let workCards = $state<HTMLElement | null>(null);
 
-	import { onMount } from 'svelte';
-
 	onMount(() => {
 		let raf = 0;
 		const textHalf = (workText?.offsetHeight ?? 0) / 2;
 		const onScroll = () => {
 			cancelAnimationFrame(raf);
 			raf = requestAnimationFrame(() => {
-				if (!workGrid || !workText || !workCards) return;
+				if (!workGrid || !workText || !workCards) {return;}
 				const g = workGrid.getBoundingClientRect();
 				const span = (g.height - window.innerHeight) / projects.length;
 				const t = span > 0 ? Math.min(Math.max((88 - g.top) / span, 0), 1) : 0;
-				const pinTop = workText.parentElement!.getBoundingClientRect().top;
+				const pinTop = workText.parentElement?.getBoundingClientRect().top ?? 0;
 				const room = (window.innerHeight - workText.offsetHeight) / 2 - pinTop;
 				let ty = t * Math.max(room, 0);
 				const last = workCards.lastElementChild;
@@ -72,14 +69,16 @@
 				const vc = pinTop + ty + textHalf;
 				let best = 0;
 				let bd = Infinity;
-				Array.from(workCards.children).forEach((c, i) => {
+				let i = 0;
+				for (const c of workCards.children) {
 					const r = c.getBoundingClientRect();
 					const d = Math.abs(r.top + r.height / 2 - vc);
 					if (d < bd) {
 						bd = d;
 						best = i;
 					}
-				});
+					i += 1;
+				}
 				activeWork = best;
 			});
 		};
@@ -91,13 +90,15 @@
 		};
 	});
 
-	async function copyEmail() {
+	const copyEmail = async () => {
 		try {
 			await navigator.clipboard.writeText(email);
 			copied = true;
 			setTimeout(() => (copied = false), 1600);
-		} catch {}
-	}
+		} catch {
+			copied = false;
+		}
+	};
 </script>
 
 <div

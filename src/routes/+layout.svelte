@@ -11,6 +11,38 @@
 
 	let { children }: LayoutProps = $props();
 
+	let stopReveals: (() => void)[] = [];
+
+	const scanReveals = () => {
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {return;}
+		const playing = document.documentElement.classList.contains('pg-intro-playing');
+		for (const el of document.querySelectorAll<HTMLElement>('.rv, .pg-reveal')) {
+			if (el.dataset.rvDone || (playing && el.closest('.pg-intro'))) {continue;}
+			el.dataset.rvDone = '1';
+			const delay = (Number(el.style.getPropertyValue('--d').replace(/ms$/u, '')) || 0) / 1000;
+			let fired = false;
+			const stop = inView(
+				el,
+				() => {
+					if (fired) {return;}
+					fired = true;
+					stop();
+					animate(
+						el,
+						{ filter: ['blur(6px)', 'blur(0px)'], opacity: [0, 1], y: [14, 0] },
+						{ delay, duration: 0.9, ease: [0.22, 1, 0.36, 1] }
+					)
+						.finished.then(() =>
+							el.classList.remove('translate-y-3.5', 'opacity-0', 'blur-[6px]')
+						)
+						.catch(() => null);
+				},
+				{ margin: '0px 0px -12% 0px' }
+			);
+			stopReveals.push(stop);
+		}
+	};
+
 	onMount(() => {
 		let raf = 0;
 		let lenis: Lenis | null = null;
@@ -29,55 +61,26 @@
 
 		const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		if (reduced)
-			document.querySelectorAll('.rv, .pg-reveal').forEach((el) => {
+			{for (const el of document.querySelectorAll('.rv, .pg-reveal')) {
 				el.classList.remove('translate-y-3.5', 'opacity-0', 'blur-[6px]');
-			});
+			}}
 		addEventListener('pg:intro-done', scanReveals);
-		if (!reduced) scanReveals();
+		if (!reduced) {scanReveals();}
 
 		return () => {
 			cancelAnimationFrame(raf);
 			lenis?.destroy();
 			delete (window as unknown as { __lenis?: Lenis }).__lenis;
-			stopReveals.forEach((stop) => stop());
+			for (const stop of stopReveals) {stop();}
 			stopReveals = [];
 			removeEventListener('pg:intro-done', scanReveals);
 		};
 	});
 
-	let stopReveals: (() => void)[] = [];
-
-	function scanReveals() {
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		const playing = document.documentElement.classList.contains('pg-intro-playing');
-		document.querySelectorAll<HTMLElement>('.rv, .pg-reveal').forEach((el) => {
-			if (el.dataset.rvDone || (playing && el.closest('.pg-intro'))) return;
-			el.dataset.rvDone = '1';
-			const delay = (parseFloat(el.style.getPropertyValue('--d')) || 0) / 1000;
-			let fired = false;
-			const stop = inView(
-				el,
-				() => {
-					if (fired) return;
-					fired = true;
-					stop();
-					animate(
-						el,
-						{ opacity: [0, 1], y: [14, 0], filter: ['blur(6px)', 'blur(0px)'] },
-						{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }
-					).finished.then(() => {
-						el.classList.remove('translate-y-3.5', 'opacity-0', 'blur-[6px]');
-					});
-				},
-				{ margin: '0px 0px -12% 0px' }
-			);
-			stopReveals.push(stop);
-		});
-	}
 
 	$effect(() => {
-		page.url.pathname;
-		tick().then(scanReveals);
+		void page.url.pathname;
+		tick().then(scanReveals).catch(() => null);
 	});
 </script>
 

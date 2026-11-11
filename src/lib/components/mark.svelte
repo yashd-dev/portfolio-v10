@@ -2,30 +2,30 @@
 	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
 
-	type Timing = { duration: number; delay?: number; easing?: string };
-	type StrokeLayer = {
+	interface Timing { duration: number; delay?: number; easing?: string }
+	interface StrokeLayer {
 		type: 'stroke';
 		path: string;
 		strokeWidth: number;
 		transform?: string;
 		opacity?: number;
 		timing: Timing;
-	};
-	type FillLayer = {
+	}
+	interface FillLayer {
 		type: 'fill';
 		path: string;
 		transform?: string;
 		opacity?: number;
 		reveal: { path: string; strokeWidth: number };
 		timing: Timing;
-	};
-	export type MarkDefinition = {
+	}
+	export interface MarkDefinition {
 		name: string;
 		viewBox: string;
 		placement: { top: string; left: string; width: string; height: string };
 		layer: 'behind' | 'front';
 		layers: (StrokeLayer | FillLayer)[];
-	};
+	}
 
 	let {
 		definition,
@@ -39,31 +39,33 @@
 		children: Snippet;
 	} = $props();
 
-	let root = $state<HTMLSpanElement>()!;
-	let svg = $state<SVGSVGElement>()!;
-	const maskId = 'mk' + Math.random().toString(36).slice(2, 9);
+	let root = $state<HTMLSpanElement>();
+	let svg = $state<SVGSVGElement>();
+	const maskId = `mk${  Math.random().toString(36).slice(2, 9)}`;
+
+	const prepare = (el: SVGPathElement, visible: boolean) => {
+		const len = el.getTotalLength();
+		el.style.strokeDasharray = `${len} ${len}`;
+		el.style.strokeDashoffset = visible ? '0' : String(len);
+		el.style.opacity = '1';
+		return len;
+	};
 
 	onMount(() => {
-		const layers = Array.from(svg.querySelectorAll<SVGPathElement>('[data-mk]'));
-		const prepare = (el: SVGPathElement, visible: boolean) => {
-			const len = el.getTotalLength();
-			el.style.strokeDasharray = `${len} ${len}`;
-			el.style.strokeDashoffset = visible ? '0' : String(len);
-			el.style.opacity = '1';
-			return len;
-		};
+		if (!svg || !root) {return;}
+		const layers = [...svg.querySelectorAll<SVGPathElement>('[data-mk]')];
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-			layers.forEach((el) => prepare(el, true));
+			for (const el of layers) {prepare(el, true);}
 			return;
 		}
 		const play = () => {
-			layers.forEach((el) => {
+			for (const el of layers) {
 				const len = prepare(el, false);
 				const a = el.animate(
 					[{ strokeDashoffset: String(len) }, { strokeDashoffset: '0' }],
 					{
-						duration: Number(el.dataset.duration),
 						delay: Number(el.dataset.delay ?? 0),
+						duration: Number(el.dataset.duration),
 						easing: el.dataset.easing || 'cubic-bezier(.22,.72,.2,1)',
 						fill: 'both'
 					}
@@ -72,7 +74,7 @@
 					el.style.strokeDashoffset = '0';
 					a.cancel();
 				};
-			});
+			}
 		};
 		const io = new IntersectionObserver(
 			(entries) => {

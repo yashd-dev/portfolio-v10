@@ -12,8 +12,8 @@
 		(async () => {
 			const [{ createRoot, hydrateRoot }, { createElement, StrictMode }, { default: BlogPost }] =
 				await Promise.all([import('react-dom/client'), import('react'), import('./BlogPost.js')]);
-			if (cancelled || !host) return;
-			const tree = createElement(StrictMode, null, createElement(BlogPost, { meta, content }));
+			if (cancelled || !host) {return;}
+			const tree = createElement(StrictMode, null, createElement(BlogPost, { content, meta }));
 			if (host.firstChild) {
 				root = hydrateRoot(host, tree);
 			} else {

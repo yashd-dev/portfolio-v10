@@ -3,45 +3,47 @@
 	import SiteFooter from '#lib/components/siteFooter.svelte';
 
 	let canvas: HTMLCanvasElement;
-	let score = $state({ you: 0, ai: 0 });
+	let score = $state({ ai: 0, you: 0 });
 	let running = $state(false);
 	let winner = $state<'you' | 'ai' | null>(null);
 	const W = 640;
 	const H = 400;
 	const PADDLE_H = 72;
+	let startGame: () => void;
 
 	onMount(() => {
-		const ctx = canvas.getContext('2d')!;
+		const ctx = canvas.getContext('2d');
+		if (!ctx) {return;}
 		const state = {
-			you: H / 2,
 			ai: H / 2,
-			ball: { x: W / 2, y: H / 2, vx: 0, vy: 0 },
-			raf: 0
+			ball: { vx: 0, vy: 0, x: W / 2, y: H / 2 },
+			raf: 0,
+			you: H / 2
 		};
 		const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-		function serve(dir: 1 | -1) {
+		const serve = (dir: 1 | -1) => {
 			const base = Math.min(4.4 + 0.35 * (score.you + score.ai), 8.5);
-			state.ball = { x: W / 2, y: H / 2, vx: base * dir, vy: (Math.random() - 0.5) * 5 };
-		}
+			state.ball = { vx: base * dir, vy: (Math.random() - 0.5) * 5, x: W / 2, y: H / 2 };
+		};
 
-		function draw() {
+		const draw = () => {
 			ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
 			ctx.fillRect(0, 0, W, H);
 			ctx.fillStyle = '#d4d4d4';
-			for (let y = 0; y < H; y += 16) ctx.fillRect(W / 2 - 0.5, y, 1, 8);
+			for (let y = 0; y < H; y += 16) {ctx.fillRect(W / 2 - 0.5, y, 1, 8);}
 			ctx.fillStyle = '#151515';
 			ctx.fillRect(14, state.you - PADDLE_H / 2, 8, PADDLE_H);
 			ctx.fillRect(W - 22, state.ai - PADDLE_H / 2, 8, PADDLE_H);
 			ctx.fillStyle = getComputedStyle(canvas).getPropertyValue('--color-accent') || '#2f5bea';
 			ctx.fillRect(state.ball.x - 5, state.ball.y - 5, 10, 10);
-		}
+		};
 
-		function step() {
+		const step = () => {
 			const b = state.ball;
 			b.x += b.vx;
 			b.y += b.vy;
-			if (b.y < 6 || b.y > H - 6) b.vy *= -1;
+			if (b.y < 6 || b.y > H - 6) {b.vy *= -1;}
 			if (b.x < 30 && Math.abs(b.y - state.you) < PADDLE_H / 2 + 6) {
 				b.vx = Math.min(Math.abs(b.vx) * 1.07, 12);
 				b.vy += (b.y - state.you) * 0.09;
@@ -60,7 +62,8 @@
 				let py = b.y;
 				let pvy = b.vy;
 				let guard = 0;
-				while (px < W - 30 && guard++ < 2000) {
+				while (px < W - 30 && guard < 2000) {
+					guard += 1;
 					px += b.vx;
 					py += pvy;
 					if (py < 6 || py > H - 6) {
@@ -75,7 +78,7 @@
 			state.ai += Math.max(-v, Math.min(v, target - state.ai));
 			if (b.x < 0 || b.x > W) {
 				const youScored = b.x > W;
-				score = { you: score.you + (youScored ? 1 : 0), ai: score.ai + (youScored ? 0 : 1) };
+				score = { ai: score.ai + (youScored ? 0 : 1), you: score.you + (youScored ? 1 : 0) };
 				if (score.you >= 7 || score.ai >= 7) {
 					winner = score.you >= 7 ? 'you' : 'ai';
 					running = false;
@@ -88,22 +91,22 @@
 			state.raf = requestAnimationFrame(step);
 		}
 
-		function start() {
-			if (running) return;
+		const start = () => {
+			if (running) {return;}
 			winner = null;
-			score = { you: 0, ai: 0 };
+			score = { ai: 0, you: 0 };
 			serve(Math.random() > 0.5 ? 1 : -1);
 			running = true;
 			state.raf = requestAnimationFrame(step);
-		}
+		};
 
-		function point(e: PointerEvent) {
+		const point = (e: PointerEvent) => {
 			const r = canvas.getBoundingClientRect();
 			state.you = Math.max(
 				PADDLE_H / 2,
 				Math.min(H - PADDLE_H / 2, ((e.clientY - r.top) / r.height) * H)
 			);
-		}
+		};
 
 		canvas.addEventListener('pointermove', point);
 		canvas.addEventListener('pointerdown', (e) => {
@@ -112,18 +115,14 @@
 			start();
 		});
 		startGame = start;
-		if (reduced) draw();
-		else {
-			state.you = H / 2;
-			draw();
-		}
+		if (!reduced) {state.you = H / 2;}
+		draw();
 		return () => {
 			cancelAnimationFrame(state.raf);
 			canvas.removeEventListener('pointermove', point);
 		};
 	});
 
-	let startGame: () => void;
 </script>
 
 <div

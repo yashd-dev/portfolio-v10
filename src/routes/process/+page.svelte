@@ -12,90 +12,90 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 	import { highlightCalm } from '#lib/marks.js';
 
 	const stats = [
-		{ value: '10+', label: 'projects' },
-		{ value: '₹2Cr+', label: 'revenue gained by the teams' },
-		{ value: '2024', label: 'freelancing since' }
+		{ label: 'projects', value: '10+' },
+		{ label: 'revenue gained by the teams', value: '₹2Cr+' },
+		{ label: 'freelancing since', value: '2024' }
 	];
 
 	const services = [
 		{
-			name: 'Design',
-			note: 'Every screen in Figma first, revised until you approve it.',
+			color: '#f24e1e',
 			icon: '<path d="m12 19 7-7 3 3-7 7-3-3z" /><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="m2 2 7.586 7.586" /><circle cx="11" cy="11" r="2" />',
-			color: '#f24e1e'
+			name: 'Design',
+			note: 'Every screen in Figma first, revised until you approve it.'
 		},
 		{
-			name: 'Development',
-			note: 'SvelteKit, Next.js, React and Tailwind, production ready.',
+			color: '#3178c6',
 			icon: '<path d="m8 6-6 6 6 6M16 6l6 6-6 6" />',
-			color: '#3178c6'
+			name: 'Development',
+			note: 'SvelteKit, Next.js, React and Tailwind, production ready.'
 		},
 		{
-			name: 'Ecommerce',
-			note: 'Headless Shopify storefronts with calm, clear flows.',
+			color: '#7ab55c',
 			icon: '<path d="M6 7h12l1.5 13.5a1 1 0 0 1-1 1.1h-13a1 1 0 0 1-1-1.1L6 7Z" /><path d="M9 10V6a3 3 0 0 1 6 0v4" />',
-			color: '#7ab55c'
+			name: 'Ecommerce',
+			note: 'Headless Shopify storefronts with calm, clear flows.'
 		},
 		{
-			name: 'CMS',
-			note: 'A Sanity setup you can edit yourself.',
+			color: '#f03e2f',
 			icon: '<path d="M4 5h16M4 12h16M4 19h10" />',
-			color: '#f03e2f'
+			name: 'CMS',
+			note: 'A Sanity setup you can edit yourself.'
 		},
 		{
-			name: 'Consulting',
-			note: 'A second pair of eyes on your site, stack or roadmap.',
+			color: '#2e74ff',
 			icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />',
-			color: '#2e74ff'
+			name: 'Consulting',
+			note: 'A second pair of eyes on your site, stack or roadmap.'
 		},
 		{
-			name: 'Copywriting',
-			note: 'Words for your pages that sound like you, not a template.',
+			color: '#2e74ff',
 			icon: '<path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />',
-			color: '#2e74ff'
+			name: 'Copywriting',
+			note: 'Words for your pages that sound like you, not a template.'
 		},
 		{
-			name: 'Mobile responsiveness',
-			note: 'Layouts that work properly on phones, tablets and desktops.',
+			color: '#0ea5e9',
 			icon: '<rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" />',
-			color: '#0ea5e9'
+			name: 'Mobile responsiveness',
+			note: 'Layouts that work properly on phones, tablets and desktops.'
 		},
 		{
-			name: 'Site fixes & recovery',
-			note: 'Help with old WordPress sites, lost domains and things that stopped working.',
+			color: '#f59e0b',
 			icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />',
-			color: '#f59e0b'
+			name: 'Site fixes & recovery',
+			note: 'Help with old WordPress sites, lost domains and things that stopped working.'
 		}
 	];
 
 	const steps = [
 		{
-			n: 1,
 			id: 'designing',
-			title: 'Designing',
+			n: 1,
 			note: 'every screen in Figma first, with unlimited revisions until your first approval.',
-			panel: DesigningStep
+			panel: DesigningStep,
+			title: 'Designing'
 		},
 		{
-			n: 2,
 			id: 'development',
-			title: 'Development',
+			n: 2,
 			note: 'with React, Next.js, SvelteKit and Tailwind, Shopify for ecommerce, and a CMS you can edit yourself.',
-			panel: DevelopmentStep
+			panel: DevelopmentStep,
+			title: 'Development'
 		},
 		{
-			n: 3,
 			id: 'microinteractions',
-			title: 'Microinteractions',
+			n: 3,
 			note: 'small details, built by hand, that make a page feel alive.',
-			panel: MicrointeractionsStep
+			panel: MicrointeractionsStep,
+			title: 'Microinteractions'
 		},
 		{
-			n: 4,
 			id: 'communication',
-			title: 'Communication',
+			n: 4,
 			note: 'you see progress and share feedback along the way, not just at the end.',
-			panel: CommunicationStep
+			panel: CommunicationStep,
+			title: 'Communication'
 		}
 	];
 </script>

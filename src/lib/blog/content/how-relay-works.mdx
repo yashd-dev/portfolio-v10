@@ -1,9 +1,9 @@
 export const meta = {
-	title: 'How Relay works: texting over Bluetooth, no internet needed',
-	date: '2026-11-08',
-	thumb: '/blog/how-relay-works/splash.jpg',
-	summary:
-		'A deep-dive into Relay, the Bluetooth mesh chat app we built: the custom packet format, flooding, self-certifying identity, encrypted private chats, file transfer and the Nostr side.'
+  title: "How Relay works: texting over Bluetooth, no internet needed",
+  date: "2026-11-08",
+  thumb: "/blog/how-relay-works/splash.jpg",
+  summary:
+    "A deep-dive into Relay, the Bluetooth mesh chat app we built: the custom packet format, flooding, self-certifying identity, encrypted private chats, file transfer and the Nostr side.",
 };
 
 Soo a while back me and my friends (Kshitij, Ria and Akshat) got stuck on one question: can two phones chat with nothing but Bluetooth? No wifi, no cell network, no server in between. Bluetooth mesh messaging had its public moment when Jack Dorsey dropped bitchat last year, and Relay's codebase still carries the bitchat package name internally. But reading about it is one thing. We wanted to actually get phones talking ourselves, and understand every piece of how. That's Relay, and this post is a dump of the interesting parts.
@@ -11,8 +11,18 @@ Soo a while back me and my friends (Kshitij, Ria and Akshat) got stuck on one qu
 Relay does two independent things: nearby messaging over BLE mesh (the fun part), and internet messaging over Nostr relays (the practical part). You pick one per chat. Let's start with BLE.
 
 <FigRow>
-<Fig phone src="/blog/how-relay-works/splash.jpg" alt="Relay splash screen" caption="The Relay splash screen." />
-<Fig phone src="/blog/how-relay-works/new-chat.jpg" alt="Relay new chat sheet: chat nearby over Bluetooth, or new internet chat with an Internet ID" caption="Starting a chat: nearby over Bluetooth, or internet with an Internet ID." />
+  <Fig
+    phone
+    src="/blog/how-relay-works/splash.jpg"
+    alt="Relay splash screen"
+    caption="The Relay splash screen."
+  />
+  <Fig
+    phone
+    src="/blog/how-relay-works/new-chat.jpg"
+    alt="Relay new chat sheet: chat nearby over Bluetooth, or new internet chat with an Internet ID"
+    caption="Starting a chat: nearby over Bluetooth, or internet with an Internet ID."
+  />
 </FigRow>
 
 ## Why BLE, and why every phone is both sides
@@ -26,7 +36,12 @@ In Relay every phone runs both roles at once:
 
 So there's no server phone and no client phone. Any two phones in range form a link, negotiate a 512-byte MTU, and both can push packets at each other through one characteristic. A foreground service keeps the whole thing alive when the app is in the background.
 
-<Fig phone src="/blog/how-relay-works/how-it-works.jpg" alt="Relay onboarding: find nearby, messages hop, stay private" caption="Onboarding: find nearby, messages hop, stay private." />
+<Fig
+  phone
+  src="/blog/how-relay-works/how-it-works.jpg"
+  alt="Relay onboarding: find nearby, messages hop, stay private"
+  caption="Onboarding: find nearby, messages hop, stay private."
+/>
 
 ## Our own little protocol on top
 
@@ -52,7 +67,12 @@ Ttl starts at 5, so a message can hop through up to five phones before it dies. 
 
 We tried this with three phones (mine and two friends'), and the texts actually hopped from one phone to the next :))
 
-<Fig phone src="/blog/how-relay-works/what-is-relay.jpg" alt="Relay onboarding: messages hopping through nearby devices" caption="Onboarding: messages hop through other Relay devices." />
+<Fig
+  phone
+  src="/blog/how-relay-works/what-is-relay.jpg"
+  alt="Relay onboarding: messages hopping through nearby devices"
+  caption="Onboarding: messages hop through other Relay devices."
+/>
 
 ## Identity without accounts
 
@@ -64,7 +84,12 @@ Every 30 seconds your phone broadcasts a signed announcement: your display name 
 
 The public nearby group is plaintext on purpose, and the app says so right in the group: anyone in Bluetooth range can read it. Private chats are different. We run ECDH between your encryption key and theirs, SHA-256 the shared secret into an AES key, and encrypt every message with AES-GCM (fresh random 12-byte IV, 128-bit tag). Phones relaying your packet in the middle only ever see ciphertext.
 
-<Fig phone src="/blog/how-relay-works/nearby-group.jpg" alt="Relay nearby group chat showing the public group banner and messages delivered over BLE" caption="The nearby group: public on purpose, delivered over BLE." />
+<Fig
+  phone
+  src="/blog/how-relay-works/nearby-group.jpg"
+  alt="Relay nearby group chat showing the public group banner and messages delivered over BLE"
+  caption="The nearby group: public on purpose, delivered over BLE."
+/>
 
 A private message from someone new doesn't just land in your chats. It waits in a requests tab until you accept, and the accept itself is a signed CONTROL packet that keeps retrying until it actually reaches the mesh.
 
@@ -76,7 +101,12 @@ When your phone receives a message it sends back a signed ACK naming the 16-byte
 
 Sending is never blocked. If your friend walks out of range mid-conversation, the message sits in a pending queue on your phone and the app keeps retrying: when any new link comes up, when your friend's announcement arrives, and on every 30-second tick. When they walk back, it just goes through.
 
-<Fig phone src="/blog/how-relay-works/discover.jpg" alt="Relay discover tab scanning for nearby devices, with contacts shown out of range" caption="Discover: still scanning, with friends currently out of range." />
+<Fig
+  phone
+  src="/blog/how-relay-works/discover.jpg"
+  alt="Relay discover tab scanning for nearby devices, with contacts shown out of range"
+  caption="Discover: still scanning, with friends currently out of range."
+/>
 
 ## Files over Bluetooth, slowly
 
@@ -91,8 +121,18 @@ Private internet messages are NIP-17 gift wraps, and the layering is genuinely e
 One detail worth knowing: for internet messages the app says relay accepted, not delivered. A relay accepting your event only means a server stored it, not that your friend got it or read it.
 
 <FigRow>
-<Fig phone src="/blog/how-relay-works/chat-list.jpg" alt="Relay chat list with Nostr npub contacts and nearby contacts showing route status" caption="The chat list: Nostr contacts by npub, nearby contacts with their route status." />
-<Fig phone src="/blog/how-relay-works/open-network.jpg" alt="Relay onboarding: Nostr relays form an open network" caption="Onboarding: the Nostr side, an open network." />
+  <Fig
+    phone
+    src="/blog/how-relay-works/chat-list.jpg"
+    alt="Relay chat list with Nostr npub contacts and nearby contacts showing route status"
+    caption="The chat list: Nostr contacts by npub, nearby contacts with their route status."
+  />
+  <Fig
+    phone
+    src="/blog/how-relay-works/open-network.jpg"
+    alt="Relay onboarding: Nostr relays form an open network"
+    caption="Onboarding: the Nostr side, an open network."
+  />
 </FigRow>
 
 ## What's not done

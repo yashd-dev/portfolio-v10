@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
-	type NavItem = { id: string; label: string; icon?: 'person' | 'grid' | 'plane' };
+	interface NavItem { id: string; label: string; icon?: 'person' | 'grid' | 'plane' }
 
 	const PAGES = [
 		{ href: '/', label: 'Home' },
@@ -14,9 +14,9 @@
 	];
 
 	const LANDING: NavItem[] = [
-		{ id: 'intro', label: 'Intro', icon: 'person' },
-		{ id: 'work', label: 'Work', icon: 'grid' },
-		{ id: 'experience', label: 'Experience', icon: 'plane' }
+		{ icon: 'person', id: 'intro', label: 'Intro' },
+		{ icon: 'grid', id: 'work', label: 'Work' },
+		{ icon: 'plane', id: 'experience', label: 'Experience' }
 	];
 	const PROCESS: NavItem[] = [
 		{ id: 'designing', label: 'Designing' },
@@ -24,7 +24,7 @@
 		{ id: 'microinteractions', label: 'Microinteractions' },
 		{ id: 'communication', label: 'Communication' }
 	];
-	const WORK: NavItem[] = [{ id: 'projects', label: 'Projects', icon: 'grid' }];
+	const WORK: NavItem[] = [{ icon: 'grid', id: 'projects', label: 'Projects' }];
 	const BLOG: NavItem[] = [{ id: 'posts', label: 'Posts' }];
 	const TOOLS: NavItem[] = [
 		{ id: 'daily-drivers', label: 'Daily drivers' },
@@ -32,17 +32,14 @@
 	];
 
 	let pathname = $derived(page.url.pathname);
-	let sections = $derived(
-		page.url.pathname === '/process'
-			? PROCESS
-			: page.url.pathname === '/tools'
-				? TOOLS
-				: page.url.pathname === '/work'
-					? WORK
-					: page.url.pathname.startsWith('/blog')
-						? BLOG
-						: LANDING
-	);
+	const sectionMap = (path: string): NavItem[] => {
+		if (path === '/process') {return PROCESS;}
+		if (path === '/tools') {return TOOLS;}
+		if (path === '/work') {return WORK;}
+		if (path.startsWith('/blog')) {return BLOG;}
+		return LANDING;
+	};
+	let sections = $derived(sectionMap(page.url.pathname));
 
 	let active = $state('intro');
 	let openNav = $state<'sections' | 'pages' | null>(null);
@@ -53,30 +50,36 @@
 
 	let suppressUntil = 0;
 
-	function measure() {
+	const trackMaxW = $derived.by(() => {
+		if (openNav === 'sections') {return 'max-sm:max-w-[calc(100vw-140px)]';}
+		if (openNav === 'pages') {return 'max-sm:max-w-[46px]';}
+		return 'max-sm:max-w-[160px]';
+	});
+
+	const measure = () => {
 		scrolled = scrollY > 24;
-		if (Date.now() < suppressUntil) return;
+		if (Date.now() < suppressUntil) {return;}
 		const ids = sections.map((s) => s.id);
-		if (!ids.some((id) => document.getElementById(id))) return;
+		if (!ids.some((id) => document.querySelector(`#${id}`))) {return;}
 		const trigger = innerHeight * 0.4;
-		let current = ids[0];
+		let [current] = ids;
 		for (const id of ids) {
-			const el = document.getElementById(id);
-			if (el && el.getBoundingClientRect().top <= trigger) current = id;
+			const el = document.querySelector<HTMLElement>(`#${id}`);
+			if (el && el.getBoundingClientRect().top <= trigger) {current = id;}
 		}
 		if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4)
-			current = ids[ids.length - 1];
+			{current = ids.at(-1) ?? current;}
 		active = current;
-	}
+	};
 
 	onMount(() => {
 		let raf = 0;
 		const onScroll = () => {
 			if (!raf)
-				raf = requestAnimationFrame(() => {
+				{raf = requestAnimationFrame(() => {
 					raf = 0;
 					measure();
-				});
+				});}
 		};
 		raf = requestAnimationFrame(() => {
 			raf = 0;
@@ -92,19 +95,21 @@
 	});
 
 	$effect(() => {
-		sections;
-		openNav = null;
-		requestAnimationFrame(measure);
+		if (sections.length > 0) {
+			openNav = null;
+			requestAnimationFrame(measure);
+		}
 	});
 
 	$effect(() => {
-		if (!openNav) return;
+		if (!openNav) {return;}
 		const onDown = (e: PointerEvent) => {
-			const t = e.target as Node;
-			if (!track?.contains(t) && !pagesNav?.contains(t)) openNav = null;
+			const t = e.target;
+			if (!(t instanceof Node)) {return;}
+			if (!track?.contains(t) && !pagesNav?.contains(t)) {openNav = null;}
 		};
 		const onKey = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') openNav = null;
+			if (e.key === 'Escape') {openNav = null;}
 		};
 		addEventListener('pointerdown', onDown);
 		addEventListener('keydown', onKey);
@@ -116,42 +121,39 @@
 
 	$effect(() => {
 		const item = track?.querySelector(`[data-id="${active}"]`);
-		if (!track || !(item instanceof HTMLElement)) return;
-		const update = () => (pill = { x: item.offsetLeft, w: item.offsetWidth });
+		if (!track || !(item instanceof HTMLElement)) {return;}
+		const update = () => (pill = { w: item.offsetWidth, x: item.offsetLeft });
 		update();
 		const ro = new ResizeObserver(update);
 		ro.observe(item);
-		track.querySelectorAll('.pg-nav-item').forEach((el) => ro.observe(el));
-		document.fonts?.ready.then(update).catch(() => {});
+		for (const el of track.querySelectorAll('.pg-nav-item')) {ro.observe(el);}
+		document.fonts?.ready.then(update).catch(() => null);
 		return () => ro.disconnect();
 	});
 
-	function go(id: string) {
-		return (e: MouseEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
-			const el = document.getElementById(id);
-			if (!el) {
-				goto(`/#${id}`);
-				return;
-			}
-			active = id;
-			openNav = null;
-			suppressUntil = Date.now() + 1400;
-			const offset = id === 'intro' ? 0 : -88;
-			const lenis = (
-				window as unknown as {
-					__lenis?: { scrollTo: (t: number | HTMLElement, o?: object) => void };
-				}
-			).__lenis;
-			if (lenis) lenis.scrollTo(id === 'intro' ? 0 : el, { offset, duration: 1.2 });
-			else
-				window.scrollTo({
-					top: id === 'intro' ? 0 : el.getBoundingClientRect().top + scrollY + offset,
-					behavior: 'smooth'
-				});
-		};
-	}
+	const go = (id: string) => (e: MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const el = document.querySelector<HTMLElement>(`#${id}`);
+		if (!el) {
+			goto(`/#${id}`);
+			return;
+		}
+		active = id;
+		openNav = null;
+		suppressUntil = Date.now() + 1400;
+		const offset = id === 'intro' ? 0 : -88;
+		const w: Window & {
+			__lenis?: { scrollTo: (t: number | HTMLElement, o?: object) => void };
+		} = window;
+		const lenis = w.__lenis;
+		if (lenis) {lenis.scrollTo(id === 'intro' ? 0 : el, { duration: 1.2, offset });}
+		else
+			{window.scrollTo({
+				behavior: 'smooth',
+				top: id === 'intro' ? 0 : el.getBoundingClientRect().top + scrollY + offset
+			});}
+	};
 
 	const scrolledCls =
 		'bg-white/72 shadow-[0_0_0_1px_var(--color-rule),0_6px_24px_#0000000f] backdrop-blur-[14px] backdrop-saturate-150';
@@ -164,12 +166,7 @@
 >
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3 max-sm:justify-center">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] max-sm:hidden transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
-			'sections'
-				? 'max-sm:max-w-[calc(100vw-140px)]'
-				: openNav === 'pages'
-					? 'max-sm:max-w-[46px]'
-					: 'max-sm:max-w-[160px]'} {scrolled ? scrolledCls : ''}"
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] max-sm:hidden transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {trackMaxW} {scrolled ? scrolledCls : ''}"
 			role="navigation"
 			aria-label="Sections"
 			bind:this={track}
@@ -250,11 +247,9 @@
 						</span>
 					{/if}
 					<span
-						class="{isActive || openNav === 'sections'
-							? ''
-							: s.icon
-								? 'max-sm:sr-only'
-								: ''} {isActive && openNav === 'pages' && s.icon
+						class="{!isActive && openNav !== 'sections' && s.icon
+							? 'max-sm:sr-only'
+							: ''} {isActive && openNav === 'pages' && s.icon
 							? 'max-sm:sr-only'
 							: ''} max-sm:truncate">{s.label}</span
 					>

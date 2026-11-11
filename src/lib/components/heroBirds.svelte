@@ -20,33 +20,34 @@
 		[12, 4, 2, 1]
 	];
 	const birds = [
-		{ top: 18, dur: 26, off: 0.05, size: 2.5, bob: 6 },
-		{ top: 30, dur: 34, off: 0.45, size: 2, bob: 9 },
-		{ top: 12, dur: 30, off: 0.75, size: 3, bob: 5 }
+		{ bob: 6, dur: 26, off: 0.05, size: 2.5, top: 18 },
+		{ bob: 9, dur: 34, off: 0.45, size: 2, top: 30 },
+		{ bob: 5, dur: 30, off: 0.75, size: 3, top: 12 }
 	];
 
-	let band: SVGSVGElement;
+	let band = $state<SVGSVGElement | null>(null);
 	let birdEls: (SVGGElement | null)[] = [];
 	let flap = $state(false);
 	let visible = $state(false);
 
 	onMount(() => {
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {return;}
 		visible = true;
 		const flapper = setInterval(() => (flap = !flap), 240);
 		let raf = 0;
 		const t0 = performance.now();
 		const tick = (now: number) => {
 			const t = (now - t0) / 1000;
+			if (!band) {return;}
 			const w = band.clientWidth;
 			const h = band.clientHeight;
-			birds.forEach((b, i) => {
+			for (const [i, b] of birds.entries()) {
 				const el = birdEls[i];
-				if (!el) return;
+				if (!el) {continue;}
 				const x = (((t / b.dur + b.off) % 1.25) - 0.12) * w;
 				const y = (b.top / 100) * h + Math.sin(t * 1.7 + i * 2.1) * b.bob;
 				el.style.transform = `translate(${x}px, ${y}px)`;
-			});
+			}
 			raf = requestAnimationFrame(tick);
 		};
 		raf = requestAnimationFrame(tick);

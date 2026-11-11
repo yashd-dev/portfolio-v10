@@ -12,8 +12,8 @@
 		(async () => {
 			const [{ createRoot, hydrateRoot }, { createElement, StrictMode }, { default: CaseStudy }] =
 				await Promise.all([import('react-dom/client'), import('react'), import('./CaseStudy.js')]);
-			if (cancelled || !host) return;
-			const tree = createElement(StrictMode, null, createElement(CaseStudy, { meta, content }));
+			if (cancelled || !host) {return;}
+			const tree = createElement(StrictMode, null, createElement(CaseStudy, { content, meta }));
 			if (host.firstChild) {
 				root = hydrateRoot(host, tree);
 			} else {

@@ -1,123 +1,124 @@
 export const intro =
-	'I design and build websites that feel considered and work smoothly, and I stick around after launch.';
+  "I design and build websites that feel considered and work smoothly, and I stick around after launch.";
 
 export const projects = [
-	{
-		name: 'Actually Fair',
-		meta: 'Headless Shopify, Next.js, Tailwind, Railway',
-		description:
-			'A transparent shopping experience with clear product pages, calm flows, and headless Shopify underneath.',
-		link: 'https://actuallyfair.in/',
-		cta: 'Shop the store',
-		caseStudy: '/work/actually-fair',
-		image: '/work/actuallyfair.png',
-		dither: '/work/dither-blue.webp'
-	},
-	{
-		name: 'Therapy With Kinnari',
-		meta: 'Next.js, Sanity',
-		description:
-			'A calming therapy website for sessions, workshops, resources, and a softer booking experience.',
-		link: 'https://therapywithkinnari.com/',
-		cta: 'Book a session',
-		caseStudy: '/work/therapy-with-kinnari',
-		image: '/work/twk.png',
-		dither: '/work/dither-yellow.webp'
-	},
-	{
-		name: 'Medizone Aesthetics',
-		meta: 'Next.js, Sanity',
-		description:
-			'A premium B2B aesthetics website for PDO threads, training programs, and medical product discovery.',
-		link: 'https://www.medizoneaesthetics.com/',
-		cta: 'Explore products',
-		caseStudy: '/work/medizone-aesthetics',
-		image: '/work/medizone.png',
-		dither: '/work/dither-pink.webp'
-	},
-	{
-		name: 'Strive Consultancy',
-		meta: 'Next.js, Tailwind, Vercel',
-		description:
-			'A sharp consultancy website with focused services, restrained visuals, and a clearer business presence.',
-		link: 'http://striveconsultancy.yashd.in/',
-		cta: 'Explore services',
-		image: '/work/strive.png',
-		dither: '/work/dither-blue.webp'
-	},
-	{
-		name: 'SS Healthcare',
-		meta: 'Next.js, Tailwind, Vercel, Google Translate',
-		description: 'A veterinary healthcare website with multilingual content and appointment flows.',
-		link: 'https://healthcare.yashd.in/',
-		cta: 'Book an appointment',
-		image: '/work/sshealthcare.png',
-		dither: '/work/dither-green.webp'
-	},
-	{
-		name: 'MyPaithani',
-		meta: 'SvelteKit, Tailwind, Vercel',
-		description:
-			'A handcrafted Paithani storefront for bags, clutches and accessories, rooted in Maharashtrian textile heritage.',
-		link: 'https://www.mypaithani.com/',
-		cta: 'Shop the collection',
-		image: '/work/mypaithani.png',
-		dither: '/work/dither-red.webp'
-	}
+  {
+    caseStudy: "/work/actually-fair",
+    cta: "Shop the store",
+    description:
+      "A transparent shopping experience with clear product pages, calm flows, and headless Shopify underneath.",
+    dither: "/work/dither-blue.webp",
+    image: "/work/actuallyfair.png",
+    link: "https://actuallyfair.in/",
+    meta: "Headless Shopify, Next.js, Tailwind, Railway",
+    name: "Actually Fair",
+  },
+  {
+    caseStudy: "/work/therapy-with-kinnari",
+    cta: "Book a session",
+    description:
+      "A calming therapy website for sessions, workshops, resources, and a softer booking experience.",
+    dither: "/work/dither-yellow.webp",
+    image: "/work/twk.png",
+    link: "https://therapywithkinnari.com/",
+    meta: "Next.js, Sanity",
+    name: "Therapy With Kinnari",
+  },
+  {
+    caseStudy: "/work/medizone-aesthetics",
+    cta: "Explore products",
+    description:
+      "A premium B2B aesthetics website for PDO threads, training programs, and medical product discovery.",
+    dither: "/work/dither-pink.webp",
+    image: "/work/medizone.png",
+    link: "https://www.medizoneaesthetics.com/",
+    meta: "Next.js, Sanity",
+    name: "Medizone Aesthetics",
+  },
+  {
+    cta: "Explore services",
+    description:
+      "A sharp consultancy website with focused services, restrained visuals, and a clearer business presence.",
+    dither: "/work/dither-blue.webp",
+    image: "/work/strive.png",
+    link: "http://striveconsultancy.yashd.in/",
+    meta: "Next.js, Tailwind, Vercel",
+    name: "Strive Consultancy",
+  },
+  {
+    cta: "Book an appointment",
+    description:
+      "A veterinary healthcare website with multilingual content and appointment flows.",
+    dither: "/work/dither-green.webp",
+    image: "/work/sshealthcare.png",
+    link: "https://healthcare.yashd.in/",
+    meta: "Next.js, Tailwind, Vercel, Google Translate",
+    name: "SS Healthcare",
+  },
+  {
+    cta: "Shop the collection",
+    description:
+      "A handcrafted Paithani storefront for bags, clutches and accessories, rooted in Maharashtrian textile heritage.",
+    dither: "/work/dither-red.webp",
+    image: "/work/mypaithani.png",
+    link: "https://www.mypaithani.com/",
+    meta: "SvelteKit, Tailwind, Vercel",
+    name: "MyPaithani",
+  },
 ];
 
 export const experience = [
-	{
-		org: 'Actually Fair',
-		role: 'Technical lead',
-		place: 'Remote',
-		span: 'Dec 2025 - Aug 2026',
-		note: 'End-to-end ecommerce: headless Shopify to custom microservices, self-hosted.',
-		link: 'https://actuallyfair.in/'
-	},
-	{
-		org: 'KonectU',
-		role: 'Full-stack developer',
-		place: 'Remote',
-		span: '',
-		note: 'Internal tools and a full-stack platform, with stakeholder wireframing.',
-		link: ''
-	}
+  {
+    link: "https://actuallyfair.in/",
+    note: "End-to-end ecommerce: headless Shopify to custom microservices, self-hosted.",
+    org: "Actually Fair",
+    place: "Remote",
+    role: "Technical lead",
+    span: "Dec 2025 - Aug 2026",
+  },
+  {
+    link: "",
+    note: "Internal tools and a full-stack platform, with stakeholder wireframing.",
+    org: "KonectU",
+    place: "Remote",
+    role: "Full-stack developer",
+    span: "",
+  },
 ];
 
 export const freelance = {
-	org: 'Freelance',
-	role: 'Designer & developer',
-	place: 'Mumbai',
-	span: '2024 - Now',
-	note: 'Storefronts, sites and the services behind them, for clients.'
+  note: "Storefronts, sites and the services behind them, for clients.",
+  org: "Freelance",
+  place: "Mumbai",
+  role: "Designer & developer",
+  span: "2024 - Now",
 };
 
 export const education = {
-	org: 'MPSTME, NMIMS',
-	role: 'BTech Computer Engineering',
-	place: 'Mumbai',
-	span: '2022 - 2028'
+  org: "MPSTME, NMIMS",
+  place: "Mumbai",
+  role: "BTech Computer Engineering",
+  span: "2022 - 2028",
 };
 
 export const shenanigans = [
-	{
-		title: 'A RAG-as-a-service platform',
-		note: 'Tenant-scoped document ingestion and retrieval over a Neo4j evidence graph, with API keys and an embeddable chat widget.',
-		repo: 'https://github.com/yashd-dev/rag-as-a-service',
-		thumb: '/shenanigans/ragas.jpg'
-	},
-	{
-		title: 'An agentic research-paper workspace',
-		note: 'Chat-first workspace that pulls open-access papers into pgvector and drafts a cited LaTeX paper through an agent loop.',
-		repo: 'https://github.com/yashd-dev/coursera-rag',
-		thumb: '/shenanigans/paperforge.jpg'
-	}
+  {
+    note: "Tenant-scoped document ingestion and retrieval over a Neo4j evidence graph, with API keys and an embeddable chat widget.",
+    repo: "https://github.com/yashd-dev/rag-as-a-service",
+    thumb: "/shenanigans/ragas.jpg",
+    title: "A RAG-as-a-service platform",
+  },
+  {
+    note: "Chat-first workspace that pulls open-access papers into pgvector and drafts a cited LaTeX paper through an agent loop.",
+    repo: "https://github.com/yashd-dev/coursera-rag",
+    thumb: "/shenanigans/paperforge.jpg",
+    title: "An agentic research-paper workspace",
+  },
 ];
 
 export const socials = [
-	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/yashd-dev/' },
-	{ label: 'GitHub', href: 'https://github.com/yashd-dev' }
+  { href: "https://www.linkedin.com/in/yashd-dev/", label: "LinkedIn" },
+  { href: "https://github.com/yashd-dev", label: "GitHub" },
 ];
 
-export const email = 'yashdeshpande714@gmail.com';
+export const email = "yashdeshpande714@gmail.com";

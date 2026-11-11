@@ -2,20 +2,20 @@
 	import { REVEAL } from '#lib/reveal.js';
 
 	const CURRENCIES = [
-		{ code: 'INR', symbol: '₹', rate: 1 },
-		{ code: 'USD', symbol: '$', rate: 0.012 },
-		{ code: 'EUR', symbol: '€', rate: 0.011 },
-		{ code: 'GBP', symbol: '£', rate: 0.0095 },
-		{ code: 'AUD', symbol: 'A$', rate: 0.018 },
-		{ code: 'CAD', symbol: 'C$', rate: 0.016 },
-		{ code: 'AED', symbol: 'AED ', rate: 0.044 }
+		{ code: 'INR', rate: 1, symbol: '₹' },
+		{ code: 'USD', rate: 0.012, symbol: '$' },
+		{ code: 'EUR', rate: 0.011, symbol: '€' },
+		{ code: 'GBP', rate: 0.0095, symbol: '£' },
+		{ code: 'AUD', rate: 0.018, symbol: 'A$' },
+		{ code: 'CAD', rate: 0.016, symbol: 'C$' },
+		{ code: 'AED', rate: 0.044, symbol: 'AED ' }
 	] as const;
 
 	const BUDGET_RANGES_INR = [
-		{ min: 30000, max: 50000 },
-		{ min: 50000, max: 80000 },
-		{ min: 80000, max: 120000 },
-		{ min: 120000, max: null }
+		{ max: 50_000, min: 30_000 },
+		{ max: 80_000, min: 50_000 },
+		{ max: 120_000, min: 80_000 },
+		{ max: null, min: 120_000 }
 	];
 
 	type Currency = (typeof CURRENCIES)[number];
@@ -25,35 +25,35 @@
 
 	let selectedCurrency = $derived(CURRENCIES.find((c) => c.code === currencyCode) ?? CURRENCIES[0]);
 
-	function formatBudgetValue(amount: number, currency: Currency) {
+	const formatBudgetValue = (amount: number, currency: Currency) => {
 		const converted = amount * currency.rate;
 		if (currency.code === 'INR') {
-			if (amount >= 100000) return `${currency.symbol}${(amount / 100000).toFixed(1)} lakh`;
+			if (amount >= 100_000) {return `${currency.symbol}${(amount / 100_000).toFixed(1)} lakh`;}
 			return `${currency.symbol}${Math.round(amount / 1000)}k`;
 		}
-		if (converted >= 1000) return `${currency.symbol}${(converted / 1000).toFixed(1)}k`;
+		if (converted >= 1000) {return `${currency.symbol}${(converted / 1000).toFixed(1)}k`;}
 		return `${currency.symbol}${Math.round(converted)}`;
-	}
+	};
 
-	function formatBudgetRange(range: (typeof BUDGET_RANGES_INR)[number], currency: Currency) {
+	const formatBudgetRange = (range: (typeof BUDGET_RANGES_INR)[number], currency: Currency) => {
 		const min = formatBudgetValue(range.min, currency);
-		if (!range.max) return `${min}+`;
+		if (!range.max) {return `${min}+`;}
 		return `${min}-${formatBudgetValue(range.max, currency)}`;
-	}
+	};
 
 	const FIELD =
 		'border-0 border-b border-neutral-300 bg-transparent px-0 pt-1 pb-3 text-[18px] leading-snug text-ink transition-colors outline-none placeholder:text-faint focus:border-ink';
 	const LABEL = 'grid gap-2.5 text-sm leading-5 text-muted';
 
-	async function handleSubmit(event: SubmitEvent) {
+	const handleSubmit = async (event: SubmitEvent) => {
 		event.preventDefault();
 		const form = event.currentTarget as HTMLFormElement;
 		formState = 'submitting';
 		try {
 			const response = await fetch(form.action, {
-				method: 'POST',
 				body: new FormData(form),
-				headers: { Accept: 'application/json' }
+				headers: { Accept: 'application/json' },
+				method: 'POST'
 			});
 			if (response.ok) {
 				form.reset();
@@ -65,7 +65,7 @@
 		} catch {
 			formState = 'error';
 		}
-	}
+	};
 </script>
 
 <div class="px-6 sm:px-10">

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { springMotion } from '#lib/spring.js';
+	import { springMotion, wait } from '#lib/spring.js';
 
 	let container: HTMLDivElement;
 	let c1: HTMLDivElement;
@@ -11,8 +11,26 @@
 
 	const pages = ['Home', 'Work', 'Experience', 'Play', 'Case Studies'];
 
+	const center = (el: HTMLDivElement) => {
+		const r = el.getBoundingClientRect();
+		const c = container.getBoundingClientRect();
+		return { x: r.left - c.left + r.width / 2, y: r.top - c.top + r.height / 2 };
+	};
+	const move = async (p: { x: number; y: number }, opts: KeyframeAnimationOptions) => {
+		await cursor.animate(
+			[
+				{ transform: cursor.style.transform || 'translate(0px, 0px)' },
+				{ transform: `translate(${p.x}px, ${p.y}px)` }
+			],
+			opts
+		).finished;
+		cursor.style.transform = `translate(${p.x}px, ${p.y}px)`;
+	};
+	const tip = (o: number, dur: number) =>
+		tooltip.animate([{ opacity: o }], { duration: dur, fill: 'forwards' }).finished;
+
 	onMount(() => {
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {return;}
 		let cancelled = false;
 		const glide = {
 			duration: 550,
@@ -21,51 +39,32 @@
 		};
 		const sp = springMotion(380, 28, 1);
 		const spring = { duration: sp.duration, easing: sp.easing, fill: 'forwards' as FillMode };
-		const center = (el: HTMLDivElement) => {
-			const r = el.getBoundingClientRect();
-			const c = container.getBoundingClientRect();
-			return { x: r.left - c.left + r.width / 2, y: r.top - c.top + r.height / 2 };
+		const cycle = async (): Promise<void> => {
+			if (cancelled) {return;}
+			const p1 = center(c1);
+			cursor.style.transform = `translate(${p1.x - 44}px, ${Math.max(8, p1.y - 36)}px)`;
+			tooltip.style.opacity = '0';
+			await move(p1, glide);
+			if (cancelled) {return;}
+			await tip(1, 280);
+			await wait(1100);
+			await tip(0, 150);
+			if (cancelled) {return;}
+			await move(center(c2), spring);
+			if (cancelled) {return;}
+			await tip(1, 260);
+			await wait(1000);
+			await tip(0, 150);
+			if (cancelled) {return;}
+			await move(center(c3), spring);
+			if (cancelled) {return;}
+			await tip(1, 260);
+			await wait(1000);
+			await tip(0, 220);
+			await wait(400);
+			await cycle();
 		};
-		const move = (p: { x: number; y: number }, opts: KeyframeAnimationOptions) =>
-			cursor
-				.animate(
-					[
-						{ transform: cursor.style.transform || 'translate(0px, 0px)' },
-						{ transform: `translate(${p.x}px, ${p.y}px)` }
-					],
-					opts
-				)
-				.finished.then(() => {
-					cursor.style.transform = `translate(${p.x}px, ${p.y}px)`;
-				});
-		const tip = (o: number, dur: number) =>
-			tooltip.animate([{ opacity: o }], { duration: dur, fill: 'forwards' }).finished;
-		const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
-		(async () => {
-			while (!cancelled) {
-				const p1 = center(c1);
-				cursor.style.transform = `translate(${p1.x - 44}px, ${Math.max(8, p1.y - 36)}px)`;
-				tooltip.style.opacity = '0';
-				await move(p1, glide);
-				if (cancelled) break;
-				await tip(1, 280);
-				await wait(1100);
-				await tip(0, 150);
-				if (cancelled) break;
-				await move(center(c2), spring);
-				if (cancelled) break;
-				await tip(1, 260);
-				await wait(1000);
-				await tip(0, 150);
-				if (cancelled) break;
-				await move(center(c3), spring);
-				if (cancelled) break;
-				await tip(1, 260);
-				await wait(1000);
-				await tip(0, 220);
-				await wait(400);
-			}
-		})();
+		void cycle();
 		return () => {
 			cancelled = true;
 		};

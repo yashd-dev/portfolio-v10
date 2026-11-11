@@ -14,19 +14,19 @@
 		}
 		const stops = [...list.querySelectorAll('.fp-stop')];
 		const stopLine = scroll(animate(list, { '--fp-p': [0, 1] }, { ease: 'linear' }), {
-			target: list,
-			offset: ['start 0.6', 'end 0.6']
+			offset: ['start 0.6', 'end 0.6'],
+			target: list
 		});
 		const stopDots = scroll(
 			(p) => {
 				const rect = list.getBoundingClientRect();
 				let count = 0;
-				stops.forEach((s) => {
-					if (s.getBoundingClientRect().top - rect.top + 10 <= p * rect.height + 1) count += 1;
-				});
+				for (const s of stops) {
+					if (s.getBoundingClientRect().top - rect.top + 10 <= p * rect.height + 1) {count += 1;}
+				}
 				reached = count;
 			},
-			{ target: list, offset: ['start 0.6', 'end 0.6'] }
+			{ offset: ['start 0.6', 'end 0.6'], target: list }
 		);
 		return () => {
 			stopLine();

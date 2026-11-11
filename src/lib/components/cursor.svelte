@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 
 	let { name = 'You' }: { name?: string } = $props();
 
@@ -8,42 +8,45 @@
 		point: 'M18 11V6a2 2 0 0 0-4 0v4V4a2 2 0 0 0-4 0v6.5V6a2 2 0 0 0-4 0v9l-1.6-1.6a2 2 0 0 0-2.8 2.8l3.6 3.6C6.5 21.1 8.2 22 11 22h2a8 8 0 0 0 8-8V8a2 2 0 0 0-3 0Z'
 	};
 
-	let root: HTMLDivElement;
-	let label = $state(name);
+	let root = $state<HTMLDivElement | null>(null);
+	let label = $state(untrack(() => name));
 	let hand = $state('');
 	let visible = $state(false);
 	let enabled = $state(false);
 
+	const readTarget = (el: Element | null) => {
+		const c = el?.closest('[data-cursor]');
+		const h = el?.closest('[data-cursor-hand]');
+		label = c instanceof HTMLElement ? c.dataset.cursor || name : name;
+		hand = h instanceof HTMLElement ? h.dataset.cursorHand || '' : '';
+	};
+	const onLeave = () => (visible = false);
+
 	onMount(() => {
 		enabled =
 			matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-		if (!enabled) return;
+		if (!enabled) {return;}
 		document.documentElement.classList.add('pg-hide-cursor');
 		const pos = { x: -100, y: -100 };
 		let raf = 0;
 		let lastLabel = 0;
 		const render = () => {
 			raf = 0;
-			root.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
-		};
-		const readTarget = (el: Element | null) => {
-			label = el?.closest?.('[data-cursor]')?.getAttribute('data-cursor') || name;
-			hand = el?.closest?.('[data-cursor-hand]')?.getAttribute('data-cursor-hand') || '';
+			if (root) {root.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;}
 		};
 		const onMove = (e: PointerEvent) => {
 			pos.x = e.clientX;
 			pos.y = e.clientY;
-			if (!raf) raf = requestAnimationFrame(render);
-			const t = e.target as Element | null;
+			if (!raf) {raf = requestAnimationFrame(render);}
+			const t = e.target instanceof Element ? e.target : null;
 			visible = !t?.closest?.('[data-cursor-native]');
 			if (e.timeStamp - lastLabel > 40) {
 				lastLabel = e.timeStamp;
 				readTarget(t);
 			}
 		};
-		const onLeave = () => (visible = false);
 		const refresh = () => {
-			if (pos.x <= -50) return;
+			if (pos.x <= -50) {return;}
 			readTarget(document.elementFromPoint(pos.x, pos.y));
 		};
 		addEventListener('pointermove', onMove, { passive: true });

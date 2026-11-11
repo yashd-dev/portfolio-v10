@@ -2,13 +2,13 @@
 	import { toolSections } from '#lib/data/icons.js';
 	import CtaSection from '#lib/components/ctaSection.svelte';
 	import SiteFooter from '#lib/components/siteFooter.svelte';
+	import { REVEAL } from '#lib/reveal.js';
 
 	const slug = (c: string) =>
 		c
 			.toLowerCase()
-			.replace(/[^a-z]+/g, '-')
-			.replace(/(^-|-$)/g, '');
-	import { REVEAL } from '#lib/reveal.js';
+			.replaceAll(/[^a-z]+/gu, '-')
+			.replaceAll(/(?<edge>^-|-$)/gu, '');
 </script>
 
 <div
