@@ -40,31 +40,26 @@
 		.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 	let copied = $state(false);
-	let activeWork = $state(0);
-	let workSection = $state<HTMLElement | null>(null);
 
-	import { onMount } from 'svelte';
-
-	onMount(() => {
-		let raf = 0;
-		const onScroll = () => {
-			cancelAnimationFrame(raf);
-			raf = requestAnimationFrame(() => {
-				if (!workSection) return;
-				const r = workSection.getBoundingClientRect();
-				const total = r.height - window.innerHeight;
-				if (total <= 0) return;
-				const progress = Math.min(Math.max(-r.top / total, 0), 0.999);
-				activeWork = Math.floor(progress * projects.length);
-			});
-		};
-		window.addEventListener('scroll', onScroll, { passive: true });
-		onScroll();
-		return () => {
-			window.removeEventListener('scroll', onScroll);
-			cancelAnimationFrame(raf);
-		};
-	});
+	const stackAlias: Record<string, string> = {
+		'Headless Shopify': 'Shopify',
+		SvelteKit: 'Svelte',
+		Tailwind: 'Tailwind CSS'
+	};
+	const stackLookup = [
+		...allTools,
+		{
+			name: 'Google Translate',
+			color: '#4285f4',
+			desc: '',
+			path: 'M22.401 4.818h-9.927L10.927 0H1.599C.72 0 .002.719.002 1.599v16.275c0 .878.72 1.597 1.597 1.597h10L13.072 24H22.4c.878 0 1.597-.707 1.597-1.572V6.39c0-.865-.72-1.572-1.597-1.572zm-15.66 8.68c-2.07 0-3.75-1.68-3.75-3.75 0-2.07 1.68-3.75 3.75-3.75 1.012 0 1.86.375 2.512.976l-.99.952a2.194 2.194 0 0 0-1.522-.584c-1.305 0-2.363 1.08-2.363 2.409S5.436 12.16 6.74 12.16c1.507 0 2.13-1.08 2.19-1.808l-2.188-.002V9.066h3.51c.05.23.09.457.09.764 0 2.147-1.434 3.669-3.602 3.669zm16.757 8.93c0 .59-.492 1.072-1.097 1.072h-8.875l3.649-4.03h.005l-.74-2.302.006-.005s.568-.488 1.277-1.24c.712.771 1.63 1.699 2.818 2.805l.771-.772c-1.272-1.154-2.204-2.07-2.89-2.805.919-1.087 1.852-2.455 2.049-3.707h2.034v.002h.002v-.94h-4.532v-1.52h-1.471v1.52H14.3l-1.672-5.21.006.022h9.767c.605 0 1.097.48 1.097 1.072v16.038zm-6.484-7.311c-.536.548-.943.873-.943.873l-.008.004-1.46-4.548h4.764c-.307 1.084-.988 2.108-1.651 2.904-1.176-1.392-1.18-1.844-1.18-1.844h-1.222s.05.678 1.7 2.61z'
+		}
+	];
+	const stackTools = (meta: string) =>
+		meta
+			.split(', ')
+			.map((n) => stackLookup.find((t) => t.name === (stackAlias[n] ?? n)))
+			.filter((t) => t !== undefined);
 
 	async function copyEmail() {
 		try {
@@ -245,38 +240,26 @@
 		</div>
 	</section>
 
-	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]" bind:this={workSection}>
+	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
 		{#snippet workDetail(p: (typeof projects)[number])}
 			<div class="p-2 pb-0">
-				<a
-					class="group block"
-					href={p.link}
-					target="_blank"
-					rel="noopener noreferrer"
-					data-cursor={p.cta}
+				<div
+					class="aspect-[16/10] w-full rounded-xl bg-cover bg-center"
+					style="background-image: url({p.dither})"
 				>
-					<img
-						src={p.image}
-						alt="{p.name} homepage"
-						loading="lazy"
-						class="block aspect-[16/10] w-full rounded-xl bg-card object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.04)] transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
-					/>
-				</a>
+					<div class="flex h-full items-center justify-center p-[7%]">
+						<img
+							src={p.image}
+							alt="{p.name} homepage"
+							loading="lazy"
+							class="h-full w-full rounded-lg object-cover shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
+						/>
+					</div>
+				</div>
 			</div>
 			<div class="p-6 max-sm:p-5">
 				<h3 class="text-[18px] leading-[1.35] font-medium">{p.name}</h3>
-				<div
-					class="mt-4 grid grid-cols-[72px_1fr] gap-y-3 text-[14px] leading-[1.6] max-sm:flex max-sm:flex-col max-sm:gap-y-4"
-				>
-					<div class="contents max-sm:flex max-sm:flex-col max-sm:gap-y-1">
-						<span class="text-faint">Problem</span>
-						<p class="text-soft">{p.problem}</p>
-					</div>
-					<div class="contents max-sm:flex max-sm:flex-col max-sm:gap-y-1">
-						<span class="text-faint">Outcome</span>
-						<p>{p.outcome}</p>
-					</div>
-				</div>
+				<p class="mt-3 text-[14px] leading-[1.6] text-soft">{p.description}</p>
 				<div class="mt-4 flex flex-wrap gap-1.5">
 					{#each p.meta.split(', ') as tag}
 						<span
@@ -288,29 +271,13 @@
 				<div class="mt-5 flex flex-wrap items-center gap-4">
 					{#if p.caseStudy}
 						<a
-							class="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors duration-200 hover:text-accent"
+							class="relative z-10 rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-4 py-2 text-[13px] font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
 							href={p.caseStudy}
-							data-cursor="Case study"
+							data-cursor="Case study">Case Study</a
 						>
-							Read the case study
-							<svg
-								class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5"
-								width="13"
-								height="13"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg
-							>
-						</a>
 					{/if}
 					<a
-						class="group inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent {p.caseStudy
-							? 'text-muted'
-							: ''}"
+						class="group relative z-10 inline-flex items-center gap-1.5 text-[14px] text-muted underline underline-offset-4 transition-colors duration-200 hover:text-ink"
 						href={p.link}
 						target="_blank"
 						rel="noopener noreferrer"
@@ -332,28 +299,65 @@
 					</a>
 				</div>
 			</div>
+			<a
+				class="absolute inset-0 rounded-2xl"
+				href={p.caseStudy ?? p.link}
+				target={p.caseStudy ? undefined : '_blank'}
+				rel={p.caseStudy ? undefined : 'noopener noreferrer'}
+				aria-label={p.caseStudy ? "{p.name} case study" : p.cta}
+				data-cursor={p.caseStudy ? 'Case study' : p.cta}
+			></a>
 		{/snippet}
 
-		<div class="lg:grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16">
-			<div
-				class="max-lg:mb-[22px] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-center"
-			>
-				<div class="hidden lg:block">
-					<h3 class="text-[24px] leading-[1.25] font-medium">{projects[activeWork].name}</h3>
-					<p class="mt-2 text-[12px] tracking-[0.02em] text-faint">{projects[activeWork].meta}</p>
-					<p class="mt-1 text-[11px] text-faint">
-						{String(activeWork + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-					</p>
-					<div class="mt-5 flex flex-wrap items-center gap-4">
-						{#if projects[activeWork].caseStudy}
+		<div class="hidden space-y-24 lg:block">
+			{#each projects as p, i}
+				<div
+					class="{REVEAL} group grid grid-cols-[minmax(0,5fr)_minmax(0,6fr)] items-center gap-16"
+					style="--d: {i * 60}ms"
+				>
+					<div>
+						<h3 class="text-[24px] leading-[1.25] font-medium">{p.name}</h3>
+						<div class="mt-5 grid grid-cols-[72px_1fr] gap-y-3 text-[14px] leading-[1.6]">
+							<span class="text-faint">Problem</span>
+							<p class="text-soft">{p.problem}</p>
+							<span class="text-faint">Outcome</span>
+							<p>{p.outcome}</p>
+						</div>
+						<div class="mt-5 flex flex-wrap gap-2">
+							{#each stackTools(p.meta) as t}
+								<span
+									class="grid size-9 place-items-center rounded-[10px] bg-neutral-100 ring-1 ring-white ring-inset ring-offset-2 ring-offset-neutral-100"
+									data-cursor={t.name}
+									title={t.name}
+								>
+									<svg
+										viewBox="0 0 24 24"
+										class="size-4"
+										style="fill: {t.color}"
+										role="img"
+										aria-label={t.name}><path d={t.path} /></svg
+									>
+								</span>
+							{/each}
+						</div>
+						<div class="mt-6 flex flex-wrap items-center gap-4">
+							{#if p.caseStudy}
+								<a
+									class="rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-4 py-2 text-[13px] font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
+									href={p.caseStudy}
+									data-cursor="Case study">Case Study</a
+								>
+							{/if}
 							<a
-								class="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors duration-200 hover:text-accent"
-								href={projects[activeWork].caseStudy}
-								data-cursor="Case study"
+								class="group/link inline-flex items-center gap-1.5 text-[14px] text-muted underline underline-offset-4 transition-colors duration-200 hover:text-ink"
+								href={p.link}
+								target="_blank"
+								rel="noopener noreferrer"
+								data-cursor={p.cta}
 							>
-								Read the case study
+								{p.cta}
 								<svg
-									class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5"
+									class="transition-transform duration-300 ease-(--ease-mn) group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
 									width="13"
 									height="13"
 									viewBox="0 0 24 24"
@@ -362,61 +366,45 @@
 									stroke-width="2"
 									stroke-linecap="round"
 									stroke-linejoin="round"
-									aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg
+									aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
 								>
 							</a>
-						{/if}
-						<a
-							class="group inline-flex items-center gap-1.5 text-[14px] font-medium transition-colors duration-200 hover:text-accent {projects[
-								activeWork
-							].caseStudy
-								? 'text-muted'
-								: ''}"
-							href={projects[activeWork].link}
-							target="_blank"
-							rel="noopener noreferrer"
-							data-cursor={projects[activeWork].cta}
-						>
-							{projects[activeWork].cta}
-							<svg
-								class="transition-transform duration-300 ease-(--ease-mn) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-								width="13"
-								height="13"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
-							>
-						</a>
+						</div>
 					</div>
-				</div>
-			</div>
-
-			<div class="hidden space-y-12 lg:block">
-				{#each projects as p, i}
-					<div
-						class="{REVEAL} rounded-2xl bg-white shadow-[0_0_0_1px_var(--color-rule),0_10px_30px_rgba(0,0,0,0.05)]"
-						style="--d: {i * 60}ms"
+					<a
+						class="block"
+						href={p.caseStudy ?? p.link}
+						target={p.caseStudy ? undefined : '_blank'}
+						rel={p.caseStudy ? undefined : 'noopener noreferrer'}
+						aria-label={p.caseStudy ? "{p.name} case study" : p.cta}
+						data-cursor={p.caseStudy ? 'Case study' : p.cta}
 					>
-						{@render workDetail(p)}
-					</div>
-				{/each}
-			</div>
+						<div
+							class="aspect-[16/10] w-full rounded-xl bg-cover bg-center"
+							style="background-image: url({p.dither})"
+						>
+							<div class="flex h-full items-center justify-center p-[7%]">
+								<img
+									src={p.image}
+									alt="{p.name} homepage"
+									loading="lazy"
+									class="h-full w-full rounded-lg object-cover shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
+								/>
+							</div>
+						</div>
+					</a>
+				</div>
+			{/each}
+		</div>
 
-			<div class="space-y-14 lg:hidden">
+		<div class="space-y-14 lg:hidden">
 				{#each projects as p, i}
 					<article class={REVEAL} style="--d: {i * 60}ms">
-						<div
-							class="rounded-2xl bg-white shadow-[0_0_0_1px_var(--color-rule),0_10px_30px_rgba(0,0,0,0.05)]"
-						>
+						<div class="group relative rounded-2xl ring-1 ring-rule">
 							{@render workDetail(p)}
 						</div>
 					</article>
 				{/each}
-			</div>
 		</div>
 	</section>
 
