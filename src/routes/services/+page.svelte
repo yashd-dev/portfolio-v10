@@ -1,6 +1,5 @@
 <script lang="ts">
 	import SiteFooter from '#lib/components/siteFooter.svelte';
-	import { projects, shenanigans } from '#lib/data/content.js';
 	import { services } from '#lib/data/services.js';
 	import { REVEAL } from '#lib/reveal.js';
 </script>
@@ -55,15 +54,6 @@
 			{/each}
 		</div>
 	</section>
-
-	<p class="{REVEAL} mt-16 text-[14px] text-soft" style="--d: 100ms">
-		{projects.length} live projects and {shenanigans.length} side builds sit behind these pages.
-		<a
-			href="/work"
-			class="font-medium text-ink underline decoration-neutral-400 decoration-dotted underline-offset-[0.2em] transition-colors hover:text-accent"
-			data-cursor="All work">See the work</a
-		>.
-	</p>
 
 	<SiteFooter />
 </main>

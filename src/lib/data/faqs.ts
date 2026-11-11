@@ -108,6 +108,11 @@ export const faqGroups: FAQGroup[] = [
       },
       {
         answer:
+          "I deploy and maintain the apps I build, on managed platforms or self-hosted. Hosting is charged separately, and what it costs depends on what your business needs. We'll size it in the quote before starting.",
+        question: "Who handles hosting for a custom app?",
+      },
+      {
+        answer:
           "Yes. I build custom storefronts with Shopify handling the commerce side, and help with setup, checkout, payment gateways and content management. Marketing and automation aren't included in the standard ecommerce scope.",
         question: "Do you build online stores too?",
       },

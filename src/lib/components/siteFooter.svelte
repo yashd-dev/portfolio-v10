@@ -7,18 +7,6 @@
 </script>
 
 <footer class="{REVEAL} mt-28 pb-[220px] text-[14px] max-sm:pb-[170px]">
-	<div class="mb-10">
-		<p class="text-[13px] font-medium text-muted">Services</p>
-		<div class="mt-3 flex max-w-[560px] flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-muted">
-			{#each services as s}
-				<a
-					href="/services/{s.slug}"
-					class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current"
-					data-cursor={s.nav}>{s.nav}</a
-				>
-			{/each}
-		</div>
-	</div>
 	<p class="font-medium">Thanks for stopping by.</p>
 	{#if isPlay}
 		<p class="mt-3 text-soft">Won a round yet? Didn't think so.</p>
@@ -32,6 +20,18 @@
 			>.
 		</p>
 	{/if}
+	<div class="mt-10 mb-6">
+		<p class="text-[13px] font-medium text-muted">Services</p>
+		<div class="mt-3 flex max-w-[560px] flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-muted">
+			{#each services as s}
+				<a
+					href="/services/{s.slug}"
+					class="underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current"
+					data-cursor={s.nav}>{s.nav}</a
+				>
+			{/each}
+		</div>
+	</div>
 	<p class="mt-1 text-muted">
 		<a
 			href="/process"

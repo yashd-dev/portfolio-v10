@@ -160,34 +160,38 @@ export const services: Service[] = [
   {
     compare: {
       a: {
-        heading: "A stock theme fits when",
+        heading: "A theme decides for you",
         points: [
-          "You're launching quickly on a small budget",
-          "The default look is close enough for now",
-          "You don't want ongoing engineering to maintain",
+          "Design has to bend to the rules of the theme, not to your brand",
+          "Changing things later means finding a Liquid developer who'll work your way",
+          "The idea you had gets trimmed to whatever the theme allows",
         ],
       },
       b: {
-        heading: "Headless is worth it when",
+        heading: "Custom builds around the business",
         points: [
-          "The brand needs full control over how the store looks and feels",
-          "A theme can't express the idea, like pricing shown in the open on every surface",
-          "You're ready to invest in the store being the advantage",
+          "Every surface is designed for your brand, with Shopify underneath",
+          "Layout, flows and features follow the business, not a template",
+          "App and integration needs connected through supported APIs or built custom",
         ],
       },
-      title: "Headless or a stock theme?",
+      title: "Why custom, from day one?",
     },
     faqs: [
       {
         items: [
           {
             answer:
-              "No. A stock theme is fine for many stores, and I'll say so when it fits you. Headless is work: every Shopify update becomes ours to absorb. It pays off when the brand needs design control a theme can't give.",
-            question: "Do I need a headless store?",
+              "That's the way I'd build it. A theme makes every design decision negotiate with Shopify's rules, and changing things later means finding a Liquid developer who works the way you want. A custom storefront puts the design around your business from day one, while Shopify still handles products, cart and checkout. Where you need a Shopify app or integration, I'll evaluate it and connect it through its API or build the piece custom.",
+            question: "Why headless instead of a theme?",
           },
           pickFaq("Do you build online stores too?"),
           pickFaq("Can I update the website myself?"),
-          pickFaq("Who handles hosting? Are there recurring costs?"),
+          {
+            answer:
+              "I handle hosting for the stores I build, charged separately based on what your business needs. Shopify's own subscription and any paid apps or services are separate from the build fee; we'll clarify what your project needs in the quote.",
+            question: "Who handles hosting? Are there recurring costs?",
+          },
         ],
         title: "Shopify",
       },
@@ -199,8 +203,8 @@ export const services: Service[] = [
     ],
     indexNote: "Custom storefronts with Shopify underneath.",
     intro: [
-      "I build custom Shopify storefronts where Shopify owns products, cart and checkout, and everything your customer sees is designed and built for your brand. Actually Fair and MyPaithani, the stores below, both run exactly this way.",
-      "I also handle the parts around the store: setup, checkout, payment gateways, cash on delivery and a CMS you can edit yourself.",
+      "I build custom Shopify storefronts where Shopify owns products, cart and checkout, and everything your customer sees is designed and built for your brand. I'd steer any new store this way from day one: a theme makes you bend to Shopify's rules, a custom storefront bends to your business.",
+      "I also handle the parts around the store: setup, checkout, payment gateways, cash on delivery and a CMS you can edit yourself. Already on Shopify and sick of fighting a design someone else built? We can rebuild the front and keep your store running underneath.",
     ],
     markFill: "#8ed3a4",
     mumbai: true,
@@ -234,7 +238,7 @@ export const services: Service[] = [
         color: "#f59e0b",
         icon: ICONS.fixes,
         name: "Moving off a stock theme",
-        note: "When the theme can't give your brand the control it needs.",
+        note: "Rebuild the front around your brand, keep the store running underneath.",
       },
       {
         color: "#0ea5e9",
@@ -253,18 +257,6 @@ export const services: Service[] = [
       "Shopify developer in Mumbai building custom headless storefronts with SvelteKit and Next.js, plus the services around them. Setup, checkout and payment gateways included.",
     seoTitle: "Shopify Developer in Mumbai - Yash Deshpande",
     slug: "shopify-developer-mumbai",
-    stats: [
-      {
-        label:
-          "Monthly revenue growth at Actually Fair, with a significant Meta ads push alongside",
-        value: "~3x",
-      },
-      {
-        label: "Self-hosted services in the stack behind that storefront",
-        value: "~8",
-      },
-      { label: "Product categories on one calm catalog", value: "6" },
-    ],
     titleMark: "Shopify",
     titlePost: " developer in Mumbai",
     titlePre: "",
@@ -348,6 +340,7 @@ export const services: Service[] = [
         "What technology do you use? Do I need to understand it?",
         "What does the process look like?",
         "What about maintenance or changes later?",
+        "Who handles hosting for a custom app?",
         "How much does a website cost?",
       ]),
       {
@@ -383,8 +376,8 @@ export const services: Service[] = [
     ],
     indexNote: "Tools, dashboards and the services behind them.",
     intro: [
-      "I build web apps people log into and use: internal tools, dashboards, customer-facing platforms, and the APIs and services behind them, in production TypeScript. That includes AI features: retrieval over your own documents, chat and search that understand your content, built into the app.",
-      "Recent work: internal tools and a full-stack platform at KonectU; about eight self-hosted services behind the Actually Fair storefront; my own RAG-as-a-service platform doing tenant-scoped document retrieval over a Neo4j evidence graph; and Flask APIs for hallucination detection, chatbots and custom search running behind a live ecommerce app.",
+      "You bring the problem, I bring the build. Internal tools, dashboards, customer-facing platforms, and the APIs and services behind them, designed and built end to end in production TypeScript.",
+      "I work across frontend, backend, DevOps and AI. We can build RAG systems over your own documents, chat and search that understand your content, or a custom system designed around your workflow.",
     ],
     markFill: "#8ab6f2",
     nav: "Custom web app development",
