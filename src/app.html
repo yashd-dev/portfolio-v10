@@ -4,6 +4,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="text-scale" content="scale" />
+    <script>
+      try {
+        if (performance.getEntriesByType("navigation")[0]?.type === "reload") {
+          const info = JSON.parse(
+            sessionStorage.getItem("sveltekit:history-info") || "{}"
+          );
+          const index = history.state?.["sveltekit:metadata"]?.historyIndex;
+          const last = Object.values(info).at(-1);
+          const scroll =
+            (index != null ? info[index]?.scroll : null) ?? last?.scroll;
+          const y = scroll?.y ?? 0;
+          if (y > 0) {
+            const restore = () => scrollTo(scroll.x ?? 0, y);
+            restore();
+            addEventListener("DOMContentLoaded", restore, { once: true });
+          }
+        }
+      } catch {}
+    </script>
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">
