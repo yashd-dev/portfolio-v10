@@ -4,6 +4,7 @@
 	import SiteFooter from '#lib/components/siteFooter.svelte';
 	import { projects } from '#lib/data/content.js';
 	import { REVEAL } from '#lib/reveal.js';
+	import { stackTools } from '#lib/data/icons.js';
 </script>
 
 <svelte:head>
@@ -48,16 +49,40 @@
 					rel={p.caseStudy ? undefined : 'noopener noreferrer'}
 					data-cursor={p.caseStudy ? 'Case study' : p.cta}
 				>
-					<img
-						src={p.image}
-						alt="{p.name} homepage"
-						loading="lazy"
-						class="block aspect-[16/10] w-full rounded-xl bg-card object-cover shadow-inset-card transition-[transform,box-shadow] duration-700 ease-(--ease-mn) group-hover:scale-[1.012] group-hover:[box-shadow:0_0_0_1px_rgb(0_0_0/0.04),inset_0_0_0_8px_transparent,inset_0_0_0_9.5px_var(--il-card-line-hover,rgb(255_255_255/0.4)),0_16px_40px_-16px_rgb(0_0_0/0.18)]"
-					/>
+					<div
+						class="aspect-[16/10] w-full rounded-xl bg-cover bg-center"
+						style="background-image: url({p.dither})"
+					>
+						<div class="flex h-full items-center justify-center p-[7%]">
+							<img
+								src={p.image}
+								alt="{p.name} homepage"
+								loading="lazy"
+								class="h-full w-full rounded-lg object-cover shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
+							/>
+						</div>
+					</div>
 				</a>
 				<div class="mt-5">
 					<h3 class="text-[18px] leading-[1.35] font-medium text-ink">{p.name}</h3>
-					<p class="mt-1 text-[12px] tracking-[0.02em] text-faint">{p.meta}</p>
+					<p class="mt-1 text-[12px] tracking-[0.02em] text-faint max-sm:hidden">{p.meta}</p>
+					<div class="mt-3 hidden flex-wrap gap-2 max-sm:flex">
+						{#each stackTools(p.meta) as t}
+							<span
+								class="grid size-9 place-items-center rounded-[10px] bg-neutral-100 ring-1 ring-white ring-offset-2 ring-offset-neutral-100 ring-inset"
+								data-cursor={t.name}
+								title={t.name}
+							>
+								<svg
+									viewBox="0 0 24 24"
+									class="size-4"
+									style="fill: {t.color}"
+									role="img"
+									aria-label={t.name}><path d={t.path} /></svg
+								>
+							</span>
+						{/each}
+					</div>
 					<p class="mt-3 text-[14px] leading-[1.6] text-soft">{p.description}</p>
 					<div class="mt-4 flex flex-wrap items-center gap-4">
 						{#if p.caseStudy}

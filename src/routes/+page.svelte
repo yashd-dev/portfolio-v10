@@ -14,7 +14,7 @@
 		education,
 		shenanigans
 	} from '#lib/data/content.js';
-	import { toolGroups, toolIcons } from '#lib/data/icons.js';
+	import { stackTools, toolGroups, toolIcons } from '#lib/data/icons.js';
 
 	const dailyNames = ['Figma', 'TypeScript', 'Next.js', 'Svelte', 'Tailwind CSS', 'GitHub'];
 	const allTools = toolGroups.flatMap((g) => g.tools);
@@ -91,26 +91,6 @@
 		};
 	});
 
-	const stackAlias: Record<string, string> = {
-		'Headless Shopify': 'Shopify',
-		SvelteKit: 'Svelte',
-		Tailwind: 'Tailwind CSS'
-	};
-	const stackLookup = [
-		...allTools,
-		{
-			name: 'Google Translate',
-			color: '#4285f4',
-			desc: '',
-			path: 'M22.401 4.818h-9.927L10.927 0H1.599C.72 0 .002.719.002 1.599v16.275c0 .878.72 1.597 1.597 1.597h10L13.072 24H22.4c.878 0 1.597-.707 1.597-1.572V6.39c0-.865-.72-1.572-1.597-1.572zm-15.66 8.68c-2.07 0-3.75-1.68-3.75-3.75 0-2.07 1.68-3.75 3.75-3.75 1.012 0 1.86.375 2.512.976l-.99.952a2.194 2.194 0 0 0-1.522-.584c-1.305 0-2.363 1.08-2.363 2.409S5.436 12.16 6.74 12.16c1.507 0 2.13-1.08 2.19-1.808l-2.188-.002V9.066h3.51c.05.23.09.457.09.764 0 2.147-1.434 3.669-3.602 3.669zm16.757 8.93c0 .59-.492 1.072-1.097 1.072h-8.875l3.649-4.03h.005l-.74-2.302.006-.005s.568-.488 1.277-1.24c.712.771 1.63 1.699 2.818 2.805l.771-.772c-1.272-1.154-2.204-2.07-2.89-2.805.919-1.087 1.852-2.455 2.049-3.707h2.034v.002h.002v-.94h-4.532v-1.52h-1.471v1.52H14.3l-1.672-5.21.006.022h9.767c.605 0 1.097.48 1.097 1.072v16.038zm-6.484-7.311c-.536.548-.943.873-.943.873l-.008.004-1.46-4.548h4.764c-.307 1.084-.988 2.108-1.651 2.904-1.176-1.392-1.18-1.844-1.18-1.844h-1.222s.05.678 1.7 2.61z'
-		}
-	];
-	const stackTools = (meta: string) =>
-		meta
-			.split(', ')
-			.map((n) => stackLookup.find((t) => t.name === (stackAlias[n] ?? n)))
-			.filter((t) => t !== undefined);
-
 	async function copyEmail() {
 		try {
 			await navigator.clipboard.writeText(email);
@@ -160,14 +140,35 @@
 						<Mark definition={highlightCalm} fillColor="#8ab6f2">job opportunities</Mark>.
 					</p>
 				</div>
+				{#snippet techIcon(name: string)}
+					{@const t = allTools.find((x) => x.name === name)}
+					{#if t}
+						<span
+							class="mr-1 inline-flex size-[16px] translate-y-[2px] items-center justify-center rounded-[5px] ring-1 ring-white/45 ring-inset"
+							style="background-color: {t.color}"
+							title={t.name}
+						>
+							<svg
+								viewBox={t.viewBox ?? '0 0 24 24'}
+								class="size-[10px]"
+								style={t.raw ? '' : 'fill: #ffffff'}
+								role="img"
+								aria-label={t.name}
+							>
+								{#if t.raw}{@html t.raw}{:else}<path d={t.path} />{/if}
+							</svg>
+						</span>
+					{/if}
+				{/snippet}
 				<div class="{REVEAL} mt-6" style="--d: 220ms">
 					<p class="text-pretty text-soft">
 						I design and build B2B, agency, portfolio, SaaS and ecommerce sites, from Figma to
 						production
-						<Mark definition={highlightCalm} fillColor="#ffb26b">TypeScript</Mark>
-						across SvelteKit, headless
-						<Mark definition={highlightCalm} fillColor="#8ed3a4">Shopify</Mark>
-						and the odd microservice.
+						{@render techIcon('TypeScript')}<Mark definition={highlightCalm} fillColor="#ffb26b">TypeScript</Mark>
+						across {@render techIcon('Svelte')}SvelteKit, headless
+						{@render techIcon('Shopify')}<Mark definition={highlightCalm} fillColor="#8ed3a4">Shopify</Mark>
+						and the odd microservice in {@render techIcon('Bun')}Bun, {@render techIcon('ElysiaJS')}ElysiaJS
+						and {@render techIcon('Python')}Python.
 					</p>
 				</div>
 			</div>
@@ -292,7 +293,7 @@
 
 	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
 		{#snippet workDetail(p: (typeof projects)[number])}
-			<div class="p-2 pb-0">
+			<div>
 				<div
 					class="aspect-[16/10] w-full rounded-xl bg-cover bg-center"
 					style="background-image: url({p.dither})"
@@ -307,15 +308,24 @@
 					</div>
 				</div>
 			</div>
-			<div class="p-6 max-sm:p-5">
+			<div class="mt-5">
 				<h3 class="text-[18px] leading-[1.35] font-medium">{p.name}</h3>
 				<p class="mt-3 text-[14px] leading-[1.6] text-soft">{p.description}</p>
-				<div class="mt-4 flex flex-wrap gap-1.5">
-					{#each p.meta.split(', ') as tag}
+				<div class="mt-4 flex flex-wrap gap-2">
+					{#each stackTools(p.meta) as t}
 						<span
-							class="rounded-full bg-neutral-100 px-2.5 py-0.5 text-[10px] text-ink/70 ring-1 ring-white ring-offset-2 ring-offset-neutral-100 ring-inset"
-							>{tag}</span
+							class="grid size-9 place-items-center rounded-[10px] bg-neutral-100 ring-1 ring-white ring-offset-2 ring-offset-neutral-100 ring-inset"
+							data-cursor={t.name}
+							title={t.name}
 						>
+							<svg
+								viewBox="0 0 24 24"
+								class="size-4"
+								style="fill: {t.color}"
+								role="img"
+								aria-label={t.name}><path d={t.path} /></svg
+							>
+						</span>
 					{/each}
 				</div>
 				<div class="mt-5 flex flex-wrap items-center gap-4">
@@ -350,7 +360,7 @@
 				</div>
 			</div>
 			<a
-				class="absolute inset-0 rounded-2xl"
+				class="absolute inset-0 rounded-xl"
 				href={p.caseStudy ?? p.link}
 				target={p.caseStudy ? undefined : '_blank'}
 				rel={p.caseStudy ? undefined : 'noopener noreferrer'}
@@ -463,7 +473,7 @@
 			<div class="space-y-14 lg:hidden">
 				{#each projects as p, i}
 					<article class={REVEAL} style="--d: {i * 60}ms">
-						<div class="group relative rounded-2xl ring-1 ring-rule">
+						<div class="group relative">
 							{@render workDetail(p)}
 						</div>
 					</article>
