@@ -9,8 +9,10 @@
 
 	const paths = [
 		{
+			cta: "Let's talk",
+			external: true,
+			href: 'https://cal.com/yashd-dev/discussion',
 			id: 'project',
-			title: 'Start a project',
 			intro: 'For founders and teams who need a site designed and built.',
 			points: [
 				'Designed in Figma first, revised until you approve it',
@@ -18,13 +20,14 @@
 				'A CMS you can edit yourself',
 				'Progress and feedback along the way, not just at the end'
 			],
-			cta: 'See how I work',
-			href: '/process',
-			external: false
+			secondary: { cta: 'See how I work', external: false, href: '/process' },
+			title: 'Start a project'
 		},
 		{
+			cta: 'Book a call',
+			external: true,
+			href: 'https://cal.com/yashd-dev/discussion',
 			id: 'hire',
-			title: 'Hire me',
 			intro: "I'm open to job opportunities alongside freelance work.",
 			points: [
 				'Technical lead at Actually Fair',
@@ -33,9 +36,12 @@
 				'BTech Computer Engineering, MPSTME NMIMS',
 				'Based in Mumbai'
 			],
-			cta: 'Book a call',
-			href: 'https://cal.com/yashd-dev/discussion',
-			external: true
+			secondary: {
+				cta: 'Read my resume',
+				external: true,
+				href: '/yash-deshpande-resume.pdf'
+			},
+			title: 'Hire me'
 		}
 	] as const;
 
@@ -46,13 +52,13 @@
 
 	// Animate the message area's height when a reply opens or the path switches,
 	// so the card (and the section around it) glides instead of jumping.
-	function smoothResize(node: HTMLElement) {
+	const smoothResize = (node: HTMLElement) => {
 		let prev: number | null = null;
 		let anim: Animation | null = null;
 		const ro = new ResizeObserver(() => {
 			// Ignore size changes caused by our own height animation, otherwise each
 			// animated frame re-triggers the observer and animations stack forever.
-			if (anim) return;
+			if (anim) {return;}
 			const next = node.offsetHeight;
 			if (prev === null || next === prev) {
 				prev = next;
@@ -63,13 +69,13 @@
 					duration: 300,
 					easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
 				});
-				const done = () => {
+				const finish = () => {
 					anim = null;
 					// If content changed mid-animation, force a fresh measure so the
 					// next observer fire animates to the real height.
-					if (node.offsetHeight !== prev) prev = null;
+					if (node.offsetHeight !== prev) {prev = null;}
 				};
-				anim.finished.then(done, done);
+				anim.finished.then(finish).catch(finish);
 			}
 			prev = next;
 		});
@@ -79,7 +85,7 @@
 				ro.disconnect();
 			}
 		};
-	}
+	};
 </script>
 
 <section

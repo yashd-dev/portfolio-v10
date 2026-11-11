@@ -3,20 +3,22 @@
 
 	let copied = $state(false);
 
-	async function copyEmail() {
+	const copyEmail = async () => {
 		try {
 			await navigator.clipboard.writeText(email);
 			copied = true;
 			setTimeout(() => (copied = false), 1600);
-		} catch {}
-	}
+		} catch {
+			copied = false;
+		}
+	};
 
-	function toTop() {
-		const lenis = (window as unknown as { __lenis?: { scrollTo: (t: number, o?: object) => void } })
-			.__lenis;
-		if (lenis) lenis.scrollTo(0, { duration: 1.2 });
-		else window.scrollTo({ top: 0, behavior: 'smooth' });
-	}
+	const toTop = () => {
+		const w: Window & { __lenis?: { scrollTo: (t: number, o?: object) => void } } = window;
+		const lenis = w.__lenis;
+		if (lenis) {lenis.scrollTo(0, { duration: 1.2 });}
+		else {window.scrollTo({ behavior: 'smooth', top: 0 });}
+	};
 
 	const icon =
 		'relative inline-flex h-[38px] w-[38px] cursor-pointer items-center justify-center rounded-full bg-black/[0.035] text-ink transition-[background-color,transform] duration-200 after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/60 after:content-[""] after:transition-[border-color] after:duration-200 hover:-translate-y-0.5 hover:bg-black/[0.08] hover:after:border-white/85';
@@ -74,6 +76,27 @@
 				>
 			{/if}
 		</button>
+		<a
+			class={icon}
+			href="https://cal.com/yashd-dev/discussion"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Book a call"
+			data-cursor="Book a call ↗"
+		>
+			<svg
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.8"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="size-[17px]"
+				><rect x="3" y="4" width="18" height="18" rx="2.5" /><path
+					d="M16 2v4M8 2v4M3 10h18"
+				/></svg
+			>
+		</a>
 		<a
 			class={icon}
 			href="https://github.com/yashd-dev"

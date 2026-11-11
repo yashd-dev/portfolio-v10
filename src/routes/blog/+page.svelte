@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { REVEAL } from '#lib/reveal.js';
 	import SiteFooter from '#lib/components/siteFooter.svelte';
-	import { formatBlogDate, type BlogMeta } from '#lib/blog/BlogPost.js';
+	import { formatBlogDate } from '#lib/blog/BlogPost.js';
+	import type { BlogMeta } from '#lib/blog/BlogPost.js';
 
 	const mods = import.meta.glob('/src/lib/blog/content/*.mdx', { eager: true }) as Record<
 		string,
@@ -10,14 +11,11 @@
 
 	const posts = Object.entries(mods)
 		.map(([path, m]) => ({
-			slug: path
-				.split('/')
-				.pop()!
-				.replace(/\.mdx$/, ''),
+			slug: path.split('/').at(-1)?.replace(/\.mdx$/u, '') ?? '', 
 			...m.meta
 		}))
 		.filter((p) => !p.draft)
-		.sort((a, b) => (a.date < b.date ? 1 : -1));
+		.toSorted((a, b) => (a.date < b.date ? 1 : -1));
 </script>
 
 <svelte:head>
@@ -39,14 +37,24 @@
 			{#each posts as p}
 				<a
 					href="/blog/{p.slug}"
-					class="group/row flex items-baseline justify-between gap-4 border-b border-rule py-[18px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
+					class="group/row block border-b border-rule py-[18px] text-[14px] transition-[color,padding] duration-200 ease-(--ease-mn) hover:pl-1.5 hover:text-accent"
 					data-cursor="Read"
 				>
-					<div>
-						<span class="text-[15px] font-medium">{p.title}</span>
-						<p class="mt-0.5 text-soft">{p.summary}</p>
+					{#if p.thumb}
+						<img
+							src={p.thumb}
+							alt="{p.title} thumbnail"
+							loading="lazy"
+							class="mb-3 aspect-[16/9] w-full rounded-lg object-cover ring-1 ring-black/10"
+						/>
+					{/if}
+					<div class="flex items-baseline justify-between gap-4">
+						<div>
+							<span class="text-[15px] font-medium">{p.title}</span>
+							<p class="mt-0.5 text-soft">{p.summary}</p>
+						</div>
+						<span class="shrink-0 text-[11px] text-muted">{formatBlogDate(p.date)}</span>
 					</div>
-					<span class="shrink-0 text-[11px] text-muted">{formatBlogDate(p.date)}</span>
 				</a>
 			{/each}
 		</div>
