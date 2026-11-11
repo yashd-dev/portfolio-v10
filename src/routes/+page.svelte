@@ -40,6 +40,31 @@
 		.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 	let copied = $state(false);
+	let activeWork = $state(0);
+	let workSection = $state<HTMLElement | null>(null);
+
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		let raf = 0;
+		const onScroll = () => {
+			cancelAnimationFrame(raf);
+			raf = requestAnimationFrame(() => {
+				if (!workSection) return;
+				const r = workSection.getBoundingClientRect();
+				const total = r.height - window.innerHeight;
+				if (total <= 0) return;
+				const progress = Math.min(Math.max(-r.top / total, 0), 0.999);
+				activeWork = Math.floor(progress * projects.length);
+			});
+		};
+		window.addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+			cancelAnimationFrame(raf);
+		};
+	});
 
 	const stackAlias: Record<string, string> = {
 		'Headless Shopify': 'Shopify',
@@ -97,7 +122,7 @@
 		</div>
 		<div class="relative">
 			<div class="max-w-[600px]">
-				<h1 class="{REVEAL} text-[16px] leading-normal font-medium" style="--d: 60ms">
+				<h1 class="{REVEAL} text-[20px] leading-normal font-medium" style="--d: 60ms">
 					Hey, I'm Yash Deshpande
 				</h1>
 				<p class={REVEAL} style="--d: 100ms">a designer & developer based in Mumbai</p>
@@ -240,7 +265,7 @@
 		</div>
 	</section>
 
-	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
+	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]" bind:this={workSection}>
 		{#snippet workDetail(p: (typeof projects)[number])}
 			<div class="p-2 pb-0">
 				<div
@@ -263,7 +288,7 @@
 				<div class="mt-4 flex flex-wrap gap-1.5">
 					{#each p.meta.split(', ') as tag}
 						<span
-							class="rounded-full bg-neutral-100 px-2.5 py-0.5 text-[10px] text-ink/70 ring-1 ring-white ring-inset ring-offset-2 ring-offset-neutral-100"
+							class="rounded-full bg-neutral-100 px-2.5 py-0.5 text-[10px] text-ink/70 ring-1 ring-white ring-offset-2 ring-offset-neutral-100 ring-inset"
 							>{tag}</span
 						>
 					{/each}
@@ -271,7 +296,7 @@
 				<div class="mt-5 flex flex-wrap items-center gap-4">
 					{#if p.caseStudy}
 						<a
-							class="relative z-10 rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-4 py-2 text-[13px] font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
+							class="relative z-10 rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-4 py-2 text-[13px] font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 ring-inset hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
 							href={p.caseStudy}
 							data-cursor="Case study">Case Study</a
 						>
@@ -304,79 +329,100 @@
 				href={p.caseStudy ?? p.link}
 				target={p.caseStudy ? undefined : '_blank'}
 				rel={p.caseStudy ? undefined : 'noopener noreferrer'}
-				aria-label={p.caseStudy ? "{p.name} case study" : p.cta}
+				aria-label={p.caseStudy ? '{p.name} case study' : p.cta}
 				data-cursor={p.caseStudy ? 'Case study' : p.cta}
 			></a>
 		{/snippet}
 
-		<div class="hidden space-y-24 lg:block">
-			{#each projects as p, i}
-				<div
-					class="{REVEAL} group grid grid-cols-[minmax(0,5fr)_minmax(0,6fr)] items-center gap-16"
-					style="--d: {i * 60}ms"
-				>
+		<div class="lg:grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16">
+			<div
+				class="max-lg:mb-[22px] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-center"
+			>
+				<div class="hidden lg:block">
 					<div>
-						<h3 class="text-[24px] leading-[1.25] font-medium">{p.name}</h3>
-						<div class="mt-5 grid grid-cols-[72px_1fr] gap-y-3 text-[14px] leading-[1.6]">
-							<span class="text-faint">Problem</span>
-							<p class="text-soft">{p.problem}</p>
-							<span class="text-faint">Outcome</span>
-							<p>{p.outcome}</p>
-						</div>
-						<div class="mt-5 flex flex-wrap gap-2">
-							{#each stackTools(p.meta) as t}
-								<span
-									class="grid size-9 place-items-center rounded-[10px] bg-neutral-100 ring-1 ring-white ring-inset ring-offset-2 ring-offset-neutral-100"
-									data-cursor={t.name}
-									title={t.name}
-								>
-									<svg
-										viewBox="0 0 24 24"
-										class="size-4"
-										style="fill: {t.color}"
-										role="img"
-										aria-label={t.name}><path d={t.path} /></svg
+						<div>
+							<p class="text-[11px] text-faint">
+								{String(activeWork + 1).padStart(2, '0')} / {String(projects.length).padStart(
+									2,
+									'0'
+								)}
+							</p>
+							<h3 class="mt-2 text-[20px] leading-[1.25] font-medium">
+								{projects[activeWork].name}
+							</h3>
+							<p class="mt-3 text-[14px] leading-[1.6] text-soft">
+								{projects[activeWork].description}
+							</p>
+							<div class="mt-5 space-y-4 text-[14px] leading-[1.6]">
+								<div>
+									<p class="text-faint">Problem</p>
+									<p class="mt-1 text-soft">{projects[activeWork].problem}</p>
+								</div>
+								<div>
+									<p class="text-faint">Outcome</p>
+									<p class="mt-1">{projects[activeWork].outcome}</p>
+								</div>
+							</div>
+							<div class="mt-5 flex flex-wrap gap-2">
+								{#each stackTools(projects[activeWork].meta) as t}
+									<span
+										class="grid size-9 place-items-center rounded-[10px] bg-neutral-100 ring-1 ring-white ring-offset-2 ring-offset-neutral-100 ring-inset"
+										data-cursor={t.name}
+										title={t.name}
 									>
-								</span>
-							{/each}
-						</div>
-						<div class="mt-6 flex flex-wrap items-center gap-4">
-							{#if p.caseStudy}
+										<svg
+											viewBox="0 0 24 24"
+											class="size-4"
+											style="fill: {t.color}"
+											role="img"
+											aria-label={t.name}><path d={t.path} /></svg
+										>
+									</span>
+								{/each}
+							</div>
+							<div class="mt-6 flex flex-wrap items-center gap-4">
+								{#if projects[activeWork].caseStudy}
+									<a
+										class="rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-4 py-2 text-[13px] font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 ring-inset hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
+										href={projects[activeWork].caseStudy}
+										data-cursor="Case study">Case Study</a
+									>
+								{/if}
 								<a
-									class="rounded-full bg-linear-to-b from-[#3578ff] to-[#2e74ff] px-4 py-2 text-[13px] font-medium text-white shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)_inset] ring ring-white/20 ring-inset ring-offset-2 ring-offset-[#2e74ff] transition-all duration-200 hover:shadow-[0px_0px_20px_0px_rgba(255,255,255,0.4)_inset] hover:ring-white/40 active:scale-98"
-									href={p.caseStudy}
-									data-cursor="Case study">Case Study</a
+									class="group/link inline-flex items-center gap-1.5 text-[14px] text-muted underline underline-offset-4 transition-colors duration-200 hover:text-ink"
+									href={projects[activeWork].link}
+									target="_blank"
+									rel="noopener noreferrer"
+									data-cursor={projects[activeWork].cta}
 								>
-							{/if}
-							<a
-								class="group/link inline-flex items-center gap-1.5 text-[14px] text-muted underline underline-offset-4 transition-colors duration-200 hover:text-ink"
-								href={p.link}
-								target="_blank"
-								rel="noopener noreferrer"
-								data-cursor={p.cta}
-							>
-								{p.cta}
-								<svg
-									class="transition-transform duration-300 ease-(--ease-mn) group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
-									width="13"
-									height="13"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
-								>
-							</a>
+									{projects[activeWork].cta}
+									<svg
+										class="transition-transform duration-300 ease-(--ease-mn) group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+										width="13"
+										height="13"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+									>
+								</a>
+							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="hidden space-y-24 lg:block">
+				{#each projects as p, i}
 					<a
-						class="block"
+						class="{REVEAL} group block"
+						style="--d: {i * 60}ms"
 						href={p.caseStudy ?? p.link}
 						target={p.caseStudy ? undefined : '_blank'}
 						rel={p.caseStudy ? undefined : 'noopener noreferrer'}
-						aria-label={p.caseStudy ? "{p.name} case study" : p.cta}
+						aria-label={p.caseStudy ? `${p.name} case study` : p.cta}
 						data-cursor={p.caseStudy ? 'Case study' : p.cta}
 					>
 						<div
@@ -393,11 +439,10 @@
 							</div>
 						</div>
 					</a>
-				</div>
-			{/each}
-		</div>
+				{/each}
+			</div>
 
-		<div class="space-y-14 lg:hidden">
+			<div class="space-y-14 lg:hidden">
 				{#each projects as p, i}
 					<article class={REVEAL} style="--d: {i * 60}ms">
 						<div class="group relative rounded-2xl ring-1 ring-rule">
@@ -405,6 +450,7 @@
 						</div>
 					</article>
 				{/each}
+			</div>
 		</div>
 	</section>
 
@@ -420,7 +466,7 @@
 		<div class="{REVEAL} mt-[22px] flex flex-wrap gap-2" style="--d: 60ms">
 			{#each dailyTools as t}
 				<span
-					class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3.5 py-2 text-[13px] font-medium text-ink ring-1 ring-white ring-inset ring-offset-2 ring-offset-neutral-100"
+					class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3.5 py-2 text-[13px] font-medium text-ink ring-1 ring-white ring-offset-2 ring-offset-neutral-100 ring-inset"
 				>
 					<svg
 						viewBox="0 0 24 24"
@@ -487,7 +533,9 @@
 						<span class="font-medium">{s.title}</span>
 						<p class="mt-0.5 max-w-[40ch] text-soft">{s.note}</p>
 					</div>
-					<div class="flex shrink-0 items-center gap-9 max-sm:w-full max-sm:items-start max-sm:justify-between">
+					<div
+						class="flex shrink-0 items-center gap-9 max-sm:w-full max-sm:items-start max-sm:justify-between"
+					>
 						<img
 							src={s.thumb}
 							alt="{s.title} preview"
@@ -495,27 +543,27 @@
 							loading="lazy"
 						/>
 						{#if s.repo}
-						<a
-							href={s.repo}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="group/gh inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
-							data-cursor="GitHub"
-						>
-							GitHub
-							<svg
-								class="transition-transform duration-300 ease-(--ease-mn) group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5"
-								width="12"
-								height="12"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+							<a
+								href={s.repo}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="group/gh inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
+								data-cursor="GitHub"
 							>
-						</a>
+								GitHub
+								<svg
+									class="transition-transform duration-300 ease-(--ease-mn) group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5"
+									width="12"
+									height="12"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+								>
+							</a>
 						{/if}
 					</div>
 				</div>
@@ -533,7 +581,10 @@
 					data-cursor="All writing">All writing</a
 				>
 			</div>
-			<div class="{REVEAL} mt-[22px] border-t border-rule sm:grid sm:grid-cols-2 sm:gap-x-10" style="--d: 60ms">
+			<div
+				class="{REVEAL} mt-[22px] border-t border-rule sm:grid sm:grid-cols-2 sm:gap-x-10"
+				style="--d: 60ms"
+			>
 				{#each blogPosts.slice(0, 3) as p}
 					<a
 						href="/blog/{p.slug}"
