@@ -106,7 +106,7 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 ></div>
 
 <div class="relative mx-auto w-full max-w-6xl">
-	<div class="relative px-6 pt-[320px] pb-16 max-sm:pt-[280px] sm:px-10">
+	<div class="relative px-6 pt-[320px] pb-16 max-sm:pt-[350px] sm:px-10">
 		<h1 class="relative text-[16px] leading-normal font-medium">
 			How I <Mark definition={highlightCalm} fillColor="#8ab6f2">work</Mark>
 		</h1>
@@ -126,8 +126,8 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 	</div>
 
 	<div class="px-6 sm:px-10">
-		<p class="mt-16 mb-10 text-sm font-medium text-muted">What I can help with</p>
-		<div class="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+		<p class="mt-16 mb-10 text-sm font-medium text-muted max-sm:mt-8 max-sm:mb-6">What I can help with</p>
+		<div class="grid grid-cols-2 gap-x-6 gap-y-8 sm:gap-x-10 sm:gap-y-10 lg:grid-cols-3">
 			{#each services as s}
 				<div class="flex flex-col">
 					<svg

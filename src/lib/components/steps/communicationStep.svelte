@@ -58,7 +58,7 @@
 
 <div class="flex h-full flex-col">
 	<div
-		class="relative min-h-0 flex-1 bg-[url(/clouds.webp)] bg-cover bg-center px-3 py-3 shadow-[0px_0px_14px_0px_var(--color-neutral-200)_inset] md:px-5 md:py-5"
+		class="relative min-h-0 flex-1 bg-[linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.6)),url(/clouds.webp)] bg-cover bg-center px-3 py-3 shadow-[0px_0px_14px_0px_var(--color-neutral-200)_inset] md:px-5 md:py-5"
 	>
 		<div
 			class="relative z-20 flex h-full min-h-0 w-full items-stretch justify-center overflow-hidden rounded-xl bg-[#efeae2] shadow-[0_24px_40px_-20px_rgba(38,38,43,0.30),0_10px_24px_0_rgba(38,38,43,0.06),0_1px_1px_0_rgba(38,38,43,0.16),0_0_0_1px_rgba(38,38,43,0.05),0_8px_14px_-10px_rgba(38,38,43,0.40)]"

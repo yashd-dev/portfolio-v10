@@ -117,8 +117,7 @@ export const shenanigans = [
 
 export const socials = [
 	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/yashd-dev/' },
-	{ label: 'GitHub', href: 'https://github.com/yashd-dev' },
-	{ label: 'yashd.in', href: 'https://yashd.in' }
+	{ label: 'GitHub', href: 'https://github.com/yashd-dev' }
 ];
 
 export const email = 'yashdeshpande714@gmail.com';

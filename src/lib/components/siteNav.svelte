@@ -46,9 +46,6 @@
 
 	let active = $state('intro');
 	let openNav = $state<'sections' | 'pages' | null>(null);
-	const anyPageCurrent = $derived(
-		PAGES.some((p) => (p.href === '/' ? pathname === '/' : pathname.startsWith(p.href)))
-	);
 	let pagesNav: HTMLElement;
 	let scrolled = $state(false);
 	let track: HTMLDivElement;
@@ -291,12 +288,7 @@
 		<div class="inline-flex items-center gap-2">
 			<nav
 				bind:this={pagesNav}
-				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
-				'pages'
-					? 'max-sm:max-w-[calc(100vw-82px)]'
-					: anyPageCurrent
-						? 'max-sm:max-w-[104px]'
-						: 'max-sm:max-w-[46px]'} {scrolled ? scrolledCls : ''}"
+				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:max-w-[calc(100vw-24px)] {scrolled ? scrolledCls : ''}"
 				aria-label="Pages"
 			>
 				{#each PAGES as p}
@@ -305,58 +297,12 @@
 						href={p.href}
 						data-cursor={p.label}
 						aria-current={isCurrent ? 'page' : undefined}
-						class="inline-flex h-8 shrink-0 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-[color,width,padding,opacity] duration-200 max-sm:px-2.5 max-sm:duration-[450ms] max-sm:ease-(--ease-mn) {isCurrent
+						class="inline-flex h-8 shrink-0 items-center rounded-full px-[13px] text-[13px] font-medium whitespace-nowrap transition-[color,width,padding,opacity] duration-200 max-sm:px-2 max-sm:duration-[450ms] max-sm:ease-(--ease-mn) {isCurrent
 							? 'bg-white text-ink shadow-[0_1px_2px_#00000014,0_0_0_0.5px_#0000000a]'
-							: 'text-muted hover:text-ink'} {isCurrent || openNav === 'pages'
-							? ''
-							: 'max-sm:w-0 max-sm:overflow-hidden max-sm:px-0! max-sm:opacity-0'}"
+							: 'text-muted hover:text-ink'}"
 						onclick={() => (openNav = null)}>{p.label}</a
 					>
 				{/each}
-				{#if !anyPageCurrent}
-					<span
-						class="hidden size-8 flex-none place-items-center text-muted max-sm:grid {openNav ===
-						'pages'
-							? 'max-sm:hidden'
-							: ''}"
-						aria-hidden="true"
-					>
-						<svg
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="size-3.5"
-							><circle cx="12" cy="12" r="10" /><path d="m16 8-2.5 5.5L8 16l2.5-5.5z" /></svg
-						>
-					</span>
-				{/if}
-				<span
-					class="hidden size-[26px] flex-none place-items-center text-muted max-sm:grid"
-					aria-hidden="true"
-				>
-					<svg
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="size-3 transition-transform duration-300 ease-(--ease-mn) {openNav === 'pages'
-							? 'rotate-180'
-							: ''}"><path d="m6 9 6 6 6-6" /></svg
-					>
-				</span>
-				{#if openNav !== 'pages'}
-					<button
-						type="button"
-						class="absolute inset-0 z-[2] hidden cursor-pointer rounded-full max-sm:block"
-						aria-label="Open page navigation"
-						onclick={() => (openNav = 'pages')}
-					></button>
-				{/if}
 			</nav>
 		</div>
 	</div>
