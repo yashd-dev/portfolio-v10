@@ -165,9 +165,9 @@
 		? 'max-sm:before:opacity-100'
 		: ''}"
 >
-	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3 max-sm:justify-center">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] max-sm:hidden transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {openNav ===
 			'sections'
 				? 'max-sm:max-w-[calc(100vw-140px)]'
 				: openNav === 'pages'

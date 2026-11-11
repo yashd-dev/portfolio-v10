@@ -119,7 +119,7 @@
 </script>
 
 <div class="flex h-full flex-col">
-	<div class="relative flex-1 bg-neutral-50 px-4 py-6 md:px-8 md:py-8">
+	<div class="relative flex-1 bg-[url(/clouds.webp)] bg-cover bg-center px-4 py-6 md:px-8 md:py-8">
 		<div class="relative z-20 flex min-h-96 w-full items-center justify-center">
 			<div
 				class="w-full max-w-[min(100%,400px)] overflow-hidden rounded-3xl bg-white p-4 text-left shadow-[0_24px_40px_-20px_rgba(38,38,43,0.30),0_10px_24px_0_rgba(38,38,43,0.06),0_1px_1px_0_rgba(38,38,43,0.16),0_0_0_1px_rgba(38,38,43,0.05),0_8px_14px_-10px_rgba(38,38,43,0.40)]"

@@ -146,14 +146,14 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 			{/each}
 		</div>
 
-		<p class="mt-16 mb-10 text-sm font-medium text-muted">The process</p>
+		<p class="mt-16 mb-10 text-sm font-medium text-muted max-sm:mt-12 max-sm:mb-5">The process</p>
 		<div
 			class="grid grid-cols-1 border-b border-dashed border-neutral-200 md:grid-cols-2 [&>*]:border-dashed [&>*]:border-neutral-200 [&>*:not(:last-child)]:border-b md:[&>*:nth-child(n+3)]:border-b-0 md:[&>*:nth-child(odd)]:border-r"
 		>
 			{#each steps as s, i}
 				<section
 					id={s.id}
-					class="flex min-w-0 scroll-mt-[88px] flex-col px-4 py-6 md:py-8 {i % 2 === 0
+					class="flex min-w-0 scroll-mt-[88px] flex-col px-0 py-6 max-sm:pt-4 md:py-8 {i % 2 === 0
 						? 'md:pr-8 md:pl-0'
 						: 'md:pr-0 md:pl-8'}"
 				>

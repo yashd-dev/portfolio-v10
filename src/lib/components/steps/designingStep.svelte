@@ -74,12 +74,12 @@
 
 <div class="flex h-full flex-col">
 	<div
-		class="relative flex-1 bg-neutral-50 px-4 py-6 shadow-[0px_0px_14px_0px_var(--color-neutral-200)_inset] md:px-8 md:py-8"
+		class="relative flex flex-1 items-center bg-[url(/clouds.webp)] bg-cover bg-center px-4 py-6 shadow-[0px_0px_14px_0px_var(--color-neutral-200)_inset] md:px-8 md:py-8"
 	>
 		<div
-			class="relative z-20 flex h-full min-h-96 w-full overflow-hidden rounded-xl bg-neutral-100 shadow-[0_24px_40px_-20px_rgba(38,38,43,0.30),0_10px_24px_0_rgba(38,38,43,0.06),0_1px_1px_0_rgba(38,38,43,0.16),0_0_0_1px_rgba(38,38,43,0.05),0_8px_14px_-10px_rgba(38,38,43,0.40)]"
+			class="relative z-20 flex h-[300px] w-full overflow-hidden rounded-xl bg-neutral-100 shadow-[0_24px_40px_-20px_rgba(38,38,43,0.30),0_10px_24px_0_rgba(38,38,43,0.06),0_1px_1px_0_rgba(38,38,43,0.16),0_0_0_1px_rgba(38,38,43,0.05),0_8px_14px_-10px_rgba(38,38,43,0.40)] md:h-[320px]"
 		>
-			<div class="hidden h-full w-20 bg-white sm:block">
+			<div class="hidden h-full w-20 shrink-0 bg-white sm:block">
 				<div class="flex items-center justify-between p-2">
 					<svg
 						viewBox="0 0 24 24"
@@ -126,11 +126,26 @@
 						</div>
 					{/each}
 				</div>
+				<hr class="my-1 text-neutral-200" />
+				<div class="mt-1 flex flex-col gap-1 px-2">
+					{#each ['Hero', 'Cards', 'Footer'] as layer}
+						<div class="flex items-center gap-1">
+							<svg
+								viewBox="0 0 24 24"
+								class="size-2 text-neutral-400"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" /></svg
+							>
+							<p class="text-[8px] text-neutral-400">{layer}</p>
+						</div>
+					{/each}
+				</div>
 			</div>
-			<div class="relative flex min-h-48 w-full flex-1 items-start justify-center p-2">
+			<div class="relative flex min-h-0 w-full flex-1 items-start justify-center p-2.5">
 				<div
 					bind:this={container}
-					class="relative flex h-full min-h-44 w-full max-w-full items-start justify-center gap-1.5"
+					class="relative flex h-full w-full max-w-full items-start justify-center gap-2"
 				>
 					<div bind:this={cursor} class="pointer-events-none absolute top-0 left-0 z-30">
 						<div class="relative">
@@ -152,95 +167,151 @@
 							</div>
 						</div>
 					</div>
-					<div
-						bind:this={c1}
-						class="flex h-full min-w-0 flex-1 flex-col rounded-md bg-white p-1.5 shadow-sm ring-1 ring-black/5"
-					>
-						<div class="flex items-center justify-between gap-1">
-							<div class="flex items-center gap-0.5">
-								<div class="size-2 animate-pulse rounded-sm bg-neutral-300"></div>
-								<div class="h-1 w-6 animate-pulse rounded bg-neutral-200"></div>
-							</div>
-							<div class="flex gap-0.5">
-								<div class="h-1 w-4 animate-pulse rounded-full bg-neutral-100"></div>
-								<div class="h-1 w-4 animate-pulse rounded-full bg-neutral-100"></div>
-								<div class="size-2 animate-pulse rounded-full bg-neutral-200"></div>
-							</div>
-						</div>
+					<div class="flex min-w-0 flex-[1.6] flex-col gap-1">
+						<p class="truncate text-[7px] text-neutral-400">Home</p>
 						<div
-							class="relative mt-1 min-h-[56px] flex-1 rounded-md bg-gradient-to-b from-neutral-100/90 to-neutral-200/60 ring-1 ring-neutral-200/50 ring-inset"
+							bind:this={c1}
+							class="flex h-[248px] min-w-0 flex-col rounded-md bg-white p-1.5 shadow-sm ring-1 ring-black/5"
 						>
-							<div
-								class="absolute top-1 right-1 h-2 w-7 animate-pulse rounded-md bg-white/80 shadow-sm ring-1 ring-neutral-200/60"
-							></div>
-							<div class="absolute bottom-1 left-1/2 flex -translate-x-1/2 gap-0.5">
-								<div class="size-1 animate-pulse rounded-full bg-white/70"></div>
-								<div class="size-1 animate-pulse rounded-full bg-white/40"></div>
-								<div class="size-1 animate-pulse rounded-full bg-white/40"></div>
-							</div>
-						</div>
-						<div class="mt-1.5 space-y-1 text-center">
-							<div class="mx-auto h-1 w-12 animate-pulse rounded-full bg-neutral-300/90"></div>
-							<div class="mx-auto h-2 w-[92%] animate-pulse rounded bg-neutral-200"></div>
-							<div class="mx-auto h-1.5 w-3/4 animate-pulse rounded bg-neutral-100"></div>
-							<div class="flex items-center justify-center gap-1 pt-0.5">
-								<div class="h-3 w-10 animate-pulse rounded-md bg-neutral-800/80"></div>
-								<div class="h-3 w-10 animate-pulse rounded-md bg-neutral-100"></div>
-							</div>
-						</div>
-					</div>
-					<div
-						bind:this={c2}
-						class="flex h-32 min-w-0 flex-1 flex-col justify-between rounded-md bg-white p-1.5 shadow-sm ring-1 ring-black/5"
-					>
-						<div class="flex items-center justify-between">
-							<div class="h-1.5 w-6 animate-pulse rounded bg-neutral-300/80"></div>
-							<div class="flex gap-px">
-								<div class="size-1.5 animate-pulse rounded-sm bg-neutral-200"></div>
-								<div class="size-1.5 animate-pulse rounded-sm bg-neutral-200"></div>
-								<div class="size-1.5 animate-pulse rounded-sm bg-neutral-200"></div>
-							</div>
-						</div>
-						<div class="space-y-0.5 rounded border border-neutral-100 bg-neutral-50/80 px-1 py-0.5">
 							<div class="flex items-center gap-1">
-								<div class="size-1.5 shrink-0 animate-pulse rounded-full bg-neutral-300"></div>
-								<div class="h-1 flex-1 animate-pulse rounded-full bg-neutral-200/70"></div>
+								<div class="size-1.5 rounded-full bg-neutral-200"></div>
+								<div class="size-1.5 rounded-full bg-neutral-200"></div>
+								<div class="size-1.5 rounded-full bg-neutral-200"></div>
+								<div class="ml-1 h-1.5 flex-1 rounded-full bg-neutral-100 ring-1 ring-neutral-200/70 ring-inset"></div>
 							</div>
-						</div>
-						<div class="flex items-center justify-center gap-1">
-							<div class="h-2 w-2 animate-pulse rounded-full bg-neutral-300/90"></div>
-							<div class="h-2 flex-1 animate-pulse rounded bg-neutral-200/60"></div>
-						</div>
-						<div class="flex justify-center gap-1">
-							<div class="h-0.5 w-4 animate-pulse rounded-full bg-neutral-200"></div>
-							<div class="h-0.5 w-4 animate-pulse rounded-full bg-neutral-100"></div>
-							<div class="h-0.5 w-4 animate-pulse rounded-full bg-neutral-100"></div>
-						</div>
-					</div>
-					<div
-						bind:this={c3}
-						class="flex h-44 min-w-0 flex-1 flex-row gap-1.5 rounded-md bg-white p-1.5 shadow-sm ring-1 ring-black/5"
-					>
-						<div class="flex w-[48%] shrink-0 flex-col gap-1">
-							<div class="h-1 w-4 animate-pulse rounded bg-neutral-300/70"></div>
-							<div
-								class="min-h-0 flex-1 rounded-md bg-gradient-to-br from-neutral-50 via-white to-neutral-200/70 ring-1 ring-neutral-200/80 ring-inset"
-							>
-								<div class="m-1 space-y-0.5">
-									<div class="h-0.5 w-full animate-pulse rounded bg-white/60"></div>
-									<div class="h-0.5 w-4/5 animate-pulse rounded bg-white/50"></div>
-									<div class="mt-1 grid grid-cols-2 gap-0.5">
-										<div class="aspect-square animate-pulse rounded bg-white/40"></div>
-										<div class="aspect-square animate-pulse rounded bg-white/30"></div>
+							<div class="mt-1.5 flex items-center justify-between">
+								<div class="flex items-center gap-1">
+									<div class="size-2 animate-pulse rounded-sm bg-neutral-300"></div>
+									<div class="h-1 w-5 animate-pulse rounded bg-neutral-200"></div>
+								</div>
+								<div class="flex items-center gap-0.5">
+									<div class="h-1 w-3 rounded-full bg-neutral-100"></div>
+									<div class="h-1 w-3 rounded-full bg-neutral-100"></div>
+									<div class="size-2 rounded-full bg-neutral-200"></div>
+								</div>
+							</div>
+							<div class="mt-2 flex flex-col items-start gap-1">
+								<div class="h-1.5 w-8 animate-pulse rounded-full bg-neutral-100 ring-1 ring-neutral-200/60 ring-inset"></div>
+								<div class="h-2 w-4/5 animate-pulse rounded bg-neutral-300/90"></div>
+								<div class="h-2 w-3/5 animate-pulse rounded bg-neutral-300/70"></div>
+								<div class="mt-0.5 h-1 w-full rounded-full bg-neutral-100"></div>
+								<div class="h-1 w-5/6 rounded-full bg-neutral-100"></div>
+								<div class="mt-1 flex gap-1">
+									<div class="h-3 w-9 animate-pulse rounded-md bg-neutral-800/80"></div>
+									<div class="h-3 w-9 animate-pulse rounded-md bg-neutral-100 ring-1 ring-neutral-200/70 ring-inset"></div>
+								</div>
+							</div>
+							<div class="mt-2 flex min-h-0 flex-1 gap-1">
+								<div class="flex min-w-0 flex-1 flex-col justify-center gap-1">
+									<div class="h-1 w-full rounded-full bg-neutral-200/70"></div>
+									<div class="h-1 w-full rounded-full bg-neutral-200/50"></div>
+									<div class="h-1 w-2/3 rounded-full bg-neutral-200/50"></div>
+									<div class="mt-1 h-1.5 w-6 rounded bg-neutral-200/80"></div>
+								</div>
+								<div
+									class="relative min-h-0 w-[46%] shrink-0 rounded-md bg-gradient-to-br from-neutral-100/90 to-neutral-200/60 ring-1 ring-neutral-200/50 ring-inset"
+								>
+									<div
+										class="absolute top-1 right-1 h-1.5 w-5 animate-pulse rounded-md bg-white/80 shadow-sm ring-1 ring-neutral-200/60"
+									></div>
+									<div class="absolute bottom-1 left-1/2 flex -translate-x-1/2 gap-0.5">
+										<div class="size-1 rounded-full bg-white/70"></div>
+										<div class="size-1 rounded-full bg-white/40"></div>
+										<div class="size-1 rounded-full bg-white/40"></div>
 									</div>
 								</div>
 							</div>
+							<div class="mt-1.5 grid grid-cols-3 gap-1">
+								{#each [0, 1, 2] as card}
+									<div class="rounded-sm ring-1 ring-neutral-200/60 ring-inset">
+										<div
+											class="m-0.5 h-4 animate-pulse rounded-sm bg-neutral-200/70"
+											style="animation-delay: {card * 150}ms"
+										></div>
+										<div class="mx-1 mb-0.5 h-0.5 w-4/5 rounded-full bg-neutral-200/70"></div>
+										<div class="mx-1 mb-1 h-0.5 w-3/5 rounded-full bg-neutral-100"></div>
+									</div>
+								{/each}
+							</div>
 						</div>
-						<div class="flex min-w-0 flex-1 flex-col justify-center gap-1 pl-0.5">
-							<div class="h-1 w-3/4 animate-pulse rounded-full bg-neutral-300/80"></div>
-							<div class="h-1 w-full animate-pulse rounded-full bg-neutral-200/70"></div>
-							<div class="h-1 w-2/3 animate-pulse rounded-full bg-neutral-200/50"></div>
-							<div class="mt-1 h-2 w-1/2 animate-pulse rounded-md bg-neutral-800/70"></div>
+					</div>
+					<div class="flex min-w-0 flex-1 flex-col gap-1">
+						<p class="truncate text-[7px] text-neutral-400">Mobile</p>
+						<div
+							bind:this={c2}
+							class="flex h-[196px] min-w-0 flex-col rounded-md bg-white p-1.5 shadow-sm ring-1 ring-black/5"
+						>
+							<div class="flex items-center justify-between">
+								<div class="h-1 w-4 animate-pulse rounded-full bg-neutral-300/80"></div>
+								<div class="flex gap-px">
+									<div class="size-1 rounded-sm bg-neutral-200"></div>
+									<div class="size-1 rounded-sm bg-neutral-200"></div>
+									<div class="size-1 rounded-sm bg-neutral-200"></div>
+								</div>
+							</div>
+							<div
+								class="relative mt-1 h-14 shrink-0 rounded-md bg-gradient-to-b from-neutral-100/90 to-neutral-200/60 ring-1 ring-neutral-200/50 ring-inset"
+							>
+								<div
+									class="absolute right-1 bottom-1 h-1.5 w-5 animate-pulse rounded-md bg-white/80 shadow-sm ring-1 ring-neutral-200/60"
+								></div>
+							</div>
+							<div class="mt-1.5 space-y-1">
+								<div class="h-1.5 w-3/4 animate-pulse rounded bg-neutral-300/80"></div>
+								<div class="h-1 w-full animate-pulse rounded-full bg-neutral-200/70"></div>
+								<div class="h-1 w-5/6 animate-pulse rounded-full bg-neutral-200/50"></div>
+							</div>
+							<div class="mt-1.5 h-3 w-10 animate-pulse rounded-md bg-neutral-800/80"></div>
+							<div class="mt-auto space-y-1">
+								{#each [0, 1] as row}
+									<div class="flex items-center gap-1 rounded border border-neutral-100 bg-neutral-50/80 px-1 py-0.5">
+										<div class="size-1.5 shrink-0 animate-pulse rounded-full bg-neutral-300" style="animation-delay: {row * 200}ms"></div>
+										<div class="h-1 flex-1 animate-pulse rounded-full bg-neutral-200/70" style="animation-delay: {row * 200}ms"></div>
+									</div>
+								{/each}
+							</div>
+						</div>
+					</div>
+					<div class="flex min-w-0 flex-[1.3] flex-col gap-1">
+						<p class="truncate text-[7px] text-neutral-400">Case study</p>
+						<div
+							bind:this={c3}
+							class="flex h-[218px] min-w-0 flex-col rounded-md bg-white p-1.5 shadow-sm ring-1 ring-black/5"
+						>
+							<div class="flex items-center gap-1">
+								<div class="size-1.5 rounded-full bg-neutral-200"></div>
+								<div class="size-1.5 rounded-full bg-neutral-200"></div>
+								<div class="size-1.5 rounded-full bg-neutral-200"></div>
+								<div class="ml-1 h-1.5 flex-1 rounded-full bg-neutral-100 ring-1 ring-neutral-200/70 ring-inset"></div>
+							</div>
+							<div class="mt-1.5 flex min-h-0 flex-1 gap-1.5">
+								<div class="flex w-[34%] shrink-0 flex-col gap-1 rounded-md bg-neutral-50/80 p-1 ring-1 ring-neutral-200/50 ring-inset">
+									<div class="h-1 w-3/4 animate-pulse rounded-full bg-neutral-300/80"></div>
+									<div class="h-0.5 w-full rounded-full bg-neutral-200/70"></div>
+									<div class="h-0.5 w-full rounded-full bg-neutral-200/50"></div>
+									<div class="h-0.5 w-4/5 rounded-full bg-neutral-200/50"></div>
+									<div class="h-0.5 w-full rounded-full bg-neutral-200/40"></div>
+									<div class="h-0.5 w-3/5 rounded-full bg-neutral-200/40"></div>
+								</div>
+								<div class="flex min-w-0 flex-1 flex-col gap-1">
+									<div class="h-1.5 w-2/3 animate-pulse rounded bg-neutral-300/70"></div>
+									<div class="grid flex-1 grid-cols-2 gap-1">
+										<div class="animate-pulse rounded-sm bg-neutral-200/60"></div>
+										<div class="animate-pulse rounded-sm bg-neutral-200/40" style="animation-delay: 150ms"></div>
+										<div class="animate-pulse rounded-sm bg-neutral-200/40" style="animation-delay: 300ms"></div>
+										<div class="animate-pulse rounded-sm bg-neutral-200/60" style="animation-delay: 450ms"></div>
+									</div>
+									<div class="flex items-center gap-1">
+										<div class="h-2 w-2 animate-pulse rounded-full bg-neutral-300/90"></div>
+										<div class="h-1.5 flex-1 animate-pulse rounded bg-neutral-200/60"></div>
+									</div>
+								</div>
+							</div>
+							<div class="mt-1 flex justify-center gap-1">
+								<div class="h-0.5 w-4 rounded-full bg-neutral-200"></div>
+								<div class="h-0.5 w-4 rounded-full bg-neutral-100"></div>
+								<div class="h-0.5 w-4 rounded-full bg-neutral-100"></div>
+							</div>
 						</div>
 					</div>
 				</div>
