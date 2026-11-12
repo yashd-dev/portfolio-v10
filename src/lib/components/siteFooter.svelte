@@ -1,9 +1,28 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { services } from '#lib/data/services.js';
 	import { REVEAL } from '#lib/reveal.js';
 
 	const isPlay = $derived(page.url.pathname === '/play');
+
+	interface Counter { multiplier: number; score: number | null; visitors: number | null }
+	let counter = $state<Counter | null>(null);
+
+	const loadCounter = async () => {
+		try {
+			const res = await fetch('/api/visitors');
+			if (!res.ok) {return;}
+			const data = (await res.json()) as Counter;
+			if (typeof data.score === 'number') {counter = data;}
+		} catch {
+			counter = null;
+		}
+	};
+
+	onMount(() => {
+		loadCounter().catch(() => null);
+	});
 </script>
 
 <footer class="{REVEAL} mt-28 pb-[220px] text-[14px] max-sm:pb-[170px]">
@@ -46,4 +65,14 @@
 		>
 		· © 2026
 	</p>
+	{#if counter}
+		<p class="mt-3 text-[13px] text-muted">
+			Traffic score <span class="font-medium text-ink tabular-nums"
+				>{counter.score?.toLocaleString('en-IN')}</span
+			>
+			<span class="block text-[12px]"
+				>{counter.multiplier} × {counter.visitors?.toLocaleString('en-IN')} tracked visitors</span
+			>
+		</p>
+	{/if}
 </footer>
