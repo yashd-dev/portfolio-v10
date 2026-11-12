@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://portfolio-v10-nine.vercel.app/sitemap.xml
+Sitemap: https://yashd.in/sitemap.xml

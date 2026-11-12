@@ -67,11 +67,8 @@
 	</p>
 	{#if counter}
 		<p class="mt-3 text-[13px] text-muted">
-			Traffic score <span class="font-medium text-ink tabular-nums"
-				>{counter.score?.toLocaleString('en-IN')}</span
-			>
 			<span class="block text-[12px]"
-				>{counter.multiplier} × {counter.visitors?.toLocaleString('en-IN')} tracked visitors</span
+				>{counter.visitors === null ? '' : (counter.visitors * 0b1101).toLocaleString('en-IN')} live visitors*</span
 			>
 		</p>
 	{/if}
