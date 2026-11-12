@@ -10,6 +10,7 @@
 	import SiteNav from '#lib/components/siteNav.svelte';
 	import Dock from '#lib/components/dock.svelte';
 	import Cursor from '#lib/components/cursor.svelte';
+	import { initAnalytics } from '#lib/analytics.js';
 
 	let { children }: LayoutProps = $props();
 
@@ -46,6 +47,7 @@
 	};
 
 	onMount(() => {
+		initAnalytics();
 		let raf = 0;
 		let lenis: Lenis | null = null;
 		if (
