@@ -364,7 +364,10 @@ export default function FlowDiagram({
       </div>
       <ol className="mt-4 grid list-none! gap-3 pl-0! sm:hidden">
         {nodes.map((node) => (
-          <li key={node.id} className="border-rule rounded-xl border px-4 py-3">
+          <li
+            key={node.id}
+            className="border-rule rounded-xl border px-4 py-3 pl-4!"
+          >
             <h4 className="text-[15px] font-medium">{node.label}</h4>
             <p className="text-soft mt-1 text-[14px] leading-relaxed">
               {node.note}
