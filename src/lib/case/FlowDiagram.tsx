@@ -217,7 +217,7 @@ export default function FlowDiagram({
   view?: { width: number; height: number };
   caption?: string;
 }) {
-  const zoom = useZoom(0.72);
+  const zoom = useZoom(1);
   const [selected, setSelected] = useState<string | null>(null);
   const byId = useMemo(
     () => Object.fromEntries(nodes.map((n) => [n.id, n])),
@@ -234,23 +234,28 @@ export default function FlowDiagram({
         );
 
   return (
-    <figure className="case-interactive case-flow mx-auto my-10 w-full max-w-[52rem] text-left max-[640px]:mb-4">
-      <div className="case-interactive__bar flex flex-wrap items-center justify-between gap-3">
+    <figure className="case-interactive case-flow relative my-3 w-full text-left max-[640px]:mb-4 lg:-ml-24 lg:w-[calc(100%+12rem)] lg:max-w-none">
+      <div className="case-interactive__bar hidden flex-wrap items-center justify-between gap-3 sm:flex">
         <span />
         <div className="case-interactive__controls flex flex-wrap items-center gap-2">
           <ZoomControl zoom={zoom} />
         </div>
       </div>
       <p className="case-flow__title mt-4 text-[16px] font-medium">{title}</p>
-      <div className="case-interactive__scroll case-flow__scroll mt-5 flex justify-center overflow-x-hidden overscroll-x-contain">
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label="User flow, scroll horizontally"
+        className="case-interactive__scroll case-flow__scroll mt-4 hidden overflow-x-auto overscroll-x-contain sm:block"
+      >
         <svg
-          className="case-flow__canvas mx-auto block"
+          className="case-flow__canvas block shrink-0"
           viewBox={`0 0 ${view.width} ${view.height}`}
           role="group"
           aria-label={title}
           style={{
             height: "auto",
-            maxWidth: "100%",
+            maxWidth: "none",
             width: `${view.width * zoom.zoom}px`,
           }}
         >
@@ -357,14 +362,36 @@ export default function FlowDiagram({
           })}
         </svg>
       </div>
-      <p className="case-flow__note mt-4 text-[13.5px] leading-[1.6]">
+      <ol className="mt-4 grid list-none! gap-3 pl-0! sm:hidden">
+        {nodes.map((node) => (
+          <li key={node.id} className="border-rule rounded-xl border px-4 py-3">
+            <h4 className="text-[15px] font-medium">{node.label}</h4>
+            <p className="text-soft mt-1 text-[14px] leading-relaxed">
+              {node.note}
+            </p>
+            {edges.some((edge) => edge.from === node.id) ? (
+              <p className="text-soft mt-2 text-[12px] leading-relaxed">
+                Next:{" "}
+                {edges
+                  .filter((edge) => edge.from === node.id)
+                  .map(
+                    (edge) =>
+                      `${edge.label ? `${edge.label}: ` : ""}${byId[edge.to]?.label ?? edge.to}`
+                  )
+                  .join(" · ")}
+              </p>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+      <p className="case-flow__note mt-4 hidden text-[13.5px] leading-[1.6] sm:block">
         {activeNode ? (
           <>
             <strong className="font-medium">{activeNode.label}.</strong>{" "}
             {activeNode.note}
           </>
         ) : (
-          "Tap any step to isolate it and read what it does."
+          "Scroll across the diagram and tap a step to read what it does. Use + or − to zoom."
         )}
       </p>
       {caption ? (

@@ -133,6 +133,6 @@
 >
 	<SiteNav />
 	{@render children()}
-	<Dock />
+	<Dock inline={page.url.pathname.startsWith('/work/')} />
 	<Cursor />
 </div>

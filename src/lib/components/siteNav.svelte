@@ -38,6 +38,7 @@
 	];
 
 	let pathname = $derived(page.url.pathname);
+	let caseStudy = $derived(pathname.startsWith('/work/'));
 	const sectionMap = (path: string): NavItem[] => {
 		if (path === '/process') {return PROCESS;}
 		if (path === '/tools') {return TOOLS;}
@@ -169,13 +170,13 @@
 </script>
 
 <header
-	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 pt-4 max-sm:px-3 max-sm:pt-3 max-sm:before:pointer-events-none max-sm:before:absolute max-sm:before:inset-x-0 max-sm:before:top-0 max-sm:before:-bottom-[22px] max-sm:before:-z-10 max-sm:before:bg-white/62 max-sm:before:[mask-image:linear-gradient(to_bottom,#000_62%,transparent)] max-sm:before:opacity-0 max-sm:before:backdrop-blur-[14px] max-sm:before:backdrop-saturate-140 max-sm:before:transition-opacity max-sm:before:duration-300 {scrolled
+	class="{caseStudy ? 'bg-white pb-3 before:hidden!' : ''} pointer-events-none fixed inset-x-0 top-0 z-40 px-4 pt-4 max-sm:px-3 max-sm:pt-3 max-sm:before:pointer-events-none max-sm:before:absolute max-sm:before:inset-x-0 max-sm:before:top-0 max-sm:before:-bottom-[22px] max-sm:before:-z-10 max-sm:before:bg-white/62 max-sm:before:[mask-image:linear-gradient(to_bottom,#000_62%,transparent)] max-sm:before:opacity-0 max-sm:before:backdrop-blur-[14px] max-sm:before:backdrop-saturate-140 max-sm:before:transition-opacity max-sm:before:duration-300 {scrolled
 		? 'max-sm:before:opacity-100'
 		: ''}"
 >
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-3 max-sm:justify-center">
 		<div
-			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full {sections.length === 0 ? 'invisible' : ''} bg-black/5 p-[3px] max-sm:hidden transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {trackMaxW} {scrolled ? scrolledCls : ''}"
+			class="pg-nav-track pointer-events-auto relative inline-flex items-center rounded-full {sections.length === 0 ? 'invisible' : ''} bg-black/5 p-[3px] max-sm:hidden transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto {trackMaxW} {caseStudy ? 'bg-white! shadow-[0_0_0_1px_var(--color-rule),0_6px_24px_#0000000f]' : scrolled ? scrolledCls : ''}"
 			role="navigation"
 			aria-label="Sections"
 			bind:this={track}
@@ -292,7 +293,7 @@
 		<div class="inline-flex items-center gap-2">
 			<nav
 				bind:this={pagesNav}
-				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:max-w-[calc(100vw-24px)] {scrolled ? scrolledCls : ''}"
+				class="pointer-events-auto relative inline-flex items-center rounded-full bg-black/5 p-[3px] transition-[background-color,max-width] duration-[450ms] ease-(--ease-mn) after:pointer-events-none after:absolute after:inset-[3.5px] after:rounded-full after:border-[1.5px] after:border-white/85 after:content-[''] after:transition-[border-color] after:duration-200 hover:after:border-white max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:max-w-[calc(100vw-24px)] {caseStudy ? 'bg-white! shadow-[0_0_0_1px_var(--color-rule),0_6px_24px_#0000000f]' : scrolled ? scrolledCls : ''}"
 				aria-label="Pages"
 			>
 				{#each PAGES as p}

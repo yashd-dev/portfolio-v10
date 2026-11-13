@@ -20,23 +20,34 @@ export default function CaseSidebar({
   const [active, setActive] = useState(sections[0]?.id ?? "");
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      let current = sections[0]?.id ?? "";
+      for (const { id } of sections) {
+        const el = document.querySelector(`#${id}`);
+        if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) {
+          current = id;
         }
-      },
-      { rootMargin: "-20% 0px -70% 0px" }
-    );
-    for (const { id } of sections) {
-      const el = document.querySelector(`#${id}`);
-      if (el) {
-        observer.observe(el);
       }
-    }
-    return () => observer.disconnect();
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) {
+        current = sections.at(-1)?.id ?? current;
+      }
+      setActive(current);
+    };
+    const schedule = () => {
+      if (!frame) {
+        frame = requestAnimationFrame(measure);
+      }
+    };
+    measure();
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
+    };
   }, [sections]);
 
   return (
@@ -51,8 +62,9 @@ export default function CaseSidebar({
               <li key={s.id}>
                 <a
                   href={`#${s.id}`}
+                  aria-current={active === s.id ? "location" : undefined}
                   onClick={go(s.id)}
-                  className={`relative flex h-[15px] items-center gap-[10px] p-0 text-[12.5px] whitespace-nowrap no-underline before:shrink-0 before:rounded-[2px] before:content-[''] before:[transition:width_0.45s_cubic-bezier(0.22,1,0.36,1),background-color_0.3s_ease,opacity_0.3s_ease] ${
+                  className={`text-soft relative flex h-[22px] items-center gap-[10px] p-0 text-[12.5px] whitespace-nowrap no-underline before:shrink-0 before:rounded-[2px] before:content-[''] before:[transition:width_0.45s_cubic-bezier(0.22,1,0.36,1),background-color_0.3s_ease,opacity_0.3s_ease] ${
                     active === s.id
                       ? "font-medium before:h-[1.5px] before:w-[22px] before:bg-[var(--case-accent)] before:opacity-100"
                       : "font-normal before:h-[1.5px] before:w-[10px] before:bg-transparent before:opacity-70 hover:before:w-[14px] hover:before:opacity-100"
@@ -85,6 +97,7 @@ export default function CaseSidebar({
             <a
               key={s.id}
               href={`#${s.id}`}
+              aria-current={active === s.id ? "location" : undefined}
               onClick={go(s.id)}
               className="flex-none rounded-full bg-transparent px-[12px] py-[6px] text-[12.5px] font-medium whitespace-nowrap no-underline"
             >

@@ -32,7 +32,7 @@ export default function Personas({ items }: { items: Persona[] }) {
           <p className="mt-5 border-l-2 [border-left-color:var(--case-accent)] pl-[0.8rem] text-[14.5px] leading-[1.55] text-[#111] italic">
             &ldquo;{p.quote}&rdquo;
           </p>
-          <dl className="[&_dd]:text-soft [&_dt]:text-faint mt-[1.35rem] flex flex-col gap-[1.1rem] [&_dd]:mt-[0.35rem] [&_dd]:text-[13.5px] [&_dd]:leading-[1.6] [&_dt]:text-[13px] [&_dt]:font-normal">
+          <dl className="[&_dd]:text-soft [&_dt]:text-soft mt-[1.35rem] flex flex-col gap-[1.1rem] [&_dd]:mt-[0.35rem] [&_dd]:text-[13.5px] [&_dd]:leading-[1.6] [&_dt]:text-[13px] [&_dt]:font-normal">
             {p.rows.map((r) => (
               <div key={r.label}>
                 <dt>{r.label}</dt>

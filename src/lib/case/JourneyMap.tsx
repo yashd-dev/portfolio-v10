@@ -44,17 +44,15 @@ const Curve = ({
   width,
   height,
   gradId,
-  mobile,
 }: {
   points: Pt[];
   line: string;
   width: number;
   height: number;
   gradId: string;
-  mobile?: boolean;
 }) => (
   <svg
-    className={`case-journey__curve ml-[7.5em] block h-[7em] w-[calc(100%-7.5em)] ${mobile ? "case-journey__curve--mobile max-[640px]:m-0 max-[640px]:mb-4 max-[640px]:h-[4.5rem] max-[640px]:w-full" : ""}`}
+    className="case-journey__curve ml-[7.5em] block h-[7em] w-[calc(100%-7.5em)]"
     viewBox={`0 0 ${width} ${height}`}
     preserveAspectRatio="none"
     aria-hidden="true"
@@ -109,7 +107,7 @@ export default function JourneyMap({
   const [roleId, setRoleId] = useState(roles[0].id);
   const [stage, setStage] = useState<number | null>(null);
   const [zoomIdx, setZoomIdx] = useState(() => {
-    const i = ZOOM_STEPS.indexOf(0.75);
+    const i = ZOOM_STEPS.indexOf(1);
     return i === -1 ? 2 : i;
   });
   const zoom = {
@@ -131,7 +129,7 @@ export default function JourneyMap({
   }, [role]);
 
   return (
-    <figure className="case-interactive case-journey mx-auto my-10 w-full max-w-[52rem] text-left max-[640px]:mb-4">
+    <figure className="case-interactive case-journey relative my-3 w-full text-left max-[640px]:mb-4 lg:-ml-24 lg:w-[calc(100%+12rem)] lg:max-w-none">
       <div className="case-interactive__bar flex flex-wrap items-center justify-between gap-3 max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:gap-[0.85rem]">
         <span />
         <div className="case-interactive__controls flex flex-wrap items-center gap-2 max-[640px]:w-full max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:gap-[0.65rem]">
@@ -191,10 +189,15 @@ export default function JourneyMap({
       <p className="case-journey__headline mt-4 text-[16px] leading-[1.4] font-medium">
         {role.headline}
       </p>
-      <div className="case-interactive__scroll case-journey__desktop mt-5 flex justify-center overflow-x-auto overscroll-x-contain max-[640px]:hidden">
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label="Journey map, scroll horizontally when zoomed"
+        className="case-interactive__scroll case-journey__desktop mt-4 overflow-x-auto overscroll-x-contain max-[640px]:hidden"
+      >
         <div
-          className="case-journey__inner mx-auto max-w-full min-w-[34em]"
-          style={{ fontSize: `${11.5 * zoom.value}px` }}
+          className="case-journey__inner mx-auto w-full min-w-[56em]"
+          style={{ fontSize: `${13 * zoom.value}px` }}
         >
           <Curve
             points={curve.points}
@@ -253,19 +256,11 @@ export default function JourneyMap({
         </div>
       </div>
       <div className="case-journey__mobile hidden max-[640px]:mt-4 max-[640px]:block max-[640px]:pb-2">
-        <Curve
-          points={curve.points}
-          line={curve.line}
-          width={curve.width}
-          height={curve.height}
-          gradId="journeyFillMobile"
-          mobile
-        />
         <ol className="case-journey__stages m-0 grid list-none! gap-[0.85rem] pl-0!">
           {role.stages.map((sName, i) => (
             <li
               key={sName}
-              className="case-journey__stage-card rounded-[14px] border border-[#00000014] bg-[#fafafa] px-4 py-[0.95rem]"
+              className="case-journey__stage-card rounded-[14px] border border-[#00000014] bg-[#fafafa] px-4 py-[0.95rem] pl-4!"
             >
               <p className="case-journey__stage-index text-muted m-0 text-[12px] font-normal">
                 Stage {i + 1}
@@ -290,7 +285,7 @@ export default function JourneyMap({
         </ol>
       </div>
       {caption ? (
-        <figcaption className="case-media__caption mt-4 pb-1 text-center text-[13px]/[1.55]">
+        <figcaption className="case-media__caption mt-4 hidden pb-1 text-center text-[13px]/[1.55] sm:block">
           {caption}
         </figcaption>
       ) : null}

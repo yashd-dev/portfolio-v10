@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { email } from '#lib/data/content.js';
 
+	let { inline = false }: { inline?: boolean } = $props();
+
 	let copied = $state(false);
 
 	const copyEmail = async () => {
@@ -25,7 +27,7 @@
 </script>
 
 <div
-	class="fixed bottom-[18px] left-1/2 z-[60] flex -translate-x-1/2 flex-col items-center gap-2.5"
+	class="{inline ? 'relative mx-auto w-fit pb-6' : 'fixed bottom-[18px] left-1/2 z-[60] -translate-x-1/2'} flex flex-col items-center gap-2.5"
 	role="region"
 	aria-label="Quick links"
 >

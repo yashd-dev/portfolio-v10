@@ -16,14 +16,14 @@ export const Section = ({
 }) => (
   <section
     id={id}
-    className="case-section case-reveal scroll-mt-28 delay-[50ms] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [.case-domis-sections_&]:[border-top-style:none] [.case-domis-sections_&]:py-[52px] [.case-domis-sections_&]:first:mt-[44px] [.case-domis-sections_&]:last:pb-[72px]"
+    className="case-section case-reveal scroll-mt-28 delay-[50ms] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [.case-domis-sections_&]:[border-top-style:none] [.case-domis-sections_&]:py-6 [.case-domis-sections_&]:first:mt-0 [.case-domis-sections_&]:last:pb-8 sm:[.case-domis-sections_&]:py-7"
   >
-    <h2 className="case-section__title mb-0 overflow-hidden text-left text-[18px] leading-[1.35] font-medium">
+    <h2 className="case-section__title mb-0 overflow-hidden text-left text-[24px] leading-[1.3] font-medium sm:text-[28px]">
       <span className="case-rise block [transform:translateY(110%)] [transition:transform_0.9s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none max-lg:[transform:none] max-lg:transition-none [.case-reveal.is-visible_&]:[transform:translate(0)]">
         {title}
       </span>
     </h2>
-    <div className="case-section__body [&_li::marker]:text-faint mt-[22px] flex flex-col gap-6 text-left text-[15px] leading-[1.6] [&_a:not([class])]:underline [&_a:not([class])]:[text-decoration-color:var(--case-accent-line)] [&_a:not([class])]:underline-offset-[3px] [&_a[class]]:text-[var(--case-accent-text)] [&_a[class]]:no-underline [&_a[class]:hover]:underline [&_li]:pl-1 [&_li]:leading-[1.6] [&_li+li]:mt-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:text-inherit! [&_p]:text-inherit! [&_strong]:font-medium [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:text-inherit!">
+    <div className="case-section__body [&_li::marker]:text-faint mt-4 flex flex-col gap-5 text-left text-[15px] leading-[1.6] [&_a:not([class])]:underline [&_a:not([class])]:[text-decoration-color:var(--case-accent-line)] [&_a:not([class])]:underline-offset-[3px] [&_a[class]]:text-[var(--case-accent-text)] [&_a[class]]:no-underline [&_a[class]:hover]:underline [&_li]:pl-1 [&_li]:leading-[1.6] [&_li+li]:mt-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:text-inherit! [&_p]:text-inherit! [&_strong]:font-medium [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:text-inherit!">
       {children}
     </div>
   </section>
@@ -38,7 +38,7 @@ export const Lead = ({ children }: { children: ReactNode }) => (
 );
 
 export const Subhead = ({ children }: { children: ReactNode }) => (
-  <h3 className="case-subhead mt-2 pt-2 text-left text-[16px] leading-[1.35] font-medium first:mt-0 first:pt-0">
+  <h3 className="case-subhead mt-2 pt-2 text-left text-[18px] leading-[1.35] font-medium first:mt-0 first:pt-0">
     {children}
   </h3>
 );
@@ -58,42 +58,60 @@ export const Callout = ({
   title: string;
   children: ReactNode;
 }) => (
-  <aside className="case-callout rounded-[14px] border-none border-transparent p-[2rem_2.25rem] text-left">
+  <aside className="case-callout rounded-[14px] border-none border-transparent bg-neutral-50 px-5 py-4 text-left sm:px-6 sm:py-5">
     <p className="case-callout__title mb-1 text-[14px] font-medium">{title}</p>
-    <div className="case-callout__body text-soft [&_li::marker]:text-faint mt-4 flex flex-col gap-4 text-left text-[15px] leading-[1.6] [&_ul]:list-disc [&_ul]:pl-5">
+    <div className="case-callout__body text-soft [&_li::marker]:text-faint mt-2 flex flex-col gap-4 text-left text-[15px] leading-[1.6] [&_ul]:list-disc [&_ul]:pl-5">
       {children}
     </div>
   </aside>
 );
 
 export const Tbl = ({ head, rows }: { head: string[]; rows: string[][] }) => (
-  <div className="case-table-wrap overflow-x-auto rounded-[14px] border-none text-left">
-    <table className="case-table w-full min-w-full border-collapse text-left text-[14px]">
-      <thead>
-        <tr>
-          {head.map((h) => (
-            <th
-              key={h}
-              className="text-ink border-b border-[#00000014] bg-[#fafafa] px-4 py-3 font-medium whitespace-nowrap"
-            >
-              {h}
-            </th>
+  <>
+    <div className="grid gap-3 sm:hidden">
+      {rows.map((row, i) => (
+        <dl key={i} className="border-rule rounded-xl border px-4 py-3">
+          {head.map((label, j) => (
+            <div key={label} className="py-2 first:pt-0 last:pb-0">
+              <dt className="text-soft text-[12px] font-medium">{label}</dt>
+              <dd
+                className={`mt-1 text-[14px] leading-relaxed [overflow-wrap:anywhere] ${j === 0 ? "text-ink font-medium" : "text-soft"}`}
+              >
+                {row[j]}
+              </dd>
+            </div>
           ))}
-        </tr>
-      </thead>
-      <tbody className="[&_tr:last-child_td]:[border-bottom:none] [&_tr:not(:last-child)_td]:border-b [&_tr:not(:last-child)_td]:border-[#0000000d]">
-        {rows.map((r, i) => (
-          <tr key={i}>
-            {r.map((c, j) => (
-              <td key={j} className="text-soft px-4 py-3 align-top">
-                {c}
-              </td>
+        </dl>
+      ))}
+    </div>
+    <div className="case-table-wrap border-rule hidden rounded-[14px] border text-left sm:block">
+      <table className="case-table w-full min-w-full border-collapse text-left text-[14px]">
+        <thead>
+          <tr>
+            {head.map((h) => (
+              <th
+                key={h}
+                className="text-ink border-b border-[#00000014] bg-[#fafafa] px-4 py-3 font-medium [overflow-wrap:anywhere]"
+              >
+                {h}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody className="[&_tr:last-child_td]:[border-bottom:none] [&_tr:not(:last-child)_td]:border-b [&_tr:not(:last-child)_td]:border-[#0000000d]">
+          {rows.map((r, i) => (
+            <tr key={i}>
+              {r.map((c, j) => (
+                <td key={j} className="text-soft px-4 py-3 align-top">
+                  {c}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </>
 );
 
 export const Metrics = ({
@@ -101,10 +119,17 @@ export const Metrics = ({
 }: {
   items: { value: string; label: string }[];
 }) => (
-  <div className="case-metric-grid grid gap-3 sm:grid-cols-2">
+  <div className="case-metric-grid grid grid-cols-2 gap-3">
     {items.map((m) => (
-      <div className="case-metric rounded-[14px] border-none p-5" key={m.label}>
-        <p className="case-metric__value text-[28px] font-medium">{m.value}</p>
+      <div
+        className={`case-metric rounded-[14px] bg-neutral-50 p-4 ${/[0-9]/u.test(m.value) ? "" : "col-span-2"}`}
+        key={m.label}
+      >
+        <p
+          className={`case-metric__value font-medium ${/[0-9]/u.test(m.value) ? "text-[28px]" : "text-[18px]"}`}
+        >
+          {m.value}
+        </p>
         <p className="case-metric__label text-muted mt-1 text-[13px]">
           {m.label}
         </p>
@@ -131,7 +156,7 @@ export const Fig = ({
   natural?: boolean;
 }) => (
   <figure
-    className={`case-media my-3 rounded-[24px] p-[44px_24px_30px] ${wide ? "case-media--wide" : ""}${phone ? " case-media--phone" : ""}${natural ? " case-media--natural" : ""}`}
+    className={`case-media my-1 rounded-[16px] p-0 ${wide ? "case-media--wide" : ""}${phone ? " case-media--phone" : ""}${natural ? " case-media--natural" : ""}`}
   >
     {video ? (
       <video src={src} autoPlay loop muted playsInline aria-label={alt} />
@@ -160,16 +185,16 @@ export const MediaGrid = ({
   kind: "phones" | "screens" | "solo" | "2" | "3";
   children: ReactNode;
 }) => {
-  let cls = "case-media-grid grid justify-items-center gap-10";
+  let cls = "case-media-grid grid justify-items-center gap-6";
   if (kind === "phones") {
     cls =
-      "case-media-grid case-media-grid--2 grid grid-cols-1 justify-items-center gap-10 sm:grid-cols-2 case-media-grid--phones";
+      "case-media-grid case-media-grid--2 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 case-media-grid--phones";
   } else if (kind === "screens" || kind === "3") {
     cls =
-      "case-media-grid case-media-grid--3 grid grid-cols-1 justify-items-center gap-10 min-[1200px]:grid-cols-3";
+      "case-media-grid case-media-grid--3 grid grid-cols-1 justify-items-center gap-6 min-[1200px]:grid-cols-3";
   } else if (kind === "2") {
     cls =
-      "case-media-grid case-media-grid--2 grid grid-cols-1 justify-items-center gap-10 sm:grid-cols-2";
+      "case-media-grid case-media-grid--2 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2";
   }
   return <div className={cls}>{children}</div>;
 };

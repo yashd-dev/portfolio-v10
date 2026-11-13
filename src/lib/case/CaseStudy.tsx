@@ -32,9 +32,9 @@ export default function CaseStudy({
     <div className="mn-page mn-case devatri-case devatri-case--domis devatri-case--yash relative isolate min-h-screen antialiased [--case-accent-deep:#1e5ee8] [--case-accent-glow:#2e74ff21] [--case-accent-line:#2e74ff59] [--case-accent-text:#2667ff] [--case-accent-tint:#2e74ff14] [--case-accent-wash-2:#fff1e9] [--case-accent-wash:#fff] [--case-accent:#2e74ff] [--mn-ease:cubic-bezier(0.22,1,0.36,1)] [--mn-sans:Geist,system-ui,-apple-system,'Segoe_UI',sans-serif] [&_:focus-visible]:rounded-[6px] [&_:focus-visible]:[outline:2px_solid_var(--mn-accent)] [&_:focus-visible]:outline-offset-[3px]">
       <CaseSidebar sections={meta.sections} />
 
-      <main className="case-domis-main mx-auto w-full max-w-[680px] overflow-visible px-5 pt-[136px] pb-12 text-left max-[1023px]:pt-[92px] lg:px-6 lg:pt-[152px] lg:pb-14">
+      <main className="case-domis-main mx-auto w-full max-w-[680px] overflow-visible px-5 pt-24 pb-8 text-left max-[1023px]:pt-24 lg:px-6 lg:pt-28 lg:pb-10">
         <section id="intro" className="case-domis-intro scroll-mt-28">
-          <h1 className="case-domis-intro__title case-reveal overflow-hidden text-[24px] leading-[1.25] font-medium delay-[50ms] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none [@media(hover:none)]:delay-0">
+          <h1 className="case-domis-intro__title case-reveal overflow-hidden text-[30px] leading-[1.2] font-medium delay-[50ms] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 sm:text-[36px] [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none [@media(hover:none)]:delay-0">
             <span className="case-rise block [transform:translateY(110%)] [transition:transform_0.9s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none max-lg:[transform:none] max-lg:transition-none [.case-reveal.is-visible_&]:[transform:translate(0)] [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none">
               {meta.title}
             </span>
@@ -46,7 +46,7 @@ export default function CaseStudy({
           </p>
           <div className="case-domis-intro__actions case-reveal mt-6 flex [transform:translateY(16px)] flex-wrap gap-2 opacity-0 delay-[0.21s] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [&.is-visible]:[transform:translate(0)] [&.is-visible]:opacity-100 [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none [@media(hover:none)]:delay-0">
             <a
-              className="case-domis-store-link inline-flex items-center justify-center rounded-[999px] px-4 py-[9px] text-[13px] font-medium no-underline transition-[transform_0.35s_var(--mn-ease),opacity_0.2s_ease] hover:-translate-y-px hover:opacity-[0.88] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#111]"
+              className="case-domis-store-link bg-accent inline-flex items-center justify-center rounded-[999px] px-4 py-[9px] text-[13px] font-medium text-white no-underline shadow-[inset_0_0_0_1px_#ffffff55] transition-[transform_0.35s_var(--mn-ease),opacity_0.2s_ease] hover:-translate-y-px hover:opacity-[0.88] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#111]"
               href={meta.live}
               target="_blank"
               rel="noopener noreferrer"
@@ -55,9 +55,9 @@ export default function CaseStudy({
               Visit {meta.liveLabel}
             </a>
           </div>
-          <dl className="case-domis-meta case-reveal mt-10 grid [transform:translateY(16px)] grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-x-8 gap-y-5 [border-top-style:none] pt-6 text-left opacity-0 delay-[0.29s] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [&.is-visible]:[transform:translate(0)] [&.is-visible]:opacity-100 [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none [@media(hover:none)]:delay-0">
+          <dl className="case-domis-meta case-reveal mt-6 grid [transform:translateY(16px)] grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-x-8 gap-y-5 [border-top-style:none] pt-0 text-left opacity-0 delay-[0.29s] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [&.is-visible]:[transform:translate(0)] [&.is-visible]:opacity-100 [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none [@media(hover:none)]:delay-0">
             <div className="case-domis-meta__item">
-              <dt className="text-faint text-[12px] font-normal tracking-[0.02em]">
+              <dt className="text-soft text-[12px] font-normal tracking-[0.02em]">
                 Role
               </dt>
               <dd className="mt-[6px] text-[14px]/[1.5] font-normal">
@@ -65,7 +65,7 @@ export default function CaseStudy({
               </dd>
             </div>
             <div className="case-domis-meta__item">
-              <dt className="text-faint text-[12px] font-normal tracking-[0.02em]">
+              <dt className="text-soft text-[12px] font-normal tracking-[0.02em]">
                 Timeline
               </dt>
               <dd className="mt-[6px] text-[14px]/[1.5] font-normal">
@@ -73,7 +73,7 @@ export default function CaseStudy({
               </dd>
             </div>
             <div className="case-domis-meta__item">
-              <dt className="text-faint text-[12px] font-normal tracking-[0.02em]">
+              <dt className="text-soft text-[12px] font-normal tracking-[0.02em]">
                 Stack
               </dt>
               <dd className="mt-[6px] text-[14px]/[1.5] font-normal">
@@ -81,7 +81,7 @@ export default function CaseStudy({
               </dd>
             </div>
           </dl>
-          <div className="case-domis-tags case-reveal mt-6 flex [transform:translateY(16px)] flex-wrap gap-[6px] opacity-0 delay-[0.37s] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [&.is-visible]:[transform:translate(0)] [&.is-visible]:opacity-100 [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none [@media(hover:none)]:delay-0">
+          <div className="case-domis-tags case-reveal mt-4 flex [transform:translateY(16px)] flex-wrap gap-[6px] opacity-0 delay-[0.37s] [transition:opacity_0.8s_var(--mn-ease),transform_0.8s_var(--mn-ease)] motion-reduce:[transform:none] motion-reduce:transition-none motion-reduce:delay-0 max-lg:[transform:none] max-lg:transition-none max-lg:delay-0 [&.is-visible]:[transform:translate(0)] [&.is-visible]:opacity-100 [@media(hover:none)]:[transform:none] [@media(hover:none)]:transition-none [@media(hover:none)]:delay-0">
             {meta.tags.map((t) => (
               <span
                 className="case-domis-tag rounded-[999px] border-none px-[10px] py-1 text-[12px] font-normal tracking-normal normal-case"
@@ -91,7 +91,7 @@ export default function CaseStudy({
               </span>
             ))}
           </div>
-          <figure className="case-media case-media--natural case-domis-hero mt-12! mb-2 overflow-hidden rounded-2xl">
+          <figure className="case-media case-media--natural case-domis-hero mt-8! mb-0 overflow-hidden rounded-2xl">
             <img
               src={meta.hero}
               alt={meta.heroAlt}
@@ -107,7 +107,7 @@ export default function CaseStudy({
           <Content components={blocks} />
         </div>
 
-        <footer className="mn-case__next mt-2 [border-top-style:none] pt-10 pb-24">
+        <footer className="mn-case__next border-rule mt-2 border-t pt-4 pb-4">
           {meta.next ? (
             <a
               className="mn-case__next-link group block py-6 text-inherit no-underline!"
@@ -138,7 +138,7 @@ export default function CaseStudy({
           </div>
         </footer>
 
-        <footer className="mt-24 pb-24 text-[14px]">
+        <footer className="mt-8 pb-8 text-[14px]">
           <p className="font-medium">Thanks for stopping by.</p>
           <p className="text-soft mt-3">
             Bored of the site?{" "}
