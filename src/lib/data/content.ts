@@ -36,26 +36,6 @@ export const projects = [
     name: "Medizone Aesthetics",
   },
   {
-    cta: "Explore services",
-    description:
-      "A sharp consultancy website with focused services, restrained visuals, and a clearer business presence.",
-    dither: "/work/dither-blue.webp",
-    image: "/work/strive.png",
-    link: "http://striveconsultancy.yashd.in/",
-    meta: "Next.js, Tailwind, Vercel",
-    name: "Strive Consultancy",
-  },
-  {
-    cta: "Book an appointment",
-    description:
-      "A veterinary healthcare website with multilingual content and appointment flows.",
-    dither: "/work/dither-green.webp",
-    image: "/work/sshealthcare.png",
-    link: "https://healthcare.yashd.in/",
-    meta: "Next.js, Tailwind, Vercel, Google Translate",
-    name: "SS Healthcare",
-  },
-  {
     cta: "Shop the collection",
     description:
       "A handcrafted Paithani storefront for bags, clutches and accessories, rooted in Maharashtrian textile heritage.",
@@ -64,6 +44,16 @@ export const projects = [
     link: "https://www.mypaithani.com/",
     meta: "Headless Shopify, SvelteKit, Tailwind, Vercel",
     name: "MyPaithani",
+  },
+  {
+    cta: "Explore services",
+    description:
+      "A sharp consultancy website with focused services, restrained visuals, and a clearer business presence.",
+    dither: "/work/dither-blue.webp",
+    image: "/work/strive.png",
+    link: "http://striveconsultancy.yashd.in/",
+    meta: "Next.js, Tailwind, Vercel",
+    name: "Strive Consultancy",
   },
 ];
 
