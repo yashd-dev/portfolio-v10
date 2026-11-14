@@ -77,7 +77,7 @@ export const experience = [
 ];
 
 export const freelance = {
-  note: "Storefronts, sites and the services behind them, for clients.",
+  note: "Storefronts, sites and the services behind them, for 10+ teams.",
   org: "Freelance",
   place: "Mumbai",
   role: "Designer & developer",
@@ -92,6 +92,13 @@ export const education = {
 };
 
 export const shenanigans = [
+  {
+    link: "https://typography.yashd.in/",
+    note: "Ready-to-use typography snippets for body text, secondary details and fine print, copied straight into your projects.",
+    repo: "https://github.com/yashd-dev/typography",
+    thumb: "/shenanigans/typography.jpg",
+    title: "A copy-paste typography library",
+  },
   {
     note: "Tenant-scoped document ingestion and retrieval over a Neo4j evidence graph, with API keys and an embeddable chat widget.",
     repo: "https://github.com/yashd-dev/rag-as-a-service",

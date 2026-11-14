@@ -602,29 +602,54 @@
 							class="w-[150px] rounded-lg ring-1 ring-black/10 max-sm:w-[120px]"
 							loading="lazy"
 						/>
-						{#if s.repo}
-							<a
-								href={s.repo}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="group/gh inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
-								data-cursor="GitHub"
-							>
-								GitHub
-								<svg
-									class="transition-transform duration-300 ease-(--ease-mn) group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5"
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+						<div class="flex shrink-0 items-center gap-5">
+							{#if s.link}
+								<a
+									href={s.link}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="group/gh inline-flex items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
+									data-cursor="Live"
 								>
-							</a>
-						{/if}
+									Live
+									<svg
+										class="transition-transform duration-300 ease-(--ease-mn) group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5"
+										width="12"
+										height="12"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+									>
+								</a>
+							{/if}
+							{#if s.repo}
+								<a
+									href={s.repo}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="group/gh inline-flex items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
+									data-cursor="GitHub"
+								>
+									GitHub
+									<svg
+										class="transition-transform duration-300 ease-(--ease-mn) group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5"
+										width="12"
+										height="12"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg
+									>
+								</a>
+							{/if}
+						</div>
 					</div>
 				</div>
 			{/each}
