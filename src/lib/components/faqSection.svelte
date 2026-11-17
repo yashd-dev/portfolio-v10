@@ -10,11 +10,11 @@ import type { FAQGroup } from '#lib/data/faqs.js';
 </script>
 
 <div class={padded ? 'px-6 sm:px-10' : undefined}>
-	<p
+	<h2
 		class="{REVEAL} mt-24 mb-[22px] text-sm font-medium text-muted"
 	>
 		Questions, answered
-	</p>
+	</h2>
 	<div class="{REVEAL} border-t border-dashed border-neutral-200">
 		{#each groups as group, gi}
 			<section

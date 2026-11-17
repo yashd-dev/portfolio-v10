@@ -265,9 +265,9 @@ export default function JourneyMap({
               <p className="case-journey__stage-index text-muted m-0 text-[12px] font-normal">
                 Stage {i + 1}
               </p>
-              <h4 className="case-journey__stage-title text-ink mt-[0.35rem] text-[15px] leading-[1.3] font-medium">
+              <h3 className="case-journey__stage-title text-ink mt-[0.35rem] text-[15px] leading-[1.3] font-medium">
                 {sName}
-              </h4>
+              </h3>
               <dl className="case-journey__stage-rows mt-[0.85rem] grid gap-[0.7rem]">
                 {role.rows.map((row) => (
                   <div key={row.label} className="case-journey__stage-row">

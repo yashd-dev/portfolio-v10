@@ -341,7 +341,7 @@
 				</div>
 			</div>
 			<div class="mt-5">
-				<h3 class="text-[18px] leading-[1.35] font-medium">{p.name}</h3>
+				<h2 class="text-[18px] leading-[1.35] font-medium">{p.name}</h2>
 				<p class="mt-3 text-[14px] leading-[1.6] text-soft">{p.description}</p>
 				<div class="mt-4 flex flex-wrap gap-2">
 					{#each stackTools(p.meta) as t}
@@ -417,9 +417,9 @@
 									'0'
 								)}
 							</p>
-							<h3 class="mt-2 text-[20px] leading-[1.25] font-medium">
+							<h2 class="mt-2 text-[20px] leading-[1.25] font-medium">
 								{projects[activeWork].name}
-							</h3>
+							</h2>
 							<p class="mt-3 text-[14px] leading-[1.6] text-soft">
 								{projects[activeWork].description}
 							</p>

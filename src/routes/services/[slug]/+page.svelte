@@ -156,7 +156,7 @@
 							</div>
 						</a>
 						<div class="mt-5">
-							<h3 class="text-[18px] leading-[1.35] font-medium text-ink">{p.name}</h3>
+							<h2 class="text-[18px] leading-[1.35] font-medium text-ink">{p.name}</h2>
 							<p class="mt-1 text-[12px] tracking-[0.02em] text-faint max-sm:hidden">{p.meta}</p>
 							<div class="mt-3 hidden flex-wrap gap-2 max-sm:flex">
 								{#each stackTools(p.meta) as t}

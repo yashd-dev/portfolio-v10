@@ -150,7 +150,7 @@ export const services: Service[] = [
       "custom-web-app-development",
     ],
     seoDescription:
-      "Freelance web designer and developer in Mumbai. Landing pages, business websites and Shopify storefronts, designed in Figma and built to production by one person.",
+      "Freelance web designer and developer in Mumbai. Landing pages, business websites and Shopify storefronts, designed in Figma and built by one person.",
     seoTitle: "Freelance Web Designer in Mumbai - Yash Deshpande",
     slug: "freelance-web-designer-mumbai",
     titleMark: "web designer",
@@ -254,7 +254,7 @@ export const services: Service[] = [
       "custom-web-app-development",
     ],
     seoDescription:
-      "Shopify developer in Mumbai building custom headless storefronts with SvelteKit and Next.js, plus the services around them. Setup, checkout and payment gateways included.",
+      "Shopify developer in Mumbai building custom headless storefronts with SvelteKit and Next.js. Setup, checkout and payment gateways included.",
     seoTitle: "Shopify Developer in Mumbai - Yash Deshpande",
     slug: "shopify-developer-mumbai",
     titleMark: "Shopify",
@@ -430,7 +430,7 @@ export const services: Service[] = [
       "freelance-web-designer-mumbai",
     ],
     seoDescription:
-      "Custom web apps, internal tools and dashboards in TypeScript: SvelteKit and Next.js frontends, APIs, microservices and AI features like RAG, chat and search, deployed and maintained.",
+      "Custom web apps, internal tools and dashboards in TypeScript: SvelteKit and Next.js frontends, APIs, microservices and AI features like RAG, chat and search.",
     seoTitle: "Custom Web App Development - Yash Deshpande, Mumbai",
     slug: "custom-web-app-development",
     titleMark: "web app",

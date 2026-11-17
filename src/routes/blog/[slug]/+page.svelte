@@ -32,9 +32,9 @@
 
 <svelte:head>
 	{#if mod}
-		<title>{mod.meta.title} - Yash Deshpande</title>
+		<title>{mod.meta.seoTitle ?? mod.meta.title} - Yash Deshpande</title>
 		<meta name="description" content={mod.meta.summary} />
-		<meta property="og:title" content="{mod.meta.title} - Yash Deshpande" />
+		<meta property="og:title" content="{mod.meta.seoTitle ?? mod.meta.title} - Yash Deshpande" />
 		<meta property="og:description" content={mod.meta.summary} />
 		<meta property="og:image" content={mod.meta.thumb ? `${siteUrl}${mod.meta.thumb}` : `${siteUrl}/og.png`} />
 		{@html '<script type="application/ld+json">' + articleLd + '</script>'}

@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 
 export interface BlogMeta {
   title: string;
+  seoTitle?: string;
   date: string;
   summary: string;
   thumb?: string;
