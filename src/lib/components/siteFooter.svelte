@@ -40,7 +40,7 @@
 		</p>
 	{/if}
 	<div class="mt-10 mb-6">
-		<p class="text-[13px] font-medium text-muted">Services</p>
+		<a href="/services" class="inline-block text-[13px] font-medium text-muted underline decoration-rule underline-offset-[3px] transition-colors duration-200 hover:text-ink hover:decoration-current">Services</a>
 		<div class="mt-3 flex max-w-[560px] flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-muted">
 			{#each services as s}
 				<a

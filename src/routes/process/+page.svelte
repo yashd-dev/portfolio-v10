@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { siteUrl } from '#lib/data/site.js';
 	import DesigningStep from '#lib/components/steps/designingStep.svelte';
 	import DevelopmentStep from '#lib/components/steps/developmentStep.svelte';
 	import MicrointeractionsStep from '#lib/components/steps/microinteractionsStep.svelte';
@@ -99,6 +100,17 @@ import SiteFooter from '#lib/components/siteFooter.svelte';
 		}
 	];
 </script>
+
+<svelte:head>
+	<title>How I work - Yash Deshpande</title>
+	<meta
+		name="description"
+		content="How I take a website from first call to launch: design in Figma, development, microinteractions and ongoing communication."
+	/>
+	<meta property="og:title" content="How I work - Yash Deshpande" />
+	<meta property="og:description" content="How I take a website from first call to launch: design in Figma, development, microinteractions and ongoing communication." />
+	<meta property="og:image" content="{siteUrl}/og.png" />
+</svelte:head>
 
 <div
 	aria-hidden="true"

@@ -23,7 +23,6 @@ export const GET = () => {
     "/",
     "/blog",
     "/how-i-work",
-    "/play",
     "/process",
     "/tools",
     "/work",

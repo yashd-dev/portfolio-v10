@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { siteUrl } from '#lib/data/site.js';
 	import { toolSections } from '#lib/data/icons.js';
 	import CtaSection from '#lib/components/ctaSection.svelte';
 	import SiteFooter from '#lib/components/siteFooter.svelte';
@@ -10,6 +11,17 @@
 			.replaceAll(/[^a-z]+/gu, '-')
 			.replaceAll(/(?<edge>^-|-$)/gu, '');
 </script>
+
+<svelte:head>
+	<title>Tools I use - Yash Deshpande</title>
+	<meta
+		name="description"
+		content="The tools and technologies Yash Deshpande uses day to day, and the ones he experiments with."
+	/>
+	<meta property="og:title" content="Tools I use - Yash Deshpande" />
+	<meta property="og:description" content="The tools and technologies Yash Deshpande uses day to day, and the ones he experiments with." />
+	<meta property="og:image" content="{siteUrl}/og.png" />
+</svelte:head>
 
 <div
 	aria-hidden="true"

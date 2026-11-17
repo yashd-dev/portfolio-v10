@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { siteUrl } from '#lib/data/site.js';
 	import { onMount } from 'svelte';
 	import SiteFooter from '#lib/components/siteFooter.svelte';
 
@@ -124,6 +125,18 @@
 	});
 
 </script>
+
+<svelte:head>
+	<title>Play Pong against the AI - Yash Deshpande</title>
+	<meta
+		name="description"
+		content="A small Pong game on yashd.in. The AI keeps pace, so winning is optional."
+	/>
+	<meta name="robots" content="noindex, follow" />
+	<meta property="og:title" content="Play Pong against the AI - Yash Deshpande" />
+	<meta property="og:description" content="A small Pong game on yashd.in. The AI keeps pace, so winning is optional." />
+	<meta property="og:image" content="{siteUrl}/og.png" />
+</svelte:head>
 
 <div
 	aria-hidden="true"
