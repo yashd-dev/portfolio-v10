@@ -335,7 +335,7 @@
 							src={p.image}
 							alt="{p.name} homepage"
 							loading="lazy"
-							class="h-full w-full rounded-lg object-cover shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
+							class="h-full {p.fit === 'full' ? 'w-auto' : 'w-full object-cover'} rounded-lg shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
 						/>
 					</div>
 				</div>
@@ -494,7 +494,7 @@
 									src={p.image}
 									alt="{p.name} homepage"
 									loading="lazy"
-									class="h-full w-full rounded-lg object-cover shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
+									class="h-full {p.fit === 'full' ? 'w-auto' : 'w-full object-cover'} rounded-lg shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
 								/>
 							</div>
 						</div>

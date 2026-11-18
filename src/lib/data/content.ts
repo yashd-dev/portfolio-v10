@@ -40,6 +40,7 @@ export const projects = [
     description:
       "A handcrafted Paithani storefront for bags, clutches and accessories, rooted in Maharashtrian textile heritage.",
     dither: "/work/dither-red.webp",
+    fit: "full",
     image: "/work/mypaithani.png",
     link: "https://www.mypaithani.com/",
     meta: "Headless Shopify, SvelteKit, Tailwind, Vercel",
