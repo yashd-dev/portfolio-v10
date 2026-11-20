@@ -101,6 +101,10 @@
 	};
 </script>
 
+<svelte:head>
+	<link rel="preload" as="image" href="/beach.webp" fetchpriority="high" />
+</svelte:head>
+
 <div
 	aria-hidden="true"
 	class="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[560px] bg-[url(/beach.webp)] [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.85)_55%,transparent_100%)] bg-cover bg-[center_71%] opacity-85 [filter:saturate(0.85)_brightness(1.02)]"
@@ -332,9 +336,14 @@
 				>
 					<div class="flex h-full items-center justify-center p-[7%]">
 						<img
-							src={p.image}
+							src={p.imageLg}
+							srcset="{p.imageSm} 700w, {p.imageLg} 1400w"
+							sizes="(max-width: 1023px) 86vw, 650px"
+							width={p.imageW}
+							height={p.imageH}
 							alt="{p.name} homepage"
 							loading="lazy"
+							decoding="async"
 							class="h-full {p.fit === 'full' ? 'w-auto' : 'w-full object-cover'} rounded-lg shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
 						/>
 					</div>
@@ -491,9 +500,14 @@
 						>
 							<div class="flex h-full items-center justify-center p-[7%]">
 								<img
-									src={p.image}
+									src={p.imageLg}
+									srcset="{p.imageSm} 700w, {p.imageLg} 1400w"
+									sizes="(max-width: 1023px) 86vw, 650px"
+									width={p.imageW}
+									height={p.imageH}
 									alt="{p.name} homepage"
 									loading="lazy"
+									decoding="async"
 									class="h-full {p.fit === 'full' ? 'w-auto' : 'w-full object-cover'} rounded-lg shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
 								/>
 							</div>
@@ -598,9 +612,12 @@
 					>
 						<img
 							src={s.thumb}
+							width={s.thumbW}
+							height={s.thumbH}
 							alt="{s.title} preview"
 							class="w-[150px] rounded-lg ring-1 ring-black/10 max-sm:w-[120px]"
 							loading="lazy"
+							decoding="async"
 						/>
 						<div class="flex shrink-0 items-center gap-5">
 							{#if s.link}

@@ -147,9 +147,14 @@
 							>
 								<div class="flex h-full items-center justify-center p-[7%]">
 									<img
-										src={p.image}
+										src={p.imageLg}
+										srcset="{p.imageSm} 700w, {p.imageLg} 1400w"
+										sizes="(max-width: 1023px) 86vw, 650px"
+										width={p.imageW}
+										height={p.imageH}
 										alt="{p.name} homepage"
 										loading="lazy"
+										decoding="async"
 										class="h-full {p.fit === 'full' ? 'w-auto' : 'w-full object-cover'} rounded-lg shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/10 transition-transform duration-700 ease-(--ease-mn) group-hover:scale-[1.012]"
 									/>
 								</div>

@@ -120,11 +120,12 @@
 	{/if}
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link
-		href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap"
-		rel="stylesheet"
+		rel="preload"
+		href="/fonts/geist-latin.woff2"
+		as="font"
+		type="font/woff2"
+		crossorigin="anonymous"
 	/>
 </svelte:head>
 

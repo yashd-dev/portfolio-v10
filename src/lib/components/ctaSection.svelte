@@ -101,7 +101,9 @@
 					class="h-[188px] w-60 shrink-0 overflow-hidden rounded-md bg-neutral-100 shadow-sm ring-1 ring-black/10"
 				>
 					<img
-						src={p.image}
+						src={p.imageSm}
+						srcset="{p.imageSm} 700w, {p.imageLg} 1400w"
+						sizes="240px"
 						alt=""
 						class="h-full w-full object-cover"
 						loading="lazy"
@@ -118,7 +120,9 @@
 					class="h-[188px] w-60 shrink-0 overflow-hidden rounded-md bg-neutral-100 shadow-sm ring-1 ring-black/10"
 				>
 					<img
-						src={p.image}
+						src={p.imageSm}
+						srcset="{p.imageSm} 700w, {p.imageLg} 1400w"
+						sizes="240px"
 						alt=""
 						class="h-full w-full object-cover"
 						loading="lazy"

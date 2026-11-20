@@ -18,6 +18,7 @@ export default defineConfig({
         runes: ({ filename }) =>
           filename.split(/[/\\]/u).includes("node_modules") ? undefined : true,
       },
+      inlineStyleThreshold: 131_072,
     }),
   ],
 });
