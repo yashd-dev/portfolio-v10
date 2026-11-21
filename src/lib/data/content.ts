@@ -81,7 +81,7 @@ export const projects = [
 export const experience = [
   {
     link: "https://actuallyfair.in/",
-    note: "End-to-end ecommerce: headless Shopify to custom microservices, self-hosted.",
+    note: "Led product design and built 6+ production microservices for a headless Shopify store, self-hosted.",
     org: "Actually Fair",
     place: "Remote",
     role: "Technical lead",
@@ -89,11 +89,11 @@ export const experience = [
   },
   {
     link: "",
-    note: "Internal tools and a full-stack platform, with stakeholder wireframing.",
+    note: "Built and deployed a study-abroad platform with auth, payments and AWS, plus internal tools and 8+ stakeholder wireframes.",
     org: "KonectU",
     place: "Remote",
     role: "Full-stack developer",
-    span: "",
+    span: "Mar 2025 - Apr 2025",
   },
 ];
 

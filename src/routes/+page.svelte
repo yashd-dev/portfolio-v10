@@ -15,7 +15,7 @@
 		education,
 		shenanigans
 	} from '#lib/data/content.js';
-	import { stackTools, toolGroups, toolIcons } from '#lib/data/icons.js';
+	import { stackTools, toolGroups } from '#lib/data/icons.js';
 	import { REVEAL } from '#lib/reveal.js';
 	import { formatBlogDate } from '#lib/blog/BlogPost.js';
 	import type { BlogMeta } from '#lib/blog/BlogPost.js';
@@ -112,22 +112,23 @@
 	<HeroBirds />
 </div>
 
-<main class="relative mx-auto w-full max-w-6xl px-5 pt-[320px] pb-10 max-sm:pt-[236px]">
+<main class="relative mx-auto w-full max-w-6xl px-5 pt-[320px] pb-10 max-sm:pt-0">
 	<section id="intro" class="pg-intro relative">
-		<div class="mb-10 hidden items-start gap-5 max-sm:flex">
+		<div class="max-sm:flex max-sm:min-h-[calc(100dvh-66px)] max-sm:flex-col max-sm:justify-end max-sm:pt-14">
+		<div class="mb-10 hidden items-start gap-5 max-sm:flex max-[390px]:mb-3">
 			<Polaroid
 				src="/devfest.jpg"
 				alt="Yash speaking on stage at Google DevFest"
 				caption="Speaking at DevFest"
 				cursor="Spoke at Google's DevFest"
-				class="{REVEAL} w-36 -rotate-3 transition-transform duration-500 ease-out hover:rotate-0 motion-reduce:transition-none sm:w-44"
+				class="{REVEAL} max-w-20 -rotate-3 transition-transform duration-500 ease-out hover:rotate-0 motion-reduce:transition-none min-[350px]:max-w-36 sm:max-w-44"
 			/>
 			<Polaroid
 				src="/teaching.webp"
 				alt="Yash teaching web development in a classroom"
 				caption="Teaching web dev"
 				cursor="I love educating and teaching"
-				class="{REVEAL} mt-8 w-36 rotate-2 transition-transform duration-500 ease-out hover:rotate-0 motion-reduce:transition-none"
+				class="{REVEAL} mt-2 max-w-20 rotate-2 transition-transform duration-500 ease-out hover:rotate-0 motion-reduce:transition-none min-[350px]:mt-8 min-[350px]:max-w-36"
 			/>
 		</div>
 		<div class="relative">
@@ -190,8 +191,8 @@
 				{/snippet}
 				<div class="{REVEAL} mt-6" style="--d: 220ms">
 					<p class="text-pretty text-soft">
-						I design and build B2B, agency, portfolio, SaaS and ecommerce sites, from Figma to
-						production
+						I design user flows and interfaces in Figma, then take them into production code.
+						The stack is
 						{@render techIcon('TypeScript')}<Mark definition={highlightCalm} fillColor="#ffb26b">TypeScript</Mark>
 						across {@render techIcon('Svelte')}SvelteKit, headless
 						{@render techIcon('Shopify')}<Mark definition={highlightCalm} fillColor="#8ed3a4">Shopify</Mark>
@@ -201,23 +202,64 @@
 				</div>
 			</div>
 		</div>
+		</div>
 
 		<div class="max-w-[600px]">
 			<nav
-				class="{REVEAL} mt-8 flex flex-wrap items-center gap-y-1 text-muted"
+				class="{REVEAL} mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted"
 				style="--d: 280ms"
 				aria-label="Links"
 			>
-				{#each socials as s, i}
-					{#if i > 0}<span class="mx-2 text-faint">·</span>{/if}
+				{#each socials as s}
 					<a
 						href={s.href}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="transition-colors duration-200 hover:text-ink">{s.label}</a
+						class="inline-flex p-1 transition-colors duration-200 hover:text-ink"
+						data-cursor={s.label}
+						aria-label={s.label}
 					>
+						{#if s.label === 'LinkedIn'}
+							<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<path
+									d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+								/>
+							</svg>
+						{:else}
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<path
+									d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+								/>
+							</svg>
+						{/if}
+					</a>
 				{/each}
-				<span class="mx-2 text-faint">·</span>
+				<button
+					type="button"
+					class="inline-flex cursor-pointer items-center p-1 transition-colors duration-200 hover:text-ink"
+					data-cursor="Copy email"
+					aria-label="Copy email address {email}"
+					onclick={copyEmail}
+				>
+					<span class="inline-flex" aria-live="polite">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							aria-hidden="true"
+						>
+							{#if copied}
+								<path d="M20 6 9 17l-5-5" class="text-accent" />
+							{:else}
+								<rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 6L2 7" />
+							{/if}
+						</svg>
+					</span>
+				</button>
+				<span class="text-faint" aria-hidden="true">·</span>
 				<a
 					href="/yash-deshpande-resume.pdf"
 					target="_blank"
@@ -225,39 +267,10 @@
 					class="transition-colors duration-200 hover:text-ink"
 					data-cursor="Resume">Resume</a
 				>
-				<button
-					type="button"
-					class="inline-flex cursor-pointer items-center gap-1.5 transition-colors duration-200 hover:text-ink max-sm:mt-1 max-sm:basis-full"
-					data-cursor="Copy email"
-					aria-label="Copy email address {email}"
-					onclick={copyEmail}
-				>
-					<span class="mx-2 hidden text-faint max-sm:hidden! sm:inline">·</span>
-					<span>{email}</span>
-					<span class="inline-flex min-w-[13px] text-xs" aria-live="polite">
-						<svg
-							width="13"
-							height="13"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							class="text-muted"
-							aria-hidden="true"
-						>
-							{#if copied}
-								<path d="M20 6 9 17l-5-5" class="text-accent" />
-							{:else}
-								<rect x="9" y="9" width="12" height="12" rx="2" /><path
-									d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"
-								/>
-							{/if}
-						</svg>
-					</span>
-				</button>
-				<span class="mx-2 text-faint max-sm:hidden" aria-hidden="true">·</span>
-				<a href="/process" class="transition-colors duration-200 hover:text-ink max-sm:mt-1"
-					>How I work</a
+				<a
+					href="#contact"
+					class="rounded-full border border-rule px-3.5 py-1 text-[13px] font-medium text-ink transition-colors duration-200 hover:border-ink"
+					data-cursor="Let's talk">Start a project</a
 				>
 			</nav>
 		</div>
@@ -295,36 +308,6 @@
 			/>
 		</div>
 
-		<div class="max-w-[600px]">
-			<div
-				class="{REVEAL} group mt-12 mb-2 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]"
-				style="--d: 340ms"
-			>
-				<div
-					class="flex w-max animate-tools group-hover:[animation-play-state:paused] motion-reduce:animate-none"
-				>
-					{#each [0, 1] as half}
-						<ul class="m-0 flex list-none items-center gap-10 px-6 py-2" aria-hidden={half === 1}>
-							{#each toolIcons as t}
-								<li
-									class="group/item grid h-[30px] flex-none place-items-center"
-									style="--c: {t.color}"
-									data-cursor={t.name}
-								>
-									<svg
-										viewBox="0 0 24 24"
-										role="img"
-										aria-label={t.name}
-										class="block h-[26px] w-auto fill-(--c) opacity-90 transition-[opacity,transform] duration-[350ms] ease-(--ease-spring) group-hover/item:-translate-y-0.5 group-hover/item:scale-[1.12] group-hover/item:opacity-100"
-										><path d={t.path} /></svg
-									>
-								</li>
-							{/each}
-						</ul>
-					{/each}
-				</div>
-			</div>
-		</div>
 	</section>
 
 	<section id="work" class="mt-24 scroll-mt-[88px] max-sm:mt-[72px]">
@@ -606,20 +589,7 @@
 					<div class="min-w-0">
 						<span class="font-medium">{s.title}</span>
 						<p class="mt-0.5 max-w-[40ch] text-soft">{s.note}</p>
-					</div>
-					<div
-						class="flex shrink-0 items-center gap-9 max-sm:w-full max-sm:items-start max-sm:justify-between"
-					>
-						<img
-							src={s.thumb}
-							width={s.thumbW}
-							height={s.thumbH}
-							alt="{s.title} preview"
-							class="w-[150px] rounded-lg ring-1 ring-black/10 max-sm:w-[120px]"
-							loading="lazy"
-							decoding="async"
-						/>
-						<div class="flex shrink-0 items-center gap-5">
+						<div class="mt-1.5 flex items-center gap-5">
 							{#if s.link}
 								<a
 									href={s.link}
@@ -666,9 +636,18 @@
 									>
 								</a>
 							{/if}
+							</div>
 						</div>
+						<img
+							src={s.thumb}
+							width={s.thumbW}
+							height={s.thumbH}
+							alt="{s.title} preview"
+							class="w-[150px] shrink-0 rounded-lg ring-1 ring-black/10 max-sm:w-[120px]"
+							loading="lazy"
+							decoding="async"
+						/>
 					</div>
-				</div>
 			{/each}
 		</div>
 	</section>

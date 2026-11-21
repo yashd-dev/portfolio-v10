@@ -89,6 +89,7 @@
 </script>
 
 <section
+	id="contact"
 	class="relative left-[calc(50%-50vw)] mt-24 w-screen overflow-hidden max-sm:mt-[72px]"
 	aria-label="Contact"
 >
