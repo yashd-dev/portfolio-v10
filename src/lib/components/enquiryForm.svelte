@@ -12,10 +12,10 @@
 	] as const;
 
 	const BUDGET_RANGES_INR = [
-		{ max: 50_000, min: 30_000 },
-		{ max: 80_000, min: 50_000 },
-		{ max: 120_000, min: 80_000 },
-		{ max: null, min: 120_000 }
+		{ max: 100_000, min: 60_000 },
+		{ max: 160_000, min: 100_000 },
+		{ max: 240_000, min: 160_000 },
+		{ max: null, min: 240_000 }
 	];
 
 	type Currency = (typeof CURRENCIES)[number];

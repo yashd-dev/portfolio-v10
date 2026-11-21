@@ -38,7 +38,7 @@ export const faqGroups: FAQGroup[] = [
     items: [
       {
         answer:
-          "Every business needs something different, so I don't use one fixed price for everyone. The quote depends on the pages, design direction, content, features, ecommerce needs, CMS setup, hosting, integrations, and how involved the build needs to be.",
+          "Website projects start at ₹60,000. Every business needs something different, so the final quote depends on the pages, design direction, content, features, ecommerce needs, CMS setup, hosting, integrations, and how involved the build needs to be.",
         question: "How much does a website cost?",
       },
       {
