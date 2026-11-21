@@ -90,6 +90,18 @@
 		};
 	});
 
+	const scrollToContact = (event: MouseEvent) => {
+		if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {return;}
+		const contact = document.querySelector<HTMLElement>('#contact');
+		if (!contact || matchMedia('(prefers-reduced-motion: reduce)').matches) {return;}
+		event.preventDefault();
+		const w: Window & {
+			__lenis?: { scrollTo: (target: HTMLElement, options?: object) => void };
+		} = window;
+		if (w.__lenis) {w.__lenis.scrollTo(contact, { duration: 1.2 });}
+		else {contact.scrollIntoView({ behavior: 'smooth', block: 'start' });}
+	};
+
 	const copyEmail = async () => {
 		try {
 			await navigator.clipboard.writeText(email);
@@ -269,6 +281,7 @@
 				>
 				<a
 					href="#contact"
+					onclick={scrollToContact}
 					class="rounded-full border border-rule px-3.5 py-1 text-[13px] font-medium text-ink transition-colors duration-200 hover:border-ink"
 					data-cursor="Let's talk">Start a project</a
 				>
